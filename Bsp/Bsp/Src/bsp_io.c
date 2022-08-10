@@ -1,48 +1,96 @@
 #include "bsp_io.h"
 
-/* GPIO句柄示例 */
-tagGPIO_T demoGPIO[] =
-{
-	
-	[0]=
-	{ 
-		.tGPIOInit.Pin 		= GPIO_PIN_13,				/* GPIO引脚 */
-		.tGPIOInit.Mode 	= GPIO_MODE_OUTPUT_PP,		/* GPIO模式 */
-		.tGPIOInit.Pull 	= GPIO_NOPULL,				/* GPIO上下拉设置，是否需要上下拉看硬件 */
-		.tGPIOInit.Speed 	= GPIO_SPEED_FREQ_HIGH,		/* GPIO速度 */	
-		.tGPIOPort 			= GPIOD,					/* GPIO分组 */
-	},
-    [1]=
-	{ 
-		.tGPIOInit.Pin 		= GPIO_PIN_14,				/* GPIO引脚 */
-		.tGPIOInit.Mode 	= GPIO_MODE_OUTPUT_PP,		/* GPIO模式 */
-		.tGPIOInit.Pull 	= GPIO_NOPULL,				/* GPIO上下拉设置，是否需要上下拉看硬件 */
-		.tGPIOInit.Speed 	= GPIO_SPEED_FREQ_HIGH,		/* GPIO速度 */	
-		.tGPIOPort 			= GPIOD,					/* GPIO分组 */
-	},
-    [2]=
-	{ 
-		.tGPIOInit.Pin 		= GPIO_PIN_15,				/* GPIO引脚 */
-		.tGPIOInit.Mode 	= GPIO_MODE_OUTPUT_PP,		/* GPIO模式 */
-		.tGPIOInit.Pull 	= GPIO_NOPULL,				/* GPIO上下拉设置，是否需要上下拉看硬件 */
-		.tGPIOInit.Speed 	= GPIO_SPEED_FREQ_HIGH,		/* GPIO速度 */	
-		.tGPIOPort 			= GPIOD,					/* GPIO分组 */
-	},
-    
-};
+/* motor	PWM1	PC6				steering engine		RS1		PD12
+		    PWM2	PC7									RS2		PD13
+			PWM3 	PC8									RS3		PD14
+			PWM4	PC9 								RS4		PD15		
+																				*/
 
 /* PWM示例 */
 tagPWM_T tPWMDemo[] =
 {
-	[0] =
+	//motor config
+	[0] =	//PWM1
 	{
-		.tPWMHandle.Instance	= TIM3,         	/* 定时器3 */
+		.tPWMHandle.Instance	= TIM8,         	/* 定时器8 */
 		.fDuty					= 7.5,				/* 初始占空比 */
 		.ulFreq					= 50,				/* 频率 */
 		.ulChannel				= TIM_CHANNEL_1,	/* 通道 */
 		.tGPIO.tGPIOInit.Pin	= GPIO_PIN_6,		/* IO映射 */
 		.tGPIO.tGPIOPort		= GPIOC,			/* IO组映射 */
 		.tGPIO.ucMode			= NO_REMAP,			/* IO重映射模式 */
+	},
+	[1] =	//PWM2
+	{
+		.tPWMHandle.Instance	= TIM8,         	/* 定时器8 */
+		.fDuty					= 7.5,				/* 初始占空比 */
+		.ulFreq					= 50,				/* 频率 */
+		.ulChannel				= TIM_CHANNEL_2,	/* 通道 */
+		.tGPIO.tGPIOInit.Pin	= GPIO_PIN_7,		/* IO映射 */
+		.tGPIO.tGPIOPort		= GPIOC,			/* IO组映射 */
+		.tGPIO.ucMode			= NO_REMAP,			/* IO重映射模式 */
+	},
+	[2] =	//PWM3
+	{
+		.tPWMHandle.Instance	= TIM8,         	/* 定时器8 */
+		.fDuty					= 7.5,				/* 初始占空比 */
+		.ulFreq					= 50,				/* 频率 */
+		.ulChannel				= TIM_CHANNEL_3,	/* 通道 */
+		.tGPIO.tGPIOInit.Pin	= GPIO_PIN_8,		/* IO映射 */
+		.tGPIO.tGPIOPort		= GPIOC,			/* IO组映射 */
+		.tGPIO.ucMode			= NO_REMAP,			/* IO重映射模式 */
+	},
+	[3] =	//PWM4
+	{
+		.tPWMHandle.Instance	= TIM8,         	/* 定时器4 */
+		.fDuty					= 7.5,				/* 初始占空比 */
+		.ulFreq					= 50,				/* 频率 */
+		.ulChannel				= TIM_CHANNEL_4,	/* 通道 */
+		.tGPIO.tGPIOInit.Pin	= GPIO_PIN_9,		/* IO映射 */
+		.tGPIO.tGPIOPort		= GPIOC,			/* IO组映射 */
+		.tGPIO.ucMode			= NO_REMAP,			/* IO重映射模式 */
+	},
+
+	//steering engine config
+	[4] =	//RS1
+	{
+		.tPWMHandle.Instance	= TIM4,         	/* 定时器4 */
+		.fDuty					= 7.5,				/* 初始占空比 */
+		.ulFreq					= 50,				/* 频率 */
+		.ulChannel				= TIM_CHANNEL_1,	/* 通道 */
+		.tGPIO.tGPIOInit.Pin	= GPIO_PIN_12,		/* IO映射 */
+		.tGPIO.tGPIOPort		= GPIOD,			/* IO组映射 */
+		.tGPIO.ucMode			= FULL_REMAP,			/* IO重映射模式 */
+	},
+	[5] =	//RS2
+	{
+		.tPWMHandle.Instance	= TIM4,         	/* 定时器4 */
+		.fDuty					= 7.5,				/* 初始占空比 */
+		.ulFreq					= 50,				/* 频率 */
+		.ulChannel				= TIM_CHANNEL_2,	/* 通道 */
+		.tGPIO.tGPIOInit.Pin	= GPIO_PIN_13,		/* IO映射 */
+		.tGPIO.tGPIOPort		= GPIOD,			/* IO组映射 */
+		.tGPIO.ucMode			= FULL_REMAP,			/* IO重映射模式 */
+	},
+	[6] =	//RS3
+	{
+		.tPWMHandle.Instance	= TIM4,         	/* 定时器4 */
+		.fDuty					= 7.5,				/* 初始占空比 */
+		.ulFreq					= 50,				/* 频率 */
+		.ulChannel				= TIM_CHANNEL_3,	/* 通道 */
+		.tGPIO.tGPIOInit.Pin	= GPIO_PIN_14,		/* IO映射 */
+		.tGPIO.tGPIOPort		= GPIOD,			/* IO组映射 */
+		.tGPIO.ucMode			= FULL_REMAP,			/* IO重映射模式 */
+	},
+	[7] =	//RS4
+	{
+		.tPWMHandle.Instance	= TIM4,         	/* 定时器4 */
+		.fDuty					= 7.5,				/* 初始占空比 */
+		.ulFreq					= 50,				/* 频率 */
+		.ulChannel				= TIM_CHANNEL_4,	/* 通道 */
+		.tGPIO.tGPIOInit.Pin	= GPIO_PIN_15,		/* IO映射 */
+		.tGPIO.tGPIOPort		= GPIOD,			/* IO组映射 */
+		.tGPIO.ucMode			= FULL_REMAP,			/* IO重映射模式 */
 	},
 };
 
@@ -83,5 +131,36 @@ tagUART_T demoUart =
 };
 
 
+
+/* GPIO句柄示例 */
+tagGPIO_T demoGPIO[] =
+{
+	
+	[0]=
+	{ 
+		.tGPIOInit.Pin 		= GPIO_PIN_13,				/* GPIO引脚 */
+		.tGPIOInit.Mode 	= GPIO_MODE_OUTPUT_PP,		/* GPIO模式 */
+		.tGPIOInit.Pull 	= GPIO_NOPULL,				/* GPIO上下拉设置，是否需要上下拉看硬件 */
+		.tGPIOInit.Speed 	= GPIO_SPEED_FREQ_HIGH,		/* GPIO速度 */	
+		.tGPIOPort 			= GPIOD,					/* GPIO分组 */
+	},
+    [1]=
+	{ 
+		.tGPIOInit.Pin 		= GPIO_PIN_14,				/* GPIO引脚 */
+		.tGPIOInit.Mode 	= GPIO_MODE_OUTPUT_PP,		/* GPIO模式 */
+		.tGPIOInit.Pull 	= GPIO_NOPULL,				/* GPIO上下拉设置，是否需要上下拉看硬件 */
+		.tGPIOInit.Speed 	= GPIO_SPEED_FREQ_HIGH,		/* GPIO速度 */	
+		.tGPIOPort 			= GPIOD,					/* GPIO分组 */
+	},
+    [2]=
+	{ 
+		.tGPIOInit.Pin 		= GPIO_PIN_15,				/* GPIO引脚 */
+		.tGPIOInit.Mode 	= GPIO_MODE_OUTPUT_PP,		/* GPIO模式 */
+		.tGPIOInit.Pull 	= GPIO_NOPULL,				/* GPIO上下拉设置，是否需要上下拉看硬件 */
+		.tGPIOInit.Speed 	= GPIO_SPEED_FREQ_HIGH,		/* GPIO速度 */	
+		.tGPIOPort 			= GPIOD,					/* GPIO分组 */
+	},
+    
+};
 
 
