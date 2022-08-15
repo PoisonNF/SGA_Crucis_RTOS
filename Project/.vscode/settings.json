@@ -10,6 +10,7 @@
         "drv_hal_timer.h": "c",
         "task_conf.h": "c",
         "task_steer.h": "c",
-        "bsp_io.h": "c"
+        "bsp_io.h": "c",
+        "task_motinonmode.h": "c"
     }
 }

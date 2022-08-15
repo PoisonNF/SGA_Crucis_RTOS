@@ -6,5 +6,7 @@
 #include "task_userinit.h"
 #include "task_motor.h"
 #include "task_steer.h"
+#include "task_motinonmode.h"
 
+#include <math.h>
 #endif

@@ -10,7 +10,7 @@
 */
 void Task_Motor_Init(void)
 {
-	Drv_Delay_Ms(2000);		/* 初始停转信号后等待稳定 */
+	Drv_Delay_Ms(6000);		/* 初始停转信号后等待稳定 */
 	
 	/* 正转满油门，10%占空比 */
 	//Drv_PWM_DutyfactorSet(&tPWMDemo[0], 10);
@@ -25,7 +25,7 @@ void Task_Motor_Init(void)
 	Drv_PWM_DutyfactorSet(&tPWMDemo[1], 7.5);
 	Drv_PWM_DutyfactorSet(&tPWMDemo[2], 7.5);
 	Drv_PWM_DutyfactorSet(&tPWMDemo[3], 7.5);
-	Drv_Delay_Ms(4000);
+	Drv_Delay_Ms(2000);
 }
 
 /**
