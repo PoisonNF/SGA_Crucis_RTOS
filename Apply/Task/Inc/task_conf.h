@@ -5,5 +5,6 @@
 #include "task_sysinit.h"
 #include "task_userinit.h"
 #include "task_motor.h"
+#include "task_steer.h"
 
 #endif
