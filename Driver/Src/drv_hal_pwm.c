@@ -54,6 +54,41 @@ void Drv_PWM_DutyfactorSet(tagPWM_T *_tPWM, float _fDuty)
 }
 
 /**
+ * @brief PWM波频率设置
+ * @param _tPWM-PWM结构体指针
+ * @param Freq -频率(单位：Hz)
+ * @retval null
+*/
+void Drv_PMW_FreqSet(tagPWM_T *_tPWM, uint16_t Freq)
+{
+	if(_tPWM->ulFreq == 50)
+	{
+		switch(_tPWM->ulChannel)
+		{
+			case TIM_CHANNEL_1:
+				_tPWM->tPWMHandle.Instance->CCR1 = Freq;
+			break;
+			
+			case TIM_CHANNEL_2:
+				_tPWM->tPWMHandle.Instance->CCR2 = Freq;
+			break;
+			
+			case TIM_CHANNEL_3:
+				_tPWM->tPWMHandle.Instance->CCR3 = Freq;
+			break;
+			
+			case TIM_CHANNEL_4:
+				_tPWM->tPWMHandle.Instance->CCR4 = Freq;
+			break;
+			
+			default:
+				Drv_HAL_Error(__FILE__, __LINE__);
+			break;
+		}
+	}
+}
+
+/**
  * @brief PWM波时钟使能
  * @param _tPWM-PWM结构体指针
  * @retval null
@@ -132,39 +167,39 @@ static void S_PWM_GPIOConfig(tagPWM_T *_tPWM)
 	/* 开启复用模式时钟 */
 	__HAL_RCC_AFIO_CLK_ENABLE();
 
-	/* 根据不同定时器的ucMode开启对应的重映射，重映射表在drv_hal_pwm.h中 */
+	/* 根据不同定时器的AFMode开启对应的重映射，重映射表在drv_hal_pwm.h中 */
 	if(_tPWM->tPWMHandle.Instance == TIM1)
 	{
-		if(_tPWM->tGPIO.ucMode == NO_REMAP)			__HAL_AFIO_REMAP_TIM1_DISABLE();
-		if(_tPWM->tGPIO.ucMode == PARTIAL_REMAP)	__HAL_AFIO_REMAP_TIM1_PARTIAL();
-		if(_tPWM->tGPIO.ucMode == PARTIAL_REMAP2)	while(1);
-		if(_tPWM->tGPIO.ucMode == FULL_REMAP)		__HAL_AFIO_REMAP_TIM1_ENABLE();
+		if(_tPWM->tGPIO.AFMode == NO_REMAP)			__HAL_AFIO_REMAP_TIM1_DISABLE();
+		if(_tPWM->tGPIO.AFMode == PARTIAL_REMAP)	__HAL_AFIO_REMAP_TIM1_PARTIAL();
+		if(_tPWM->tGPIO.AFMode == PARTIAL_REMAP2)	while(1);
+		if(_tPWM->tGPIO.AFMode == FULL_REMAP)		__HAL_AFIO_REMAP_TIM1_ENABLE();
 	}
 	if(_tPWM->tPWMHandle.Instance == TIM2)
 	{
-		if(_tPWM->tGPIO.ucMode == NO_REMAP)			__HAL_AFIO_REMAP_TIM2_DISABLE();
-		if(_tPWM->tGPIO.ucMode == PARTIAL_REMAP)	__HAL_AFIO_REMAP_TIM2_PARTIAL_1();
-		if(_tPWM->tGPIO.ucMode == PARTIAL_REMAP2)	__HAL_AFIO_REMAP_TIM2_PARTIAL_2();
-		if(_tPWM->tGPIO.ucMode == FULL_REMAP)		__HAL_AFIO_REMAP_TIM2_ENABLE();
+		if(_tPWM->tGPIO.AFMode == NO_REMAP)			__HAL_AFIO_REMAP_TIM2_DISABLE();
+		if(_tPWM->tGPIO.AFMode == PARTIAL_REMAP)	__HAL_AFIO_REMAP_TIM2_PARTIAL_1();
+		if(_tPWM->tGPIO.AFMode == PARTIAL_REMAP2)	__HAL_AFIO_REMAP_TIM2_PARTIAL_2();
+		if(_tPWM->tGPIO.AFMode == FULL_REMAP)		__HAL_AFIO_REMAP_TIM2_ENABLE();
 	}
 	if(_tPWM->tPWMHandle.Instance == TIM3)
 	{
-		if(_tPWM->tGPIO.ucMode == NO_REMAP)			__HAL_AFIO_REMAP_TIM3_DISABLE();
-		if(_tPWM->tGPIO.ucMode == PARTIAL_REMAP)	__HAL_AFIO_REMAP_TIM3_PARTIAL();
-		if(_tPWM->tGPIO.ucMode == PARTIAL_REMAP2)	while(1);
-		if(_tPWM->tGPIO.ucMode == FULL_REMAP)		__HAL_AFIO_REMAP_TIM3_ENABLE();
+		if(_tPWM->tGPIO.AFMode == NO_REMAP)			__HAL_AFIO_REMAP_TIM3_DISABLE();
+		if(_tPWM->tGPIO.AFMode == PARTIAL_REMAP)	__HAL_AFIO_REMAP_TIM3_PARTIAL();
+		if(_tPWM->tGPIO.AFMode == PARTIAL_REMAP2)	while(1);
+		if(_tPWM->tGPIO.AFMode == FULL_REMAP)		__HAL_AFIO_REMAP_TIM3_ENABLE();
 	}
 	if(_tPWM->tPWMHandle.Instance == TIM4)
 	{
-		if(_tPWM->tGPIO.ucMode == NO_REMAP)			__HAL_AFIO_REMAP_TIM4_DISABLE();
-		if(_tPWM->tGPIO.ucMode == PARTIAL_REMAP)	while(1);
-		if(_tPWM->tGPIO.ucMode == PARTIAL_REMAP2)	while(1);
-		if(_tPWM->tGPIO.ucMode == FULL_REMAP)		__HAL_AFIO_REMAP_TIM4_ENABLE();
+		if(_tPWM->tGPIO.AFMode == NO_REMAP)			__HAL_AFIO_REMAP_TIM4_DISABLE();
+		if(_tPWM->tGPIO.AFMode == PARTIAL_REMAP)	while(1);
+		if(_tPWM->tGPIO.AFMode == PARTIAL_REMAP2)	while(1);
+		if(_tPWM->tGPIO.AFMode == FULL_REMAP)		__HAL_AFIO_REMAP_TIM4_ENABLE();
 	}
 	if(_tPWM->tPWMHandle.Instance == TIM5 && _tPWM->ulChannel == TIM_CHANNEL_4)
 	{
-		if(_tPWM->tGPIO.ucMode == NO_REMAP)			__HAL_AFIO_REMAP_TIM5CH4_DISABLE();
-		if(_tPWM->tGPIO.ucMode == FULL_REMAP) 		__HAL_AFIO_REMAP_TIM5CH4_ENABLE();
+		if(_tPWM->tGPIO.AFMode == NO_REMAP)			__HAL_AFIO_REMAP_TIM5CH4_DISABLE();
+		if(_tPWM->tGPIO.AFMode == FULL_REMAP) 		__HAL_AFIO_REMAP_TIM5CH4_ENABLE();
 	}
 
 

@@ -2,12 +2,13 @@
 
 #include "bsp_io.h"
 
+
 /*180°舵机
-0.5ms----------------0度；          2.5
-1ms -----------------45度；         5
-1.5ms----------------90度；         7.5
-2ms -----------------135度；        10
-2.5ms ---------------180度          12.5      */
+0.5ms----------------0度；          2.5     500hz
+1ms -----------------45度；         5       1000hz
+1.5ms----------------90度；         7.5     1500hz
+2ms -----------------135度；        10      2000hz
+2.5ms ---------------180度          12.5    2500hz  */
 
 /**
  * @brief 舵机初始化函数
@@ -16,10 +17,10 @@
 */
 void Task_Steer_Init(void)
 {
-    Drv_PWM_DutyfactorSet(&tPWMDemo[4],7.5);
-    Drv_PWM_DutyfactorSet(&tPWMDemo[5],7.5);
-    Drv_PWM_DutyfactorSet(&tPWMDemo[6],7.5);
-    Drv_PWM_DutyfactorSet(&tPWMDemo[7],7.5);
+    Drv_PMW_FreqSet(&tPWMDemo[4],1500);
+    Drv_PMW_FreqSet(&tPWMDemo[5],1500);
+    Drv_PMW_FreqSet(&tPWMDemo[6],1500);
+    Drv_PMW_FreqSet(&tPWMDemo[7],1500);
     Drv_Delay_Ms(200);
 }
 
@@ -32,7 +33,7 @@ void Task_Steer_Init(void)
 */
 void Task_Steer_Angle_Set(int index,int ang)
 {
-    Drv_PWM_DutyfactorSet(&tPWMDemo[index+3],ang*10/180+2.5);
+    Drv_PMW_FreqSet(&tPWMDemo[index+3],ang/180*2000+500);
 }
 
 /**
@@ -42,7 +43,7 @@ void Task_Steer_Angle_Set(int index,int ang)
 */
 void Task_Steer_0Angle(int index)
 {
-    Drv_PWM_DutyfactorSet(&tPWMDemo[index+3],2.5);
+    Drv_PMW_FreqSet(&tPWMDemo[index+3],500);
 }
 
 /**
@@ -52,7 +53,7 @@ void Task_Steer_0Angle(int index)
 */
 void Task_Steer_90Angle(int index)
 {
-    Drv_PWM_DutyfactorSet(&tPWMDemo[index+3],7.5);
+    Drv_PMW_FreqSet(&tPWMDemo[index+3],1500);
 }
 
 /**
@@ -62,7 +63,7 @@ void Task_Steer_90Angle(int index)
 */
 void Task_Steer_180Angle(int index)
 {
-    Drv_PWM_DutyfactorSet(&tPWMDemo[index+3],12.5);
+    Drv_PMW_FreqSet(&tPWMDemo[index+3],2500);
 }
 
 
