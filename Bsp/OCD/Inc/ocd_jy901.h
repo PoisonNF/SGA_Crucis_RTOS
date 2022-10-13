@@ -1,15 +1,42 @@
-#ifndef __OCD_JY901B_H_
-#define __OCD_JY901B_H_
+#ifndef __OCD_JY901_H_
+#define __OCD_JY901_H_
 
 #include "drv_hal_conf.h"
+
+typedef struct 
+{
+	short a[3];
+	short T;
+}SAcc;
+typedef struct 
+{
+	short w[3];
+	short T;
+}SGyro;
+typedef struct 
+{
+	short Angle[3];
+	short T;
+}SAngle;
 
 typedef struct
 {
 	tagUART_T 	tUART;
+
+	SAcc		stcAcc;
+	SGyro 		stcGyro;	
+	SAngle 		stcAngle;
 }tagJY901_T;
 
+#define JY901_TIME			0x50
+#define JY901_ACCEL			0x51
+#define	JY901_ANGULAR		0x52
+#define	JY901_ANGLE			0x53
+#define	JY901_MAG			0x54
+#define	JY901_HEAD			0x55
+
 #define JY901_OUTPUT_TIME			0x0100	/* 时间 */
-#define JY901_OUTPUT_ACCE			0x0200	/* 加速度 */
+#define JY901_OUTPUT_ACCEL			0x0200	/* 加速度 */
 #define JY901_OUTPUT_ANGULAR		0x0400	/* 角速度 */
 #define JY901_OUTPUT_ANGLE			0x0800	/* 角度 */
 #define	JY901_OUTPUT_MAG			0x1000	/* 磁场 */	
@@ -44,13 +71,14 @@ typedef struct
 #define JY901_RXBAUD_460800		0x08
 #define JY901_RXBAUD_921600		0x09
 
-void OCD_JY901B_Init(tagJY901_T *_tJY901b);
-void OCD_JY901B_RxTypeConfig(tagJY901_T *_tJY901b, uint16_t _ucType);
-void OCD_JY901B_RxSpeedConfig(tagJY901_T *_tJY901b, uint8_t _ucFreq);
-void OCD_JY901B_RxBaudConfig(tagJY901_T *_tJY901b, uint8_t _ucBaud);
-void OCD_JY901B_GyroAutoCorrect(tagJY901_T *_tJY901b, uint8_t _ucMode);
-void OCD_JY901B_Sleep(tagJY901_T *_tJY901b);
-void OCD_JY901B_Correct(tagJY901_T *_tJY901b, uint8_t _ucMode);
-void OCD_JY901B_OutputOnce(tagJY901_T *_tJY901b);
+void OCD_JY901_ITInit(tagJY901_T *_tJY901);
+void OCD_JY901_DMAInit(tagJY901_T *_tJY901);
+void OCD_JY901_RxTypeConfig(tagJY901_T *_tJY901, uint16_t _ucType);
+void OCD_JY901_RxSpeedConfig(tagJY901_T *_tJY901, uint8_t _ucFreq);
+void OCD_JY901_RxBaudConfig(tagJY901_T *_tJY901, uint8_t _ucBaud);
+void OCD_JY901_GyroAutoCorrect(tagJY901_T *_tJY901, uint8_t _ucMode);
+void OCD_JY901_Sleep(tagJY901_T *_tJY901);
+void OCD_JY901_Correct(tagJY901_T *_tJY901, uint8_t _ucMode);
+void OCD_JY901_OutputOnce(tagJY901_T *_tJY901);
 
 #endif

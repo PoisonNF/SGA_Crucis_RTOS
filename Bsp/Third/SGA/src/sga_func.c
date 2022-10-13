@@ -182,3 +182,18 @@ uint8_t SGA_DecToHex(uint8_t _ucDec)
 
 	return res;
 }
+
+/**
+ * @brief 十六进制转Dec显示（如0x37转换为55）
+ * @param hex---需要转换的十六进制数
+ * @retval uint8_t---转换后的十进制数
+*/
+uint8_t SGA_HexToDec(uint8_t hex)
+{
+	uint8_t dec;
+	uint8_t num1 = hex >> 4;
+	uint8_t num2 = hex & 0x0F;
+	dec = num1*16 + num2;
+	return dec;
+}
+

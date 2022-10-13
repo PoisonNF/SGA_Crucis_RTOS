@@ -41,7 +41,7 @@ void EXTI15_10_IRQHandler(void)
 */
 __weak void Task_USART1_IRQHandler(void)
 {
-	
+
 }
 
 /**
@@ -49,14 +49,16 @@ __weak void Task_USART1_IRQHandler(void)
  * @param null
  * @retval Null
 */
+
 void USART1_IRQHandler(void)
 {
 	/* 示例 */
 //	Drv_Uart_IRQHandler(&tPCUart);		/* 必需部分 */
 	
-	Task_USART1_IRQHandler();
-}
+	//Task_USART1_IRQHandler();
+	Drv_Uart_DMA_Handler(&demoUart1);
 
+}
 /**
  * @brief 串口2中断函数
  * @param null
@@ -73,6 +75,8 @@ void USART2_IRQHandler(void)
 //	Drv_Uart_IRQHandler(&tJY901B.tUART);		/* 必需部分 */
 //	
 //	Task_USART2_IRQHandler();
+	//Drv_Uart_DMA_Handler(&demoUart2);
+	Drv_Uart_DMA_Handler(&JY901S.tUART);
 }
 
 /**
