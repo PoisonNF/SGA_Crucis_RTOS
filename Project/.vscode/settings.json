@@ -29,6 +29,7 @@
         "sstream": "c",
         "task_motionmode.h": "c",
         "pid.h": "c",
-        "ocd_conf.h": "c"
+        "ocd_conf.h": "c",
+        "ocd_ds3231.h": "c"
     }
 }

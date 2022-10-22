@@ -9,15 +9,15 @@
 * 文件历史：
 
 * 版本号	日期		作者		说明
+* 1.1.8		2020-10-22	鲍程璐		对结构体进行了整合，提供IT模式和DMA模式
 
 * 1.0.0a 	2020-03-14	李环宇		创建该文件
+
 * 1.1.0a 	2020-03-29	李环宇		修改部分文本
 
 ****************************************************************************/
 #include "ocd_jy901.h"
 
-#define SAVE_NOW		0x00
-#define SAVE_DEFAULT	0x01
 
 /**
  * @brief JY901发送解锁指令函数
@@ -43,7 +43,7 @@ static void S_JY901_Delay(void)
 /**
  * @brief JY901保存配置函数
  * @param *_tJY901-JY901句柄指针
- * @param _ucSet-1:恢复默认；0-保存当前
+ * @param _ucSet-SAVE_NOW 保存当前;SAVE_RESET 重新启动;SAVE_DEFAULT 恢复出厂设置;
  * @retval Null
 */
 static void S_JY901_SaveConfig(tagJY901_T *_tJY901, uint8_t _ucSet)
@@ -59,6 +59,9 @@ static void S_JY901_SaveConfig(tagJY901_T *_tJY901, uint8_t _ucSet)
 		case SAVE_DEFAULT:
 			ucpWrite[3] = SAVE_DEFAULT;
 		break;
+
+		case SAVE_RESET:
+			ucpWrite[3] = SAVE_RESET;
 		
 		default:
 			
@@ -70,15 +73,14 @@ static void S_JY901_SaveConfig(tagJY901_T *_tJY901, uint8_t _ucSet)
 /**
  * @brief JY901回传内容配置
  * @param *_tJY901-JY901句柄指针
- * @param _ucType-回传内容地址
  * @retval Null
 */
-void OCD_JY901_RxTypeConfig(tagJY901_T *_tJY901, uint16_t _ucType)
+void OCD_JY901_RxTypeConfig(tagJY901_T *_tJY901)
 {
 	uint8_t ucpWrite[] = {0xff, 0xaa, 0x02, 0x00, 0x00};
 	
-	ucpWrite[3] = _ucType >> 8;
-	ucpWrite[4] = _ucType;
+	ucpWrite[3] = _tJY901->tConfig.ucType >> 8;
+	ucpWrite[4] = _tJY901->tConfig.ucType;
 	
 	S_JY901_UnLock(_tJY901);
 	S_JY901_Delay();
@@ -92,7 +94,7 @@ void OCD_JY901_RxTypeConfig(tagJY901_T *_tJY901, uint16_t _ucType)
 /**
  * @brief JY901校准函数
  * @param *_tJY901-JY901句柄指针
- * @param _ucMode-校准模式		0-退出校准模式；1-进入加速度计校准模式；2-进入磁场校准模式；3-高度置0		
+ * @param _ucMode-校准模式		
  * @retval Null
 */
 void OCD_JY901_Correct(tagJY901_T *_tJY901, uint8_t _ucMode)
@@ -130,14 +132,13 @@ void OCD_JY901_Sleep(tagJY901_T *_tJY901)
 /**
  * @brief JY901回传速率配置
  * @param *_tJY901-JY901句柄指针
- * @param _ucFreq-回传频率
  * @retval Null
 */
-void OCD_JY901_RxSpeedConfig(tagJY901_T *_tJY901, uint8_t _ucFreq)
+void OCD_JY901_RxSpeedConfig(tagJY901_T *_tJY901)
 {
 	uint8_t ucpWrite[] = {0xff, 0xaa, 0x03, 0x00, 0x00};
 	
-	ucpWrite[3] = _ucFreq;
+	ucpWrite[3] = _tJY901->tConfig.ucRate;
 	
 	S_JY901_UnLock(_tJY901);
 	S_JY901_Delay();
@@ -151,14 +152,13 @@ void OCD_JY901_RxSpeedConfig(tagJY901_T *_tJY901, uint8_t _ucFreq)
 /**
  * @brief JY901回传波特率配置
  * @param *_tJY901-JY901句柄指针
- * @param _ucBaud-回传波特率地址
  * @retval Null
 */
-void OCD_JY901_RxBaudConfig(tagJY901_T *_tJY901, uint8_t _ucBaud)
+void OCD_JY901_RxBaudConfig(tagJY901_T *_tJY901)
 {
 	uint8_t ucpWrite[] = {0xff, 0xaa, 0x04, 0x00, 0x00};
 	
-	ucpWrite[3] = _ucBaud;
+	ucpWrite[3] = _tJY901->tConfig.ucBaud;
 	
 	S_JY901_UnLock(_tJY901);
 	S_JY901_Delay();
@@ -215,6 +215,10 @@ void OCD_JY901_OutputOnce(tagJY901_T *_tJY901)
 void OCD_JY901_ITInit(tagJY901_T *_tJY901)
 {
 	Drv_Uart_ITInit(&_tJY901->tUART);
+
+	OCD_JY901_RxBaudConfig(_tJY901);
+	OCD_JY901_RxSpeedConfig(_tJY901);
+	OCD_JY901_RxTypeConfig(_tJY901);
 }
 
 /**
@@ -225,6 +229,10 @@ void OCD_JY901_ITInit(tagJY901_T *_tJY901)
 void OCD_JY901_DMAInit(tagJY901_T *_tJY901)
 {
 	Drv_Uart_DMAInit(&_tJY901->tUART);
+
+	OCD_JY901_RxBaudConfig(_tJY901);
+	OCD_JY901_RxSpeedConfig(_tJY901);
+	OCD_JY901_RxTypeConfig(_tJY901);
 }
 
 

@@ -9,6 +9,7 @@
 * 文件历史：
 
 * 版本号	日期		作者		说明
+* 1.1.8		2020-10-22	鲍程璐		适配RTT避免使用hal延时函数造成阻塞
 
 * 1.0.0a 	2020-02-22	李环宇		创建该文件
 
@@ -23,6 +24,10 @@
 */
 void Drv_Delay_Ms(uint32_t _ulVal)
 {
+	#ifdef RTT_ENABLE
+	rt_thread_mdelay(_ulVal);
+	#else
 	HAL_Delay(_ulVal);
+	#endif 
 }
 #endif

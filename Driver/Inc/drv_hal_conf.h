@@ -4,7 +4,10 @@
 #define DRIVER_VERSION	"2022/10/11 V1.1.7"
 
 /* RT-Thread开关 使用RTT时需解除注释，且在工程中导入RTT相关内核 */ 
-//#define RTT_ENABLE               
+#define RTT_ENABLE               
+#ifdef RTT_ENABLE
+#include <rtthread.h>
+#endif // RTT相关头文件
 
 #define PRINTF_UART	USART1				/* printf使用的串口 */
 

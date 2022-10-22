@@ -2,52 +2,120 @@
 #define __OCD_JY901_H_
 
 #include "drv_hal_conf.h"
+/* 加速度数据结构体 */
+typedef struct 
+{
+	short AccX;
+	short AccY;
+	short AccZ;
+	short T;
+}tagJY901Acc;
+
+/* 角速度数据结构体 */
+typedef struct 
+{
+	short GyroX;
+	short GyroY;
+	short GyroZ;
+	short T;
+}tagJY901Gyro;
+
+/* 欧拉角数据结构体 */
+typedef struct 
+{
+	short Roll;
+	short Pitch;
+	short Yaw;
+	short T;
+}tagJY901Angle;
 
 typedef struct 
 {
-	short a[3];
+	short MagX;
+	short MagY;
+	short MagZ;
 	short T;
-}SAcc;
+}tagJY901Mag;
+
+
+/*JY901参数配置结构体*/
 typedef struct 
 {
-	short w[3];
-	short T;
-}SGyro;
-typedef struct 
-{
-	short Angle[3];
-	short T;
-}SAngle;
+	uint8_t 	ucBaud;	//波特率设置
+	uint8_t 	ucRate;	//速率设置
+	uint16_t 	ucType; //输出类型设置
+}tagJY901config;
+
 
 typedef struct
 {
-	tagUART_T 	tUART;
-
-	SAcc		stcAcc;
-	SGyro 		stcGyro;	
-	SAngle 		stcAngle;
+	tagUART_T 			tUART;
+	tagJY901config		tConfig;
+	tagJY901Acc			stcAcc;
+	tagJY901Gyro 		stcGyro;	
+	tagJY901Angle 		stcAngle;
+	tagJY901Mag			stcMag;
 }tagJY901_T;
 
+/** @defgroup SaveConfig _ucSet
+  * @{
+  */
+#define SAVE_NOW		0x00
+#define SAVE_DEFAULT	0x01
+#define	SAVE_RESET		0xff
+/**
+  * @}
+  */
+
+ /** @defgroup Data Flag
+  * @{
+  */
 #define JY901_TIME			0x50
 #define JY901_ACCEL			0x51
-#define	JY901_ANGULAR		0x52
+#define	JY901_GYRO			0x52
 #define	JY901_ANGLE			0x53
 #define	JY901_MAG			0x54
 #define	JY901_HEAD			0x55
+/**
+  * @}
+  */
 
+/** @defgroup RxTypeConfig _ucType
+  * @{
+  */
 #define JY901_OUTPUT_TIME			0x0100	/* 时间 */
 #define JY901_OUTPUT_ACCEL			0x0200	/* 加速度 */
-#define JY901_OUTPUT_ANGULAR		0x0400	/* 角速度 */
+#define JY901_OUTPUT_GYRO			0x0400	/* 角速度 */
 #define JY901_OUTPUT_ANGLE			0x0800	/* 角度 */
 #define	JY901_OUTPUT_MAG			0x1000	/* 磁场 */	
-#define	JY901_OUTPUT_DIO			0x2000	/* 端口状态 */
-#define	JY901_OUTPUT_PREANDHEIGHT	0x4000	/* 气压和高度 */
-#define	JY901_OUTPUT_LONGANDLAT		0x8000	/* 经纬度 */
-#define	JY901_OUTPUT_GROUND			0x0001	/* 地速 */
-#define	JY901_OUTPUT_FOURELE		0x0002	/* 四元素 */
-#define	JY901_OUTPUT_GPS			0x0004	/* 卫星定位精度 */
+#define	JY901_OUTPUT_PORT 			0x2000	/* 端口状态 */
+#define	JY901_OUTPUT_PRESS 			0x4000	/* 气压和高度 */
+#define	JY901_OUTPUT_GPS 			0x8000	/* 经纬度 */
+#define	JY901_OUTPUT_VELOCITY 		0x0001	/* 地速 */
+#define	JY901_OUTPUT_QUATER 		0x0002	/* 四元素 */
+#define	JY901_OUTPUT_GSA 			0x0004	/* 卫星定位精度 */
+/**
+  * @}
+  */
 
-#define JY901_RX_0_1HZ		0x01
+/** @defgroup Correct _ucMode
+  * @{
+  */
+#define JY901_CALSW_NORMAL			0x00 	/* 正常工作模式 */
+#define	JY901_CALSW_ACCEL			0x01	/* 自动加计校准模式 */
+#define	JY901_CALSW_HIGH			0x03	/* 高度清零模式 */
+#define	JY901_CALSW_YAW				0x04	/* 航向角清零模式 */
+#define	JY901_CALSW_MAG_SPHERE		0x07	/* 磁场校准（球型拟合法） */
+#define	JY901_CALSW_ANGLE			0x08	/* 设置角度参考 */
+#define	JY901_CALSW_MAG_BIPLANE		0x09	/* 磁场校准（双平面模式） */
+/**
+  * @}
+  */
+
+/** @defgroup RxSpeedConfig	_ucFreq
+  * @{
+  */
+#define JY901_RX_0_2HZ		0x01
 #define JY901_RX_0_5HZ		0x02
 #define JY901_RX_1HZ		0x03
 #define JY901_RX_2HZ		0x04
@@ -56,10 +124,16 @@ typedef struct
 #define JY901_RX_20HZ		0x07
 #define JY901_RX_50HZ		0x08
 #define JY901_RX_100HZ		0x09
-#define JY901_RX_NULL		0x0a
+#define JY901_RX_NULL		0x0d
 #define JY901_RX_200HZ		0x0b
 #define JY901_RX_ONCE		0x0c
+/**
+  * @}
+  */
 
+/** @defgroup RxBaudConfig	_ucBaud
+  * @{
+  */
 #define JY901_RXBAUD_2400		0x00
 #define JY901_RXBAUD_4800		0x01
 #define JY901_RXBAUD_9600		0x02
@@ -70,12 +144,15 @@ typedef struct
 #define JY901_RXBAUD_230400		0x07
 #define JY901_RXBAUD_460800		0x08
 #define JY901_RXBAUD_921600		0x09
+/**
+  * @}
+  */
 
 void OCD_JY901_ITInit(tagJY901_T *_tJY901);
 void OCD_JY901_DMAInit(tagJY901_T *_tJY901);
-void OCD_JY901_RxTypeConfig(tagJY901_T *_tJY901, uint16_t _ucType);
-void OCD_JY901_RxSpeedConfig(tagJY901_T *_tJY901, uint8_t _ucFreq);
-void OCD_JY901_RxBaudConfig(tagJY901_T *_tJY901, uint8_t _ucBaud);
+void OCD_JY901_RxTypeConfig(tagJY901_T *_tJY901);
+void OCD_JY901_RxSpeedConfig(tagJY901_T *_tJY901);
+void OCD_JY901_RxBaudConfig(tagJY901_T *_tJY901);
 void OCD_JY901_GyroAutoCorrect(tagJY901_T *_tJY901, uint8_t _ucMode);
 void OCD_JY901_Sleep(tagJY901_T *_tJY901);
 void OCD_JY901_Correct(tagJY901_T *_tJY901, uint8_t _ucMode);

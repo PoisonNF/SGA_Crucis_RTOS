@@ -39,7 +39,7 @@
 
 // <o>the size of main thread<1-4086>
 //  <i>Default: 512
-#define RT_MAIN_THREAD_STACK_SIZE 512
+#define RT_MAIN_THREAD_STACK_SIZE 1024
 // </h>
 
 // <h>Debug Configuration
@@ -93,33 +93,33 @@
 
 // <c1>Using Mutex
 //  <i>Using Mutex
-//#define RT_USING_MUTEX
+#define RT_USING_MUTEX
 // </c>
 
 // <c1>Using Event
 //  <i>Using Event
-//#define RT_USING_EVENT
+#define RT_USING_EVENT
 // </c>
 
 // <c1>Using MailBox
 //  <i>Using MailBox
-//#define RT_USING_MAILBOX
+#define RT_USING_MAILBOX
 // </c>
 
 // <c1>Using Message Queue
 //  <i>Using Message Queue
-//#define RT_USING_MESSAGEQUEUE
+#define RT_USING_MESSAGEQUEUE
 // </c>
 // </h>
 
 // <h>Memory Management Configuration
 // <c1>Using Mempool Management
 //  <i>Using Mempool Management
-//#define RT_USING_MEMPOOL
+#define RT_USING_MEMPOOL
 // </c>
 // <c1>Dynamic Heap Management
 //  <i>Dynamic Heap Management
-//#define RT_USING_HEAP
+#define RT_USING_HEAP
 // </c>
 // <c1>using small memory
 //  <i>using small memory
