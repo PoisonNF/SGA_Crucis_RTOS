@@ -269,8 +269,8 @@ tagUART_T demoUart2 =
 tagJY901_T JY901S = 
 {
 	.tConfig.ucBaud 	= JY901_RXBAUD_9600,
-	.tConfig.ucRate		= JY901_RX_0_2HZ,
-	.tConfig.ucType		= JY901_OUTPUT_ACCEL | JY901_OUTPUT_GYRO | JY901_OUTPUT_ANGLE | JY901_OUTPUT_MAG,
+	.tConfig.ucRate		= JY901_RX_5HZ,
+	.tConfig.ucType		= JY901_OUTPUT_ACCEL | JY901_OUTPUT_GYRO | JY901_OUTPUT_ANGLE | JY901_OUTPUT_MAG |JY901_OUTPUT_TIME,
 
 	.tUART.tUARTHandle.Instance 				= USART2,			/* STM32 串口设备 */
 	.tUART.tUARTHandle.Init.BaudRate   			= 9600,				/* 串口波特率 */

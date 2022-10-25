@@ -17,7 +17,7 @@
 
 // <o>OS tick per second
 //  <i>Default: 1000   (1ms)
-#define RT_TICK_PER_SECOND 100
+#define RT_TICK_PER_SECOND 1000
 
 // <o>Alignment size for CPU architecture data access
 //  <i>Default: 4
@@ -54,26 +54,26 @@
 
 // <c1>thread stack over flow detect
 //  <i> Diable Thread stack over flow detect
-//#define RT_USING_OVERFLOW_CHECK
+#define RT_USING_OVERFLOW_CHECK
 // </c>
 // </h>
 
 // <h>Hook Configuration
 // <c1>using hook
 //  <i>using hook
-//#define RT_USING_HOOK
+#define RT_USING_HOOK
 // </c>
 
 // <c1>using idle hook
 //  <i>using idle hook
-//#define RT_USING_IDLE_HOOK
+#define RT_USING_IDLE_HOOK
 // </c>
 // </h>
 
 // <h>Software timers Configuration
 // <c1> Enables user timers
 // <i> Enables user timers
-//#define RT_USING_TIMER_SOFT
+#define RT_USING_TIMER_SOFT
 // </c>
 
 // <o>The priority level of timer thread <0-31>

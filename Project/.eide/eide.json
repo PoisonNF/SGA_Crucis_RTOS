@@ -71,10 +71,10 @@
             "name": "FatFs",
             "files": [
               {
-                "path": "../Bsp/FatFs/Src/ff.c"
+                "path": "../Bsp/FatFs/Src/diskio.c"
               },
               {
-                "path": "../Bsp/FatFs/Src/diskio.c"
+                "path": "../Bsp/FatFs/Src/ff.c"
               }
             ],
             "folders": []
@@ -102,6 +102,9 @@
               },
               {
                 "path": "../Bsp/OCD/Src/ocd_jy901.c"
+              },
+              {
+                "path": "../Bsp/OCD/Src/ocd_rm3100.c"
               },
               {
                 "path": "../Bsp/OCD/Src/ocd_sdcard.c"
@@ -152,6 +155,9 @@
           },
           {
             "path": "../Driver/Src/drv_hal_pwm.c"
+          },
+          {
+            "path": "../Driver/Src/drv_hal_spi_soft.c"
           },
           {
             "path": "../Driver/Src/drv_hal_spi.c"

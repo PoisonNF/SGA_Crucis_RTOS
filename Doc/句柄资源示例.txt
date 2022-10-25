@@ -210,7 +210,7 @@ tagADS1256_T demoADS1256 =
 };
 
 /* ADC¾ä±úÊ¾Àý */
-tagADC_T demoADC[] = 
+tagADC_T demoADC[1] = 
 {
 	[0]=
 	{ 

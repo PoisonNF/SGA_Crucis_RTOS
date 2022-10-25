@@ -21,8 +21,8 @@ void Task_UserInit(void)
     //Drv_PWM_Init(tPWMDemo,8);
     //printf("PWM INIT!\r\n");
     
-    //OCD_OLED_Init(&tOLED);
-    //printf("OLED INIT!\r\n");
+    OCD_OLED_Init(&tOLED);
+    printf("OLED INIT!\r\n");
 
     //Drv_ADC_Init(&demoADC,1);
 }

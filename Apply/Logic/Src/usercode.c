@@ -24,47 +24,11 @@ void thread1_entry(void* paramenter)
 
 		if(rt_sem_take(binary_sem,RT_WAITING_FOREVER) == RT_EOK)
 		{
-			if(JY901S.tUART.tUartDMA.DMARxCplt)
-			{
-				//HAL_UART_Transmit(&demoUart1.tUARTHandle,JY901S.tUART.tRxInfo.ucpRxCache, JY901S.tUART.tRxInfo.usRxLenth, 100);
-				for (int i = 0; i < JY901S.tUART.tRxInfo.usRxLenth; i++)
-				{
-					if(JY901S.tUART.tRxInfo.ucpRxCache[i] == JY901_HEAD) //数据头为0x55
-					{
-						uint8_t ucSum = 0;
-						for(int j = 0;j<10;j++)
-						{
-							ucSum += JY901S.tUART.tRxInfo.ucpRxCache[i+j];
-						}
-						/*和校验*/
-						if(ucSum == JY901S.tUART.tRxInfo.ucpRxCache[i+10])
-						{
-							switch (JY901S.tUART.tRxInfo.ucpRxCache[i+1])
-							{
-							case JY901_ACCEL:	memcpy(&JY901S.stcAcc,&JY901S.tUART.tRxInfo.ucpRxCache[i+2],8);
-												break;
-							case JY901_GYRO:	memcpy(&JY901S.stcGyro,&JY901S.tUART.tRxInfo.ucpRxCache[i+2],8);
-												break;
-							case JY901_ANGLE:	memcpy(&JY901S.stcAngle,&JY901S.tUART.tRxInfo.ucpRxCache[i+2],8);
-												break;
-							case JY901_MAG:		memcpy(&JY901S.stcMag,&JY901S.tUART.tRxInfo.ucpRxCache[i+2],8);
-							default:	
-												break;
-							}
-						}
-						else continue;
-					}
-
-				}
-				printf("Acc:  %.3f %.3f %.3f\r\n",(float)JY901S.stcAcc.AccX/32768*16,(float)JY901S.stcAcc.AccY/32768*16,(float)JY901S.stcAcc.AccZ/32768*16);
-				printf("Gyro: %.3f %.3f %.3f\r\n",(float)JY901S.stcGyro.GyroX/32768*2000,(float)JY901S.stcGyro.GyroY/32768*2000,(float)JY901S.stcGyro.GyroZ/32768*2000);
-				printf("Angle:%.3f %.3f %.3f\r\n",(float)JY901S.stcAngle.Roll/32768*180,(float)JY901S.stcAngle.Pitch/32768*180,(float)JY901S.stcAngle.Yaw/32768*180);
-				printf("Mag:  %.3f %.3f %.3f\r\n",(float)JY901S.stcMag.MagX,(float)JY901S.stcMag.MagY,(float)JY901S.stcMag.MagZ);
-				printf("\r\n");
-				JY901S.tUART.tUartDMA.DMARxCplt = 0;
-			}
+			OCD_JY901_DataProcess(&JY901S);
+			OCD_JY901_DataConversion(&JY901S);
+			OCD_JY901_Printf(&JY901S);
 		}
-		Drv_Delay_Ms(1);
+		rt_thread_yield();
 	}
 }
 /*thread2 led线程*/
@@ -87,18 +51,21 @@ void thread2_entry(void* paramenter)
 void thread3_entry(void* paramenter)
 {
 	char buf[50];
+	int i = 0;
 	while(1)
 	{
 		if(rt_mq_recv(msgqueue,buf,sizeof(buf),RT_WAITING_FOREVER) == RT_EOK)
 		{
 			rt_kprintf("%s\r\n",buf);
+			OCD_OLED_ShowNum(&tOLED,0,0,i,2,16);
+			i++;
 		}
 		rt_thread_yield();
 	}
 }
 
 ALIGN(RT_ALIGN_SIZE)
-static char thread2_stack[128];
+//static char thread2_stack[128];
 /* 用户逻辑代码 */
 void UserLogic_Code(void)
 {
@@ -131,7 +98,7 @@ void UserLogic_Code(void)
 									thread1_entry,
 									NULL,
 									512,
-									2,
+									1,
 									20);
 	if(RT_NULL != thread1)
 	{
@@ -178,8 +145,8 @@ void UserLogic_Code(void)
 									thread3_entry,
 									NULL,
 									512,
-									3,
-									5);
+									2,
+									20);
 	if(RT_NULL != thread3)
 	{
 		rt_kprintf("RT-Thread create thread3 successful\r\n");
