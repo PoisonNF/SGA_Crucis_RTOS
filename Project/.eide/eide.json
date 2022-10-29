@@ -20,6 +20,9 @@
                 "path": "../Apply/Logic/Src/main.c"
               },
               {
+                "path": "../Apply/Logic/Src/threadpool.c"
+              },
+              {
                 "path": "../Apply/Logic/Src/usercode.c"
               }
             ],
@@ -102,6 +105,9 @@
               },
               {
                 "path": "../Bsp/OCD/Src/ocd_jy901.c"
+              },
+              {
+                "path": "../Bsp/OCD/Src/ocd_ps2.c"
               },
               {
                 "path": "../Bsp/OCD/Src/ocd_rm3100.c"
@@ -516,6 +522,17 @@
           },
           "proType": 1,
           "speed": 8000,
+          "otherCmds": ""
+        },
+        "STLink": {
+          "bin": "",
+          "proType": "SWD",
+          "resetMode": "default",
+          "runAfterProgram": true,
+          "speed": 4000,
+          "address": "0x8000000",
+          "elFile": "None",
+          "optionBytes": ".eide/demo.st.option.bytes.ini",
           "otherCmds": ""
         }
       },

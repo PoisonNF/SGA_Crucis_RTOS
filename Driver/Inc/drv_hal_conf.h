@@ -6,7 +6,8 @@
 /* RT-Thread开关 使用RTT时需解除注释，且在工程中导入RTT相关内核 */ 
 #define RTT_ENABLE               
 #ifdef RTT_ENABLE
-#include <rtthread.h>
+#include <rtthread.h>	//rt-thread头文件
+#include "threadpool.h" //存放线程入口函数声明
 #endif // RTT相关头文件
 
 #define PRINTF_UART	USART1				/* printf使用的串口 */

@@ -288,7 +288,7 @@ tagFATFS_T tFATFS =
 	.tSPI.tGPIO[1].tGPIOPort 			= GPIOA,					/* GPIO分组 */
 	
 	.tSPI.tGPIO[2].tGPIOInit.Pin 		= GPIO_PIN_6,				/* GPIO引脚 */
-	.tSPI.tGPIO[2].tGPIOInit.Mode 		= GPIO_MODE_AF_PP,			/* GPIO模式 */
+	.tSPI.tGPIO[2].tGPIOInit.Mode 		= GPIO_MODE_INPUT,			/* GPIO模式 */
 	.tSPI.tGPIO[2].tGPIOInit.Pull 		= GPIO_NOPULL,				/* GPIO上下拉设置，是否需要上下拉看硬件 */
 	.tSPI.tGPIO[2].tGPIOInit.Speed 		= GPIO_SPEED_FREQ_HIGH,		/* GPIO速度 */	
 	.tSPI.tGPIO[2].tGPIOPort 			= GPIOA,					/* GPIO分组 */

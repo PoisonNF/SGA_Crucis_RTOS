@@ -6,6 +6,7 @@
 /* 第三方外设头文件包含区 */
 #include "ocd_oled.h"
 #include "ocd_jy901.h"
+#include "ocd_ps2.h"
 
 #endif
 

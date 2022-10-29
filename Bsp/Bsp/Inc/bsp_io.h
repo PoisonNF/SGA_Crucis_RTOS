@@ -21,4 +21,6 @@ extern tagPWM_T tPWMDemo[];
 extern tagOLED_T tOLED;
 
 extern tagADC_T demoADC[1];
+
+extern tagPS2_T PS2;
 #endif

@@ -4,6 +4,7 @@
 #define pi 3.1415926
 
 float *Task_Horizontal_Heading_Calculation(uint16_t P,int θ);
+void Task_Vertical_Mode(uint8_t pro);
 
 #endif
 

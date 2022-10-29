@@ -25,4 +25,7 @@ void Task_UserInit(void)
     printf("OLED INIT!\r\n");
 
     //Drv_ADC_Init(&demoADC,1);
+
+    PS2_Init(&PS2);
+    printf("PS2 INIT!\r\n");
 }

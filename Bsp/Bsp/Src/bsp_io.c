@@ -62,7 +62,7 @@ tagPWM_T tPWMDemo[]=
 		.ulChannel				= TIM_CHANNEL_1,	/* 通道 */
 		.tGPIO.tGPIOInit.Pin	= GPIO_PIN_12,		/* IO映射 */
 		.tGPIO.tGPIOPort		= GPIOD,			/* IO组映射 */
-		.tGPIO.AFMode			= FULL_REMAP,			/* IO重映射模式 */
+		.tGPIO.AFMode			= FULL_REMAP,		/* IO重映射模式 */
 	},
 	[5] =	//RS2
 	{
@@ -72,7 +72,7 @@ tagPWM_T tPWMDemo[]=
 		.ulChannel				= TIM_CHANNEL_2,	/* 通道 */
 		.tGPIO.tGPIOInit.Pin	= GPIO_PIN_13,		/* IO映射 */
 		.tGPIO.tGPIOPort		= GPIOD,			/* IO组映射 */
-		.tGPIO.AFMode			= FULL_REMAP,			/* IO重映射模式 */
+		.tGPIO.AFMode			= FULL_REMAP,		/* IO重映射模式 */
 	},
 	[6] =	//RS3
 	{
@@ -82,7 +82,7 @@ tagPWM_T tPWMDemo[]=
 		.ulChannel				= TIM_CHANNEL_3,	/* 通道 */
 		.tGPIO.tGPIOInit.Pin	= GPIO_PIN_14,		/* IO映射 */
 		.tGPIO.tGPIOPort		= GPIOD,			/* IO组映射 */
-		.tGPIO.AFMode			= FULL_REMAP,			/* IO重映射模式 */
+		.tGPIO.AFMode			= FULL_REMAP,		/* IO重映射模式 */
 	},
 	[7] =	//RS4
 	{
@@ -92,7 +92,7 @@ tagPWM_T tPWMDemo[]=
 		.ulChannel				= TIM_CHANNEL_4,	/* 通道 */
 		.tGPIO.tGPIOInit.Pin	= GPIO_PIN_15,		/* IO映射 */
 		.tGPIO.tGPIOPort		= GPIOD,			/* IO组映射 */
-		.tGPIO.AFMode			= FULL_REMAP,			/* IO重映射模式 */
+		.tGPIO.AFMode			= FULL_REMAP,		/* IO重映射模式 */
 	},
 };
 
@@ -215,55 +215,6 @@ tagUART_T demoUart1 =
 	.tGPIO[1].AFMode					= NO_REMAP,					/* GPIO重映射 */
 };
 
-/* 串口句柄示例 */
-tagUART_T demoUart2 = 
-{
-	.tUARTHandle.Instance 				= USART2,			/* STM32 串口设备 */
-	.tUARTHandle.Init.BaudRate   		= 9600,				/* 串口波特率 */
-	.tUARTHandle.Init.WordLength 		= UART_WORDLENGTH_8B,
-	.tUARTHandle.Init.StopBits   		= UART_STOPBITS_1,
-	.tUARTHandle.Init.Parity     		= UART_PARITY_NONE,
-	.tUARTHandle.Init.HwFlowCtl  		= UART_HWCONTROL_NONE,
-	.tUARTHandle.Init.Mode       		= UART_MODE_TX_RX,
-	.tUARTHandle.Init.OverSampling 		= UART_OVERSAMPLING_16,
-
-	.tRxInfo.usRxMAXLenth             	= 300,                 /* 接收数据长度 长度保持在协议最长字节*2以上，确保缓存池一定能够稳定接收一个完整的数据帧*/
-
-#if defined (STM32L4_SGA_ENABLE)
-	.tUARTHandle.Init.OneBitSampling 	= UART_ONE_BIT_SAMPLE_DISABLE,
-	.tUARTHandle.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT,
-#endif
-	
-	.ulPriority							= 1,				/* 中断优先级 */
-	.ulSubPriority						= 3,				/* 中断子优先级 */
-	
-	.tUartDMA.tDMARx.Instance			= DMA1_Channel6,
-	.tUartDMA.tDMARx.Init.Direction		= DMA_PERIPH_TO_MEMORY,
-	.tUartDMA.tDMARx.Init.PeriphInc		= DMA_PINC_DISABLE,
-	.tUartDMA.tDMARx.Init.MemInc		= DMA_MINC_ENABLE,
-	.tUartDMA.tDMARx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE,
-	.tUartDMA.tDMARx.Init.MemDataAlignment	  = DMA_MDATAALIGN_BYTE,
-	.tUartDMA.tDMARx.Init.Mode			= DMA_NORMAL,
-	.tUartDMA.tDMARx.Init.Priority		= DMA_PRIORITY_LOW,
-
-	.tUartDMA.ulDMAPriority				= 1,				/* DMA中断优先级 */
-	.tUartDMA.ulDMASubPriority			= 1,				/* DMA中断子优先级 */
-	
-	
-	.tGPIO[0].tGPIOInit.Pin 			= GPIO_PIN_2,				/* GPIO引脚 */
-	.tGPIO[0].tGPIOInit.Mode 			= GPIO_MODE_AF_PP,			/* GPIO模式 */
-	.tGPIO[0].tGPIOInit.Pull 			= GPIO_NOPULL,				/* GPIO上下拉设置，是否需要上下拉看硬件 */
-	.tGPIO[0].tGPIOInit.Speed 			= GPIO_SPEED_FREQ_HIGH,		/* GPIO速度 */	
-	.tGPIO[0].tGPIOPort 				= GPIOA,					/* GPIO分组 */
-	.tGPIO[0].AFMode					= NO_REMAP,					/* GPIO重映射 */
-	
-	.tGPIO[1].tGPIOInit.Pin 			= GPIO_PIN_3,				/* GPIO引脚 */
-	.tGPIO[1].tGPIOInit.Mode 			= GPIO_MODE_INPUT,			/* GPIO模式 */
-	.tGPIO[1].tGPIOInit.Pull 			= GPIO_NOPULL,				/* GPIO上下拉设置，是否需要上下拉看硬件 */
-	.tGPIO[1].tGPIOInit.Speed 			= GPIO_SPEED_FREQ_HIGH,		/* GPIO速度 */	
-	.tGPIO[1].tGPIOPort 				= GPIOA,					/* GPIO分组 */
-	.tGPIO[1].AFMode					= NO_REMAP,					/* GPIO重映射 */
-};
 
 /* 串口句柄示例 */
 tagJY901_T JY901S = 
@@ -319,4 +270,33 @@ tagJY901_T JY901S =
 	.tUART.tGPIO[1].AFMode					= NO_REMAP,					/* GPIO重映射 */
 };
 
-
+tagPS2_T PS2 = 
+{
+	//DI/DAT
+	.tGPIO[0].tGPIOInit.Pin = GPIO_PIN_1,
+	.tGPIO[0].tGPIOInit.Mode = GPIO_MODE_INPUT,
+	.tGPIO[0].tGPIOInit.Pull = GPIO_NOPULL,
+	.tGPIO[0].tGPIOPort = GPIOB,
+	.tGPIO[0].AFMode = NO_REMAP,
+	//DO/CMD
+	.tGPIO[1].tGPIOInit.Pin = GPIO_PIN_2,
+	.tGPIO[1].tGPIOInit.Mode = GPIO_MODE_OUTPUT_PP,
+	.tGPIO[1].tGPIOInit.Pull = GPIO_NOPULL,
+	.tGPIO[1].tGPIOInit.Speed = GPIO_SPEED_FREQ_HIGH,
+	.tGPIO[1].tGPIOPort = GPIOB,
+	.tGPIO[1].AFMode = NO_REMAP,
+	//CS
+	.tGPIO[2].tGPIOInit.Pin = GPIO_PIN_7,
+	.tGPIO[2].tGPIOInit.Mode = GPIO_MODE_OUTPUT_PP,
+	.tGPIO[2].tGPIOInit.Pull = GPIO_NOPULL,
+	.tGPIO[2].tGPIOInit.Speed = GPIO_SPEED_FREQ_HIGH,
+	.tGPIO[2].tGPIOPort = GPIOE,
+	.tGPIO[2].AFMode = NO_REMAP,
+	//CLK
+	.tGPIO[3].tGPIOInit.Pin = GPIO_PIN_8,
+	.tGPIO[3].tGPIOInit.Mode = GPIO_MODE_OUTPUT_PP,
+	.tGPIO[3].tGPIOInit.Pull = GPIO_NOPULL,
+	.tGPIO[3].tGPIOInit.Speed = GPIO_SPEED_FREQ_HIGH,
+	.tGPIO[3].tGPIOPort = GPIOE,
+	.tGPIO[3].AFMode = NO_REMAP,
+};
