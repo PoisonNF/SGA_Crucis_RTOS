@@ -6,9 +6,18 @@
 
 int PS2_LX=128,PS2_LY=127,PS2_RX=128,PS2_RY=127,PS2_KEY=0; 	//PS2摇杆数据接收变量
 
+
+/*  
+  <—— <—— <——       4          1                P1 = 0.5 * P *cos(θ+45°)
+ |           |                                  P2 = 0.5 * P *cos(θ-225°)
+ |           |                      -->         P3 = 0.5 * P *cos(θ-135°)
+ |           |                                  P4 = 0.5 * P *cos(θ-45°)
+  ——> ——> ——>       3          2 
+ */
 /*运动控制线程*/
 void Motioncontrol(void* paramenter)
 {
+
 	while(1)
 	{
 		if(rt_mutex_take(ps2_mutex,RT_WAITING_FOREVER) == RT_EOK)
@@ -16,7 +25,9 @@ void Motioncontrol(void* paramenter)
 			printf("PS2_LY:%d  ",PS2_LY);
 			printf("PS2_RX:%d  ",PS2_RX);
 			printf("PS2_KEY:%d\r\n",PS2_KEY);
-			Drv_Delay_Ms(1000);
+
+			Task_Motioncontrol(PS2_LY,PS2_RX,PS2_KEY);//运动控制函数
+			Drv_Delay_Ms(1000);//执行时间
 			rt_mutex_release(ps2_mutex);//完成读取,释放互斥量
 		}
 	}
@@ -51,12 +62,7 @@ void PS2_thread(void* paramenter)
 			PS2_LY=PS2_AnologData(PSS_LY);
 			PS2_RX=PS2_AnologData(PSS_RX);
 			//PS2_RY=PS2_AnologData(PSS_RY);
-			//printf("PS2_LX:%d  ",PS2_LX);
-			//printf("PS2_LY:%d  ",PS2_LY);
-			//printf("PS2_RX:%d  ",PS2_RX);
-			//printf("PS2_RY:%d  ",PS2_RY);
-			//printf("PS2_KEY:%d\r\n",PS2_KEY);
-			
+		
 			rt_mutex_release(ps2_mutex);//完成修改,释放互斥量
 		}
 		rt_thread_yield();

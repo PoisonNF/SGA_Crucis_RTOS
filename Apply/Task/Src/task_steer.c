@@ -47,6 +47,20 @@ void Task_Steer_0Angle(int index)
 }
 
 /**
+ * @brief 所有舵机定0度函数
+ * @param NULL
+ * @retval null
+*/
+void Task_AllSteer_0Angle(void)
+{
+    Task_Steer_0Angle(1);
+    Task_Steer_0Angle(2);
+    Task_Steer_0Angle(3);
+    Task_Steer_0Angle(4);
+    Drv_Delay_Ms(500);//延时500ms完成转动,延时时间待测试
+}
+
+/**
  * @brief 舵机定90度函数
  * @param index 选择几号舵机 
  * @retval null
@@ -57,6 +71,20 @@ void Task_Steer_90Angle(int index)
 }
 
 /**
+ * @brief 所有舵机定90度函数
+ * @param NULL
+ * @retval null
+*/
+void Task_AllSteer_90Angle(void)
+{
+    Task_Steer_90Angle(1);
+    Task_Steer_90Angle(2);
+    Task_Steer_90Angle(3);
+    Task_Steer_90Angle(4);
+    Drv_Delay_Ms(500);//延时500ms完成转动
+}
+
+/**
  * @brief 舵机定180度函数
  * @param index 选择几号舵机 
  * @retval null
@@ -64,6 +92,20 @@ void Task_Steer_90Angle(int index)
 void Task_Steer_180Angle(int index)
 {
     Drv_PMW_FreqSet(&tPWMDemo[index+3],2500);
+}
+
+/**
+ * @brief 所有舵机定180度函数
+ * @param NULL
+ * @retval null
+*/
+void Task_AllSteer_180Angle(void)
+{
+    Task_Steer_180Angle(1);
+    Task_Steer_180Angle(2);
+    Task_Steer_180Angle(3);
+    Task_Steer_180Angle(4);
+    Drv_Delay_Ms(500);//延时500ms完成转动
 }
 
 

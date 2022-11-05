@@ -18,8 +18,8 @@ void Task_UserInit(void)
     OCD_JY901_DMAInit(&JY901S);
     printf("JY901S INIT!\r\n");
 
-    //Drv_PWM_Init(tPWMDemo,8);
-    //printf("PWM INIT!\r\n");
+    Drv_PWM_Init(tPWMDemo,8);
+    printf("PWM INIT!\r\n");
     
     OCD_OLED_Init(&tOLED);
     printf("OLED INIT!\r\n");
@@ -28,4 +28,7 @@ void Task_UserInit(void)
 
     PS2_Init(&PS2);
     printf("PS2 INIT!\r\n");
+
+    Task_Motor_Init();//推进器初始化
+    Task_Steer_Init();//舵机初始化
 }

@@ -30,6 +30,20 @@ void Task_Motor_Init(void)
 void Task_Motor_SpeedSet(int index,uint16_t _freq)
 {
 	Drv_PMW_FreqSet(&tPWMDemo[index-1], _freq);
+}
+
+/**
+ * @brief 所有电机相同转速设置函数
+ * @param _freq 频率大小	_freq可设置为500-2500,1500停止
+							500-1500 逆时针旋转 1500-2500顺时针旋转
+ * @retval null
+*/
+void Task_Motor_AllSpeedSet(uint16_t _freq)
+{
+	Drv_PMW_FreqSet(&tPWMDemo[0], _freq);
+	Drv_PMW_FreqSet(&tPWMDemo[1], _freq);
+	Drv_PMW_FreqSet(&tPWMDemo[2], _freq);
+	Drv_PMW_FreqSet(&tPWMDemo[3], _freq);
 }	
 
 /**
