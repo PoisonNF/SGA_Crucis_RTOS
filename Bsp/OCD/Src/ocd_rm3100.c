@@ -253,7 +253,7 @@ void OCD_ThreeD3100_magic_GetData(MagData_t* buff,tagSPI_T *_tSPI)
 		if(Mag_Data[i]&0x00800000)
 		Mag_Data[i]|=0xff000000;
 	}
- 
+	
 	buff->MAG_X=Mag_Data[1]*13;
 	buff->MAG_Y=-Mag_Data[0]*13;
 	buff->MAG_Z=-Mag_Data[2]*13; 
@@ -482,7 +482,7 @@ void OCD_ThreeD3100_magic_GetData_soft(MagData_t* buff,tagSPISoft_T *_tSPI)
 		if(Mag_Data[i]&0x00800000)
 		Mag_Data[i]|=0xff000000;
 	}
- 
+	
 	buff->MAG_X=Mag_Data[1]*13;
 	buff->MAG_Y=-Mag_Data[0]*13;
 	buff->MAG_Z=-Mag_Data[2]*13; 

@@ -6,14 +6,6 @@
 
 int PS2_LX=128,PS2_LY=127,PS2_RX=128,PS2_RY=127,PS2_KEY=0; 	//PS2摇杆数据接收变量
 
-
-/*  
-  <—— <—— <——       4          1                P1 = 0.5 * P *cos(θ+45°)
- |           |                                  P2 = 0.5 * P *cos(θ-225°)
- |           |                      -->         P3 = 0.5 * P *cos(θ-135°)
- |           |                                  P4 = 0.5 * P *cos(θ-45°)
-  ——> ——> ——>       3          2 
- */
 /*运动控制线程*/
 void Motioncontrol(void* paramenter)
 {
@@ -26,7 +18,10 @@ void Motioncontrol(void* paramenter)
 			printf("PS2_RX:%d  ",PS2_RX);
 			printf("PS2_KEY:%d\r\n",PS2_KEY);
 
-			Task_Motioncontrol(PS2_LY,PS2_RX,PS2_KEY);//运动控制函数
+			if(PS2_RedLight(&PS2) == 0) //读取手柄模式，红灯模式开始运动控制
+			{
+				Task_Motioncontrol(PS2_LY,PS2_RX,PS2_KEY);//运动控制函数
+			}
 			Drv_Delay_Ms(1000);//执行时间
 			rt_mutex_release(ps2_mutex);//完成读取,释放互斥量
 		}
@@ -74,14 +69,14 @@ void PS2_thread(void* paramenter)
 void Huba511_thread(void* paramenter)
 {
 	char buf[50];
-	int i = 0;
+	//int i = 0;
 	while(1)
 	{
 		if(rt_mq_recv(msgqueue,buf,sizeof(buf),RT_WAITING_FOREVER) == RT_EOK)
 		{
 			rt_kprintf("%s\r\n",buf);
-			OCD_OLED_ShowNum(&tOLED,0,0,i,2,16);
-			i++;
+			//OCD_OLED_ShowNum(&OLED,0,0,i,2,16);
+			//i++;
 		}
 		rt_thread_yield();
 	}
@@ -90,7 +85,25 @@ void Huba511_thread(void* paramenter)
 /* Rm3100接收线程*/
 void Rm3100_thread(void* paramenter)
 {
+	MagData_t buffer1,buffer2,buffer3,buffer4;
+	while(1)
+	{
+		/*需要安装所有的RM3100才解开注释*/
+		//OCD_ThreeD3100_magic_GetData(&buffer1,&SPI[0]);
+		OCD_ThreeD3100_magic_GetData(&buffer2,&SPI[1]);
+		//OCD_ThreeD3100_magic_GetData_soft(&buffer3,&SPI_soft[1]);
+		//OCD_ThreeD3100_magic_GetData_soft(&buffer4,&SPI_soft[0]);
+		printf("mag_x1=%d mag_y1=%d  mag_z1=%d \r\n mag_x2=%d mag_y2=%d  mag_z2=%d \r\n mag_x3=%d mag_y3=%d  mag_z3=%d \r\n mag_x4=%d mag_y4=%d  mag_z4=%d \r\n",buffer1.MAG_X,buffer1.MAG_Y,buffer1.MAG_Z,buffer2.MAG_X,buffer2.MAG_Y,buffer2.MAG_Z,buffer3.MAG_X,buffer3.MAG_Y,buffer3.MAG_Z,buffer4.MAG_X,buffer4.MAG_Y,buffer4.MAG_Z);
 
+		// printf("mag_x3=%d mag_y3=%d  mag_z3=%d \r\n",buffer3.MAG_X,buffer3.MAG_Y,buffer3.MAG_Z);
+		// printf("mag_x4=%d mag_y4=%d  mag_z4=%d \r\n",buffer4.MAG_X,buffer4.MAG_Y,buffer4.MAG_Z);
+		//OCD_ThreeD3100_magic_init_soft(&SPI_soft[0]);
+		//OCD_ThreeD3100_magic_init_soft(&SPI_soft[1]);
+		//OCD_ThreeD3100_magic_init(&SPI[0]);
+		OCD_ThreeD3100_magic_init(&SPI[1]);
+
+		Drv_Delay_Ms(2000);
+	}
 }
 
 /* 测试线程*/
@@ -98,13 +111,15 @@ void Test_thread(void* paramenter)
 {
 	while(1)
 	{
-		Drv_GPIO_Write(&demoGPIO[0],GPIO_PIN_RESET);
-		Drv_Delay_Ms(1000);
-		Drv_GPIO_Write(&demoGPIO[0],GPIO_PIN_SET);
+		// Drv_GPIO_Write(&GPIO[0],GPIO_PIN_RESET);
+		// Drv_Delay_Ms(1000);
+		// Drv_GPIO_Write(&GPIO[0],GPIO_PIN_SET);
 
-		Drv_GPIO_Write(&demoGPIO[1],GPIO_PIN_RESET);
-		Drv_Delay_Ms(1000);
-		Drv_GPIO_Write(&demoGPIO[1],GPIO_PIN_SET);
+		// Drv_GPIO_Write(&GPIO[1],GPIO_PIN_RESET);
+		// Drv_Delay_Ms(1000);
+		// Drv_GPIO_Write(&GPIO[1],GPIO_PIN_SET);
 		rt_thread_yield();
 	}
 }
+
+

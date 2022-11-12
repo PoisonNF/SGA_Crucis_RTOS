@@ -17,10 +17,10 @@
 */
 void Task_Steer_Init(void)
 {
-    Drv_PMW_FreqSet(&tPWMDemo[4],1500);
-    Drv_PMW_FreqSet(&tPWMDemo[5],1500);
-    Drv_PMW_FreqSet(&tPWMDemo[6],1500);
-    Drv_PMW_FreqSet(&tPWMDemo[7],1500);
+    Drv_PMW_FreqSet(&PWM[4],1500);
+    Drv_PMW_FreqSet(&PWM[5],1500);
+    Drv_PMW_FreqSet(&PWM[6],1500);
+    Drv_PMW_FreqSet(&PWM[7],1500);
     Drv_Delay_Ms(200);
 }
 
@@ -33,7 +33,7 @@ void Task_Steer_Init(void)
 */
 void Task_Steer_Angle_Set(int index,int ang)
 {
-    Drv_PMW_FreqSet(&tPWMDemo[index+3],ang/180*2000+500);
+    Drv_PMW_FreqSet(&PWM[index+3],ang/180*2000+500);
 }
 
 /**
@@ -43,7 +43,7 @@ void Task_Steer_Angle_Set(int index,int ang)
 */
 void Task_Steer_0Angle(int index)
 {
-    Drv_PMW_FreqSet(&tPWMDemo[index+3],500);
+    Drv_PMW_FreqSet(&PWM[index+3],500);
 }
 
 /**
@@ -67,7 +67,7 @@ void Task_AllSteer_0Angle(void)
 */
 void Task_Steer_90Angle(int index)
 {
-    Drv_PMW_FreqSet(&tPWMDemo[index+3],1500);
+    Drv_PMW_FreqSet(&PWM[index+3],1500);
 }
 
 /**
@@ -91,7 +91,7 @@ void Task_AllSteer_90Angle(void)
 */
 void Task_Steer_180Angle(int index)
 {
-    Drv_PMW_FreqSet(&tPWMDemo[index+3],2500);
+    Drv_PMW_FreqSet(&PWM[index+3],2500);
 }
 
 /**

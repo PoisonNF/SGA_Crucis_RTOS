@@ -56,7 +56,7 @@ void USART1_IRQHandler(void)
 //	Drv_Uart_IRQHandler(&tPCUart);		/* 必需部分 */
 	
 	//Task_USART1_IRQHandler();
-	Drv_Uart_DMA_Handler(&demoUart1);
+	Drv_Uart_DMA_Handler(&Uart1);
 
 }
 /**

@@ -13,10 +13,10 @@ void Task_Motor_Init(void)
 	Drv_Delay_Ms(6000);		/* 初始停转信号后等待稳定 */
 	
 	/* 停转，1500hz(7.5%占空比) */
-	Drv_PMW_FreqSet(&tPWMDemo[0], STOP_PWM_VALUE);
-	Drv_PMW_FreqSet(&tPWMDemo[1], STOP_PWM_VALUE);
-	Drv_PMW_FreqSet(&tPWMDemo[2], STOP_PWM_VALUE);
-	Drv_PMW_FreqSet(&tPWMDemo[3], STOP_PWM_VALUE);
+	Drv_PMW_FreqSet(&PWM[0], STOP_PWM_VALUE);
+	Drv_PMW_FreqSet(&PWM[1], STOP_PWM_VALUE);
+	Drv_PMW_FreqSet(&PWM[2], STOP_PWM_VALUE);
+	Drv_PMW_FreqSet(&PWM[3], STOP_PWM_VALUE);
 	Drv_Delay_Ms(2000);
 }
 
@@ -29,7 +29,7 @@ void Task_Motor_Init(void)
 */
 void Task_Motor_SpeedSet(int index,uint16_t _freq)
 {
-	Drv_PMW_FreqSet(&tPWMDemo[index-1], _freq);
+	Drv_PMW_FreqSet(&PWM[index-1], _freq);
 }
 
 /**
@@ -40,10 +40,10 @@ void Task_Motor_SpeedSet(int index,uint16_t _freq)
 */
 void Task_Motor_AllSpeedSet(uint16_t _freq)
 {
-	Drv_PMW_FreqSet(&tPWMDemo[0], _freq);
-	Drv_PMW_FreqSet(&tPWMDemo[1], _freq);
-	Drv_PMW_FreqSet(&tPWMDemo[2], _freq);
-	Drv_PMW_FreqSet(&tPWMDemo[3], _freq);
+	Drv_PMW_FreqSet(&PWM[0], _freq);
+	Drv_PMW_FreqSet(&PWM[1], _freq);
+	Drv_PMW_FreqSet(&PWM[2], _freq);
+	Drv_PMW_FreqSet(&PWM[3], _freq);
 }	
 
 /**
@@ -80,7 +80,7 @@ void Task_Motor_AllStart(float *adress)
 void Task_Motor_Stop(int index)
 {
 	/* 电机运行速度设置 */
-	Drv_PMW_FreqSet(&tPWMDemo[index-1], STOP_PWM_VALUE);
+	Drv_PMW_FreqSet(&PWM[index-1], STOP_PWM_VALUE);
 }
 
 /**
