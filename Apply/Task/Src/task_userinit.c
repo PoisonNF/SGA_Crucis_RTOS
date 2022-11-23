@@ -9,17 +9,21 @@ void Task_UserInit(void)
     Drv_GPIO_Set(&GPIO[1]);
 
     Drv_GPIO_Init(&U4485Ctrl,1);
+    //将485通信一直处于接收模式
     Drv_GPIO_Set(&U4485Ctrl);
 
-    Drv_Uart_DMAInit(&Uart1);
-    printf("UART1 DMA INIT!\r\n");
+    Drv_Uart_ITInit(&Uart1);
+    printf("UART1 IT INIT!\r\n");
 
-    Drv_Uart_ITInit(&Uart4);
-    Drv_Uart_Transmit(&Uart4,"test",sizeof("test"));
-    
     OCD_JY901_DMAInit(&JY901S);
     printf("JY901S INIT!\r\n");
 
+    Drv_Uart_DMAInit(&Uart3);
+    printf("UART3 DMA INIT!\r\n");
+
+    Drv_Uart_DMAInit(&Uart4);
+    printf("UART4 IT INIT!\r\n");
+    
     Drv_PWM_Init(PWM,8);
     printf("PWM INIT!\r\n");
     

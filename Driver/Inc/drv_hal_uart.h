@@ -10,7 +10,7 @@ typedef struct
 	uint16_t			usRxLenth;			/* 接收数据长度 */
 	uint16_t			usRxMAXLenth;		/* 接收数据最大长度 */
 	uint8_t				ucpRxBuffer[1];		/* 接收Buffer */
-	uint8_t				*ucpRxCache;		/* 接收缓冲区 */
+	uint8_t				*ucpRxCache;		/* 接收缓冲区 */	
 }tagUartRxInfo_T;
 
 /* 串口DMA配置 */

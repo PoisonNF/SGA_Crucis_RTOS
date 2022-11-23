@@ -199,59 +199,6 @@ tagGPIO_T GPIO[] =
     
 };
 
-/* JY901S参数设置 */
-tagJY901_T JY901S = 
-{
-	.tConfig.ucBaud 	= JY901_RXBAUD_9600,
-	.tConfig.ucRate		= JY901_RX_5HZ,
-	.tConfig.ucType		= JY901_OUTPUT_ACCEL | JY901_OUTPUT_GYRO | JY901_OUTPUT_ANGLE | JY901_OUTPUT_MAG,
-
-	.tUART.tUARTHandle.Instance 				= USART2,			/* STM32 串口设备 */
-	.tUART.tUARTHandle.Init.BaudRate   			= 9600,				/* 串口波特率 */
-	.tUART.tUARTHandle.Init.WordLength 			= UART_WORDLENGTH_8B,
-	.tUART.tUARTHandle.Init.StopBits   			= UART_STOPBITS_1,
-	.tUART.tUARTHandle.Init.Parity     			= UART_PARITY_NONE,
-	.tUART.tUARTHandle.Init.HwFlowCtl  			= UART_HWCONTROL_NONE,
-	.tUART.tUARTHandle.Init.Mode       			= UART_MODE_TX_RX,
-	.tUART.tUARTHandle.Init.OverSampling 		= UART_OVERSAMPLING_16,
-
-	.tUART.tRxInfo.usRxMAXLenth             	= 300,                 /* 接收数据长度 长度保持在协议最长字节*2以上，确保缓存池一定能够稳定接收一个完整的数据帧*/
-
-#if defined (STM32L4_SGA_ENABLE)
-	.tUARTHandle.Init.OneBitSampling 	= UART_ONE_BIT_SAMPLE_DISABLE,
-	.tUARTHandle.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT,
-#endif
-	
-	.tUART.ulPriority							= 1,				/* 中断优先级 */
-	.tUART.ulSubPriority						= 3,				/* 中断子优先级 */
-	
-	.tUART.tUartDMA.tDMARx.Instance					= DMA1_Channel6,
-	.tUART.tUartDMA.tDMARx.Init.Direction			= DMA_PERIPH_TO_MEMORY,
-	.tUART.tUartDMA.tDMARx.Init.PeriphInc			= DMA_PINC_DISABLE,
-	.tUART.tUartDMA.tDMARx.Init.MemInc				= DMA_MINC_ENABLE,
-	.tUART.tUartDMA.tDMARx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE,
-	.tUART.tUartDMA.tDMARx.Init.MemDataAlignment	= DMA_MDATAALIGN_BYTE,
-	.tUART.tUartDMA.tDMARx.Init.Mode				= DMA_NORMAL,
-	.tUART.tUartDMA.tDMARx.Init.Priority			= DMA_PRIORITY_LOW,
-
-	.tUART.tUartDMA.ulDMAPriority				= 1,				/* DMA中断优先级 */
-	.tUART.tUartDMA.ulDMASubPriority			= 1,				/* DMA中断子优先级 */
-	
-	
-	.tUART.tGPIO[0].tGPIOInit.Pin 			= GPIO_PIN_2,				/* GPIO引脚 */
-	.tUART.tGPIO[0].tGPIOInit.Mode 			= GPIO_MODE_AF_PP,			/* GPIO模式 */
-	.tUART.tGPIO[0].tGPIOInit.Pull 			= GPIO_NOPULL,				/* GPIO上下拉设置，是否需要上下拉看硬件 */
-	.tUART.tGPIO[0].tGPIOInit.Speed 		= GPIO_SPEED_FREQ_HIGH,		/* GPIO速度 */	
-	.tUART.tGPIO[0].tGPIOPort 				= GPIOA,					/* GPIO分组 */
-	.tUART.tGPIO[0].AFMode					= NO_REMAP,					/* GPIO重映射 */
-	
-	.tUART.tGPIO[1].tGPIOInit.Pin 			= GPIO_PIN_3,				/* GPIO引脚 */
-	.tUART.tGPIO[1].tGPIOInit.Mode 			= GPIO_MODE_INPUT,			/* GPIO模式 */
-	.tUART.tGPIO[1].tGPIOInit.Pull 			= GPIO_NOPULL,				/* GPIO上下拉设置，是否需要上下拉看硬件 */
-	.tUART.tGPIO[1].tGPIOInit.Speed 		= GPIO_SPEED_FREQ_HIGH,		/* GPIO速度 */	
-	.tUART.tGPIO[1].tGPIOPort 				= GPIOA,					/* GPIO分组 */
-	.tUART.tGPIO[1].AFMode					= NO_REMAP,					/* GPIO重映射 */
-};
 
 /* PS2手柄参数设置 */
 tagPS2_T PS2 = 
@@ -562,11 +509,115 @@ tagUART_T Uart1 =
 	.tGPIO[1].AFMode					= NO_REMAP,					/* GPIO重映射 */
 };
 
+/* JY901S参数设置 */
+tagJY901_T JY901S = 
+{
+	.tConfig.ucBaud 	= JY901_RXBAUD_9600,
+	.tConfig.ucRate		= JY901_RX_0_5HZ,
+	.tConfig.ucType		= JY901_OUTPUT_ACCEL | JY901_OUTPUT_GYRO | JY901_OUTPUT_ANGLE | JY901_OUTPUT_MAG,
+
+	.tUART.tUARTHandle.Instance 				= USART2,			/* STM32 串口设备 */
+	.tUART.tUARTHandle.Init.BaudRate   			= 9600,				/* 串口波特率 */
+	.tUART.tUARTHandle.Init.WordLength 			= UART_WORDLENGTH_8B,
+	.tUART.tUARTHandle.Init.StopBits   			= UART_STOPBITS_1,
+	.tUART.tUARTHandle.Init.Parity     			= UART_PARITY_NONE,
+	.tUART.tUARTHandle.Init.HwFlowCtl  			= UART_HWCONTROL_NONE,
+	.tUART.tUARTHandle.Init.Mode       			= UART_MODE_TX_RX,
+	.tUART.tUARTHandle.Init.OverSampling 		= UART_OVERSAMPLING_16,
+
+	.tUART.tRxInfo.usRxMAXLenth             	= 100,                 /* 接收数据长度 长度保持在协议最长字节*2以上，确保缓存池一定能够稳定接收一个完整的数据帧*/
+
+#if defined (STM32L4_SGA_ENABLE)
+	.tUARTHandle.Init.OneBitSampling 	= UART_ONE_BIT_SAMPLE_DISABLE,
+	.tUARTHandle.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT,
+#endif
+	
+	.tUART.ulPriority							= 1,				/* 中断优先级 */
+	.tUART.ulSubPriority						= 3,				/* 中断子优先级 */
+	
+	.tUART.tUartDMA.tDMARx.Instance					= DMA1_Channel6,
+	.tUART.tUartDMA.tDMARx.Init.Direction			= DMA_PERIPH_TO_MEMORY,
+	.tUART.tUartDMA.tDMARx.Init.PeriphInc			= DMA_PINC_DISABLE,
+	.tUART.tUartDMA.tDMARx.Init.MemInc				= DMA_MINC_ENABLE,
+	.tUART.tUartDMA.tDMARx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE,
+	.tUART.tUartDMA.tDMARx.Init.MemDataAlignment	= DMA_MDATAALIGN_BYTE,
+	.tUART.tUartDMA.tDMARx.Init.Mode				= DMA_NORMAL,
+	.tUART.tUartDMA.tDMARx.Init.Priority			= DMA_PRIORITY_LOW,
+
+	.tUART.tUartDMA.ulDMAPriority				= 1,				/* DMA中断优先级 */
+	.tUART.tUartDMA.ulDMASubPriority			= 1,				/* DMA中断子优先级 */
+	
+	
+	.tUART.tGPIO[0].tGPIOInit.Pin 			= GPIO_PIN_2,				/* GPIO引脚 */
+	.tUART.tGPIO[0].tGPIOInit.Mode 			= GPIO_MODE_AF_PP,			/* GPIO模式 */
+	.tUART.tGPIO[0].tGPIOInit.Pull 			= GPIO_NOPULL,				/* GPIO上下拉设置，是否需要上下拉看硬件 */
+	.tUART.tGPIO[0].tGPIOInit.Speed 		= GPIO_SPEED_FREQ_HIGH,		/* GPIO速度 */	
+	.tUART.tGPIO[0].tGPIOPort 				= GPIOA,					/* GPIO分组 */
+	.tUART.tGPIO[0].AFMode					= NO_REMAP,					/* GPIO重映射 */
+	
+	.tUART.tGPIO[1].tGPIOInit.Pin 			= GPIO_PIN_3,				/* GPIO引脚 */
+	.tUART.tGPIO[1].tGPIOInit.Mode 			= GPIO_MODE_INPUT,			/* GPIO模式 */
+	.tUART.tGPIO[1].tGPIOInit.Pull 			= GPIO_NOPULL,				/* GPIO上下拉设置，是否需要上下拉看硬件 */
+	.tUART.tGPIO[1].tGPIOInit.Speed 		= GPIO_SPEED_FREQ_HIGH,		/* GPIO速度 */	
+	.tUART.tGPIO[1].tGPIOPort 				= GPIOA,					/* GPIO分组 */
+	.tUART.tGPIO[1].AFMode					= NO_REMAP,					/* GPIO重映射 */
+};
+
+/* Uart3参数设置 */
+tagUART_T Uart3 = 
+{
+	.tUARTHandle.Instance 				= USART3,			/* STM32 串口设备 */
+	.tUARTHandle.Init.BaudRate   		= 115200,				/* 串口波特率 */
+	.tUARTHandle.Init.WordLength 		= UART_WORDLENGTH_8B,
+	.tUARTHandle.Init.StopBits   		= UART_STOPBITS_1,
+	.tUARTHandle.Init.Parity     		= UART_PARITY_NONE,
+	.tUARTHandle.Init.HwFlowCtl  		= UART_HWCONTROL_NONE,
+	.tUARTHandle.Init.Mode       		= UART_MODE_TX_RX,
+	.tUARTHandle.Init.OverSampling 		= UART_OVERSAMPLING_16,
+
+	.tRxInfo.usRxMAXLenth             	= 200,                 /* 接收数据长度 长度保持在协议最长字节*2以上，确保缓存池一定能够稳定接收一个完整的数据帧*/
+
+#if defined (STM32L4_SGA_ENABLE)
+	.tUARTHandle.Init.OneBitSampling 	= UART_ONE_BIT_SAMPLE_DISABLE,
+	.tUARTHandle.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT,
+#endif
+	
+	.ulPriority							= 1,				/* 中断优先级 */
+	.ulSubPriority						= 4,				/* 中断子优先级 */
+	
+	.tUartDMA.tDMARx.Instance			= DMA1_Channel3,
+	.tUartDMA.tDMARx.Init.Direction		= DMA_PERIPH_TO_MEMORY,
+	.tUartDMA.tDMARx.Init.PeriphInc		= DMA_PINC_DISABLE,
+	.tUartDMA.tDMARx.Init.MemInc		= DMA_MINC_ENABLE,
+	.tUartDMA.tDMARx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE,
+	.tUartDMA.tDMARx.Init.MemDataAlignment	  = DMA_MDATAALIGN_BYTE,
+	.tUartDMA.tDMARx.Init.Mode			= DMA_NORMAL,
+	.tUartDMA.tDMARx.Init.Priority		= DMA_PRIORITY_LOW,
+
+	.tUartDMA.ulDMAPriority				= 2,				/* DMA中断优先级 */
+	.tUartDMA.ulDMASubPriority			= 1,				/* DMA中断子优先级 */
+	
+	
+	.tGPIO[0].tGPIOInit.Pin 			= GPIO_PIN_10,				/* GPIO引脚 */
+	.tGPIO[0].tGPIOInit.Mode 			= GPIO_MODE_AF_PP,			/* GPIO模式 */
+	.tGPIO[0].tGPIOInit.Pull 			= GPIO_NOPULL,				/* GPIO上下拉设置，是否需要上下拉看硬件 */
+	.tGPIO[0].tGPIOInit.Speed 			= GPIO_SPEED_FREQ_HIGH,		/* GPIO速度 */	
+	.tGPIO[0].tGPIOPort 				= GPIOB,					/* GPIO分组 */
+	.tGPIO[0].AFMode					= NO_REMAP,					/* GPIO重映射 */
+	
+	.tGPIO[1].tGPIOInit.Pin 			= GPIO_PIN_11,				/* GPIO引脚 */
+	.tGPIO[1].tGPIOInit.Mode 			= GPIO_MODE_INPUT,			/* GPIO模式 */
+	.tGPIO[1].tGPIOInit.Pull 			= GPIO_NOPULL,				/* GPIO上下拉设置，是否需要上下拉看硬件 */
+	.tGPIO[1].tGPIOInit.Speed 			= GPIO_SPEED_FREQ_HIGH,		/* GPIO速度 */	
+	.tGPIO[1].tGPIOPort 				= GPIOB,					/* GPIO分组 */
+	.tGPIO[1].AFMode					= NO_REMAP,					/* GPIO重映射 */
+};
+
 /* Uart4参数设置 */
 tagUART_T Uart4 = 
 {
 	.tUARTHandle.Instance 				= UART4,			/* STM32 串口设备 */
-	.tUARTHandle.Init.BaudRate   		= 9600,				/* 串口波特率 */
+	.tUARTHandle.Init.BaudRate   		= 115200,				/* 串口波特率 */
 	.tUARTHandle.Init.WordLength 		= UART_WORDLENGTH_8B,
 	.tUARTHandle.Init.StopBits   		= UART_STOPBITS_1,
 	.tUARTHandle.Init.Parity     		= UART_PARITY_NONE,

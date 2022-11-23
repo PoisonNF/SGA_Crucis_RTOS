@@ -14,9 +14,11 @@ extern tagGPIO_T U4485Ctrl;
 
 extern tagUART_T Uart1;
 
-extern tagUART_T Uart4;
-
 extern tagJY901_T JY901S;
+
+extern tagUART_T Uart3;
+
+extern tagUART_T Uart4;
 
 extern tagPWM_T PWM[];
 

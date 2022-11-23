@@ -6,6 +6,18 @@
 
 int PS2_LX=128,PS2_LY=127,PS2_RX=128,PS2_RY=127,PS2_KEY=0; 	//PS2摇杆数据接收变量
 
+/* 主机控制线程 */
+void Order(void* paramenter)
+{
+	while(1)
+	{
+		if(rt_sem_take(binary_semO,RT_WAITING_FOREVER) == RT_EOK)
+		{
+			
+		}
+		rt_thread_yield();
+	}
+}
 /*运动控制线程*/
 void Motioncontrol(void* paramenter)
 {
@@ -103,6 +115,41 @@ void Rm3100_thread(void* paramenter)
 		OCD_ThreeD3100_magic_init(&SPI[1]);
 
 		Drv_Delay_Ms(2000);
+	}
+}
+
+/* Jetson接收线程 */
+void Jetson_thread(void* paramenter)
+{
+	while(1)
+	{
+
+		if(rt_sem_take(binary_semJ,RT_WAITING_FOREVER) == RT_EOK)
+		{
+
+			if(Uart3.tUartDMA.DMARxCplt)
+			{
+				//printf("%s",Uart3.tRxInfo.ucpRxCache);
+				//printf("%s",buffer);
+				Drv_Uart_Transmit(&Uart1,Uart3.tRxInfo.ucpRxCache,Uart3.tRxInfo.usRxLenth);
+				memset(Uart3.tRxInfo.ucpRxCache,0,Uart3.tRxInfo.usRxLenth);
+			}
+		 	Uart3.tUartDMA.DMARxCplt = 0;	//标志位清0
+			rt_thread_yield();
+		}	
+	}
+}
+/* OpenMV接收线程 */
+void OpenMV_thread(void* paramenter)
+{
+	while(1)
+	{
+
+		if(Uart4.tUartDMA.DMARxCplt)
+		{
+			
+		}
+		Uart4.tUartDMA.DMARxCplt = 0;	//标志位清0
 	}
 }
 
