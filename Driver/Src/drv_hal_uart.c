@@ -25,30 +25,6 @@
 #define TIME_OUT	0xff
 
 /**
- * @brief 串口发送数据函数
- * @param _tUART-串口实例指针
- * @param _ucpTxData-发送数据地址指针
- * @param _uspSize-发送数据大小
- * @retval Null
-*/
-void Drv_Uart_Transmit(tagUART_T *_tUART, uint8_t *_ucpTxData, uint16_t _uspSize)
-{	
-	HAL_UART_Transmit(&_tUART->tUARTHandle, _ucpTxData, _uspSize, TIME_OUT);
-}
-
-/**
- * @brief 串口接收中断重置函数
- * @param _tUART-串口实例指针
- * @param _ucpBuffer-发送数据指针
- * @param _usSize-发送数据大小
- * @retval Null 
-*/
-void Drv_Uart_ReceIT_Enable(tagUART_T *_tUART, uint8_t *_ucpBuffer, uint16_t _usSize)
-{
-	HAL_UART_Receive_IT(&_tUART->tUARTHandle, _ucpBuffer, _usSize);
-}
-
-/**
  * @brief 串口中断配置函数
  * @param _tUART-串口实例指针
  * @retval Null 
@@ -268,7 +244,7 @@ void Drv_Uart_ITInit(tagUART_T *_tUART)
 	S_Uart_ParamConfig(_tUART);		/* 设置串口参数 */
 	S_Uart_NVICConfig(_tUART);		/* 设置中断优先级 */
 
-	HAL_UART_Receive_IT(&_tUART->tUARTHandle, _tUART->tRxInfo.ucpRxBuffer, 1);
+	Drv_Uart_ReceIT_Enable(_tUART,_tUART->tRxInfo.ucpRxBuffer,1);
 }
 
 /**
@@ -294,6 +270,30 @@ void Drv_Uart_DMAInit(tagUART_T *_tUART)
 	__HAL_UART_ENABLE_IT(&_tUART->tUARTHandle,UART_IT_IDLE); //打开空闲中断
 	HAL_UART_Receive_DMA(&_tUART->tUARTHandle,_tUART->tRxInfo.ucpRxCache,_tUART->tRxInfo.usRxMAXLenth);//开启DMA接收
 
+}
+
+/**
+ * @brief 串口发送数据函数
+ * @param _tUART-串口实例指针
+ * @param _ucpTxData-发送数据地址指针
+ * @param _uspSize-发送数据大小
+ * @retval Null
+*/
+void Drv_Uart_Transmit(tagUART_T *_tUART, uint8_t *_ucpTxData, uint16_t _uspSize)
+{	
+	HAL_UART_Transmit(&_tUART->tUARTHandle, _ucpTxData, _uspSize, TIME_OUT);
+}
+
+/**
+ * @brief 串口接收中断重置函数
+ * @param _tUART-串口实例指针
+ * @param _ucpBuffer-发送数据指针
+ * @param _usSize-发送数据大小
+ * @retval Null 
+*/
+void Drv_Uart_ReceIT_Enable(tagUART_T *_tUART, uint8_t *_ucpBuffer, uint16_t _usSize)
+{
+	HAL_UART_Receive_IT(&_tUART->tUARTHandle, _ucpBuffer, _usSize);
 }
 
 /**

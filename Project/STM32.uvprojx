@@ -488,11 +488,6 @@
               <FilePath>..\Bsp\OCD\Src\ocd_sdcard.c</FilePath>
             </File>
             <File>
-              <FileName>ocd_oled.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\SGA_Demo\Bsp\OCD\Src\ocd_oled.c</FilePath>
-            </File>
-            <File>
               <FileName>ocd_rm3100.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Bsp\OCD\Src\ocd_rm3100.c</FilePath>
@@ -501,6 +496,11 @@
               <FileName>ocd_ps2.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Bsp\OCD\Src\ocd_ps2.c</FilePath>
+            </File>
+            <File>
+              <FileName>ocd_oled.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Bsp\OCD\Src\ocd_oled.c</FilePath>
             </File>
           </Files>
         </Group>

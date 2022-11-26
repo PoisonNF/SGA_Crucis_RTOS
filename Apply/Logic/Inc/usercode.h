@@ -15,9 +15,10 @@ extern rt_thread_t thread8;
 extern rt_thread_t thread9;
 
 /* 信号量句柄*/
-extern rt_sem_t binary_sem;
-extern rt_sem_t binary_semJ;
-extern rt_sem_t binary_semO;
+extern rt_sem_t JY901_sem;
+extern rt_sem_t Jetson_sem;
+extern rt_sem_t OpenMV_sem;
+extern rt_sem_t Order_sem;
 
 /* 互斥量句柄 */
 extern rt_mutex_t ps2_mutex;

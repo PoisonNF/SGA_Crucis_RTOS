@@ -16,9 +16,10 @@ rt_thread_t thread8 = RT_NULL;
 rt_thread_t thread9 = RT_NULL;
 
 /* 信号量句柄*/
-rt_sem_t binary_sem = RT_NULL;
-rt_sem_t binary_semJ = RT_NULL;
-rt_sem_t binary_semO = RT_NULL;
+rt_sem_t JY901_sem = RT_NULL;
+rt_sem_t Jetson_sem = RT_NULL;
+rt_sem_t OpenMV_sem = RT_NULL;
+rt_sem_t Order_sem = RT_NULL;
 
 /* 互斥量句柄 */
 rt_mutex_t ps2_mutex = RT_NULL;
@@ -31,16 +32,20 @@ ALIGN(RT_ALIGN_SIZE)
 void UserLogic_Code(void)
 {
 	//创建信号量
-	binary_sem = rt_sem_create("binary_sem",0,RT_IPC_FLAG_FIFO);
-	if(RT_NULL != binary_sem)	rt_kprintf("RT-Thread create semaphore successful\r\n");
+	JY901_sem = rt_sem_create("JY901_sem",0,RT_IPC_FLAG_FIFO);
+	if(RT_NULL != JY901_sem)	rt_kprintf("RT-Thread create semaphore successful\r\n");
 	else 						rt_kprintf("RT-Thread create semaphore failed\r\n");
 	//创建Jetson信号量
-	binary_semJ = rt_sem_create("binary_semJ",0,RT_IPC_FLAG_FIFO);
-	if(RT_NULL != binary_semJ)	rt_kprintf("RT-Thread create semaphoreJ successful\r\n");
+	Jetson_sem = rt_sem_create("Jetson_sem",0,RT_IPC_FLAG_FIFO);
+	if(RT_NULL != Jetson_sem)	rt_kprintf("RT-Thread create semaphoreJ successful\r\n");
+	else 						rt_kprintf("RT-Thread create semaphoreJ failed\r\n");
+	//创建OpenMV信号量
+	OpenMV_sem = rt_sem_create("OpenMV_sem",0,RT_IPC_FLAG_FIFO);
+	if(RT_NULL != OpenMV_sem)	rt_kprintf("RT-Thread create semaphoreJ successful\r\n");
 	else 						rt_kprintf("RT-Thread create semaphoreJ failed\r\n");
 	//创建Order信号量
-	binary_semO = rt_sem_create("binary_semO",0,RT_IPC_FLAG_FIFO);
-	if(RT_NULL != binary_semO)	rt_kprintf("RT-Thread create semaphoreO successful\r\n");
+	Order_sem = rt_sem_create("Order_sem",0,RT_IPC_FLAG_FIFO);
+	if(RT_NULL != Order_sem)	rt_kprintf("RT-Thread create semaphoreO successful\r\n");
 	else 						rt_kprintf("RT-Thread create semaphoreO failed\r\n");
 
 	//创建互斥量
@@ -59,12 +64,13 @@ void UserLogic_Code(void)
 		rt_kprintf("RT-Thread create thread1 successful\r\n");
 		rt_thread_startup(thread1);
 	}
+	else rt_kprintf("RT-Thread create thread1 failed\r\n");
 
 	thread2 = rt_thread_create("Motioncontrol",Motioncontrol,NULL,512,3,20);
 	if(RT_NULL != thread2)
 	{
 		rt_kprintf("RT-Thread create thread2 successful\r\n");
-		//rt_thread_startup(thread2);
+		rt_thread_startup(thread2);
 	}
 	else rt_kprintf("RT-Thread create thread2 failed\r\n");
 
@@ -80,7 +86,7 @@ void UserLogic_Code(void)
 	if(RT_NULL != thread4)
 	{
 		rt_kprintf("RT-Thread create thread4 successful\r\n");
-		//rt_thread_startup(thread4);
+		rt_thread_startup(thread4);
 	}
 	else rt_kprintf("RT-Thread create thread4 failed\r\n");
 
@@ -88,7 +94,7 @@ void UserLogic_Code(void)
 	if(RT_NULL != thread5)
 	{
 		rt_kprintf("RT-Thread create thread5 successful\r\n");
-		//rt_thread_startup(thread5);
+		rt_thread_startup(thread5);
 	}
 	else rt_kprintf("RT-Thread create thread5 failed\r\n");
 
@@ -116,11 +122,11 @@ void UserLogic_Code(void)
 	}
 	else rt_kprintf("RT-Thread create thread8 failed\r\n");
 
-	thread9 = rt_thread_create("Test",Test_thread,NULL,512,6,20);
+	thread9 = rt_thread_create("Test",Test_thread,NULL,200,6,20);
 	if(RT_NULL != thread9)
 	{
 		rt_kprintf("RT-Thread create thread9 successful\r\n");
-		//rt_thread_startup(thread9);
+		rt_thread_startup(thread9);
 	}
 	else rt_kprintf("RT-Thread create thread9 failed\r\n");
 

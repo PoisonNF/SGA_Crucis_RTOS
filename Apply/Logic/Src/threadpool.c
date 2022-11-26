@@ -9,15 +9,34 @@ int PS2_LX=128,PS2_LY=127,PS2_RX=128,PS2_RY=127,PS2_KEY=0; 	//PS2“°∏À ˝æ›Ω” ’±‰¡
 /* ÷˜ª˙øÿ÷∆œﬂ≥Ã */
 void Order(void* paramenter)
 {
+	char buf[20];
 	while(1)
-	{
-		if(rt_sem_take(binary_semO,RT_WAITING_FOREVER) == RT_EOK)
-		{
-			
+	{	
+		if(rt_sem_take(Order_sem,RT_WAITING_FOREVER) == RT_EOK)
+		{	
+			if(Uart1.tUartDMA.DMARxCplt)
+			{
+				memcpy(buf,Uart1.tRxInfo.ucpRxCache,Uart1.tRxInfo.usRxLenth);
+				printf("buf = %s",buf);
+				if(strcmp(buf,"Shutdown\r\n")==0)
+				{
+					Drv_Uart_Transmit(&Uart3,"ok",sizeof("ok"));
+					printf("shutting down!\r\n");
+					Drv_Delay_Ms(1000);
+					Drv_Uart_Transmit(&Uart3,"ok",sizeof("ok"));
+					printf("shutting down!!\r\n");
+				}
+				else
+				{
+					printf("Invalid instruction\r\n");
+				}
+			}
+			Uart1.tUartDMA.DMARxCplt = 0;
 		}
 		rt_thread_yield();
 	}
 }
+
 /*‘À∂Øøÿ÷∆œﬂ≥Ã*/
 void Motioncontrol(void* paramenter)
 {
@@ -46,7 +65,7 @@ void JY901S_thread(void* paramenter)
 {
 	while(1)
 	{
-		if(rt_sem_take(binary_sem,RT_WAITING_FOREVER) == RT_EOK)
+		if(rt_sem_take(JY901_sem,RT_WAITING_FOREVER) == RT_EOK)
 		{
 			OCD_JY901_DataProcess(&JY901S);
 			OCD_JY901_DataConversion(&JY901S);
@@ -87,6 +106,9 @@ void Huba511_thread(void* paramenter)
 		if(rt_mq_recv(msgqueue,buf,sizeof(buf),RT_WAITING_FOREVER) == RT_EOK)
 		{
 			rt_kprintf("%s\r\n",buf);
+            Drv_GPIO_Write(&GPIO[1],GPIO_PIN_RESET);
+            Drv_Delay_Ms(1000);
+            Drv_GPIO_Write(&GPIO[1],GPIO_PIN_SET);
 			//OCD_OLED_ShowNum(&OLED,0,0,i,2,16);
 			//i++;
 		}
@@ -123,20 +145,18 @@ void Jetson_thread(void* paramenter)
 {
 	while(1)
 	{
-
-		if(rt_sem_take(binary_semJ,RT_WAITING_FOREVER) == RT_EOK)
+		//ªÒ»°jetson–≈∫≈¡ø
+		if(rt_sem_take(Jetson_sem,RT_WAITING_FOREVER) == RT_EOK)
 		{
-
+			//»Áπ˚Ω” ’ÕÍ≥…±Í÷æŒªŒ™1
 			if(Uart3.tUartDMA.DMARxCplt)
 			{
-				//printf("%s",Uart3.tRxInfo.ucpRxCache);
-				//printf("%s",buffer);
 				Drv_Uart_Transmit(&Uart1,Uart3.tRxInfo.ucpRxCache,Uart3.tRxInfo.usRxLenth);
 				memset(Uart3.tRxInfo.ucpRxCache,0,Uart3.tRxInfo.usRxLenth);
 			}
 		 	Uart3.tUartDMA.DMARxCplt = 0;	//±Í÷æŒª«Â0
-			rt_thread_yield();
 		}	
+		rt_thread_yield();
 	}
 }
 /* OpenMVΩ” ’œﬂ≥Ã */
@@ -144,12 +164,18 @@ void OpenMV_thread(void* paramenter)
 {
 	while(1)
 	{
-
-		if(Uart4.tUartDMA.DMARxCplt)
+		//ªÒ»°OpenMV–≈∫≈¡ø
+		if(rt_sem_take(OpenMV_sem,RT_WAITING_FOREVER) == RT_EOK)
 		{
-			
+			//»Áπ˚Ω” ’ÕÍ≥…±Í÷æŒªŒ™1
+			if(Uart4.tUartDMA.DMARxCplt)
+			{
+				Drv_Uart_Transmit(&Uart1,Uart4.tRxInfo.ucpRxCache,Uart4.tRxInfo.usRxLenth);
+				memset(Uart4.tRxInfo.ucpRxCache,0,Uart4.tRxInfo.usRxLenth);
+			}
+			Uart4.tUartDMA.DMARxCplt = 0;	//±Í÷æŒª«Â0
 		}
-		Uart4.tUartDMA.DMARxCplt = 0;	//±Í÷æŒª«Â0
+		rt_thread_yield();
 	}
 }
 
@@ -158,13 +184,9 @@ void Test_thread(void* paramenter)
 {
 	while(1)
 	{
-		// Drv_GPIO_Write(&GPIO[0],GPIO_PIN_RESET);
-		// Drv_Delay_Ms(1000);
-		// Drv_GPIO_Write(&GPIO[0],GPIO_PIN_SET);
-
-		// Drv_GPIO_Write(&GPIO[1],GPIO_PIN_RESET);
-		// Drv_Delay_Ms(1000);
-		// Drv_GPIO_Write(&GPIO[1],GPIO_PIN_SET);
+		Drv_GPIO_Write(&GPIO[1],GPIO_PIN_RESET);
+		Drv_Delay_Ms(1000);
+		Drv_GPIO_Write(&GPIO[1],GPIO_PIN_SET);
 		rt_thread_yield();
 	}
 }

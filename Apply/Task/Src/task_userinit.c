@@ -12,8 +12,8 @@ void Task_UserInit(void)
     //将485通信一直处于接收模式
     Drv_GPIO_Set(&U4485Ctrl);
 
-    Drv_Uart_ITInit(&Uart1);
-    printf("UART1 IT INIT!\r\n");
+    Drv_Uart_DMAInit(&Uart1);
+    printf("UART1 DMA INIT!\r\n");
 
     OCD_JY901_DMAInit(&JY901S);
     printf("JY901S INIT!\r\n");

@@ -55,31 +55,9 @@ void USART1_IRQHandler(void)
 	/* 示例 */
 //	Drv_Uart_IRQHandler(&tPCUart);		/* 必需部分 */	
 	//Task_USART1_IRQHandler();
-	Drv_Uart_IRQHandler(&Uart1);
-	
-}
-
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
-{
 	rt_interrupt_enter();
-	// if(huart->Instance == USART1)
-	// {
-	// 	if(Uart1.tRxInfo.ucpRxBuffer[0] == '\n')
-  	// 	{
-	// 		Uart1.tRxInfo.ucpRxCache[Uart1.tRxInfo.usRxCnt] = '\0';
-	// 		Uart1.tRxInfo.usRxCnt = 0;
-	// 		rt_sem_release(binary_semO);	//释放Order信号量
-  	// 	}
-  	// 	else
-  	// 	{
-	// 		if(Uart1.tRxInfo.usRxCnt <128)
-	// 		{
-	// 		Uart1.tRxInfo.ucpRxCache[Uart1.tRxInfo.usRxCnt] = Uart1.tRxInfo.ucpRxBuffer[0];
-	// 		Uart1.tRxInfo.usRxCnt += 1;
-	// 		}
-  	// 	}
-  	// 	while(HAL_UART_Receive_IT(&Uart1.tUARTHandle, Uart1.tRxInfo.ucpRxBuffer, 1) != HAL_OK); 	
-	// }
+	Drv_Uart_DMA_Handler(&Uart1);
+	rt_sem_release(Order_sem);
 	rt_interrupt_leave();
 }
 
@@ -102,7 +80,7 @@ void USART2_IRQHandler(void)
 	//Drv_Uart_DMA_Handler(&demoUart2);
 	Drv_Uart_DMA_Handler(&JY901S.tUART);
 	//rt_mq_send(msgqueue,"进入中断",sizeof("进入中断"));	//发送消息队列
-	rt_sem_release(binary_sem);	//释放信号量
+	rt_sem_release(JY901_sem);	//释放信号量
 	rt_interrupt_leave();
 }
 
@@ -116,7 +94,7 @@ void USART3_IRQHandler(void)
 	rt_interrupt_enter();
 	//Drv_Uart_IRQHandler(&Uart3);
 	Drv_Uart_DMA_Handler(&Uart3);
-	rt_sem_release(binary_semJ);	//释放Jetson信号量
+	rt_sem_release(Jetson_sem);	//释放Jetson信号量
 	rt_interrupt_leave();
 }
 
@@ -127,7 +105,10 @@ void USART3_IRQHandler(void)
 */
 void UART4_IRQHandler(void)
 {
+	rt_interrupt_enter();
 	Drv_Uart_DMA_Handler(&Uart4);
+	rt_sem_release(OpenMV_sem);	//释放OpenMV信号量
+	rt_interrupt_leave();
 }
 
 /**
