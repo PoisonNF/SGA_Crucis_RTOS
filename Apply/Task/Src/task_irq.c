@@ -107,7 +107,6 @@ void UART4_IRQHandler(void)
 {
 	rt_interrupt_enter();
 	Drv_Uart_DMA_Handler(&Uart4);
-	rt_sem_release(OpenMV_sem);	//释放OpenMV信号量
 	rt_interrupt_leave();
 }
 
@@ -118,9 +117,42 @@ void UART4_IRQHandler(void)
 */
 void UART5_IRQHandler(void)
 {
-
+	rt_interrupt_enter();
+	Drv_Uart_IRQHandler(&OpenMV);
+	rt_interrupt_leave();
 }
 
+uint8_t rData[100];
+uint8_t rflag;
+/**
+ * @brief 串口接收完成服务函数
+ * @param null
+ * @retval Null
+*/
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+	//判断是否是串口5
+	if(huart->Instance == UART5)
+	{
+		if(OpenMV.tRxInfo.ucpRxBuffer[0] == '\n') //当检测到换行
+		{
+			rData[rflag] = '\0'; //加上字符串结尾
+			rflag = 0;
+			printf("%s",rData);
+			rt_sem_release(OpenMV_sem);	//释放OpenMV信号量
+		}
+		else //没检测到换行
+		{
+			if(rflag < OpenMV.tRxInfo.usRxMAXLenth) //标志数小于最大可装载数
+			{
+				//将RxBuffer中的数据放入数组
+				rData[rflag] = OpenMV.tRxInfo.ucpRxBuffer[0];
+				rflag += 1;
+			}
+		}
+		HAL_UART_Receive_IT(huart,OpenMV.tRxInfo.ucpRxBuffer,1); //再次开启接收
+	}
+}
 /**
  * @brief 定时器2中断函数
  * @param null

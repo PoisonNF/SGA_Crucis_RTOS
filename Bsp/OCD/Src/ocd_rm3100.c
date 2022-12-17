@@ -31,7 +31,7 @@ struct config rm = {
 
 /**
  * @brief rm3100片选
- * @param _tSPI-软件spi句柄指针
+ * @param _tSPI-spi句柄指针
  * @param level-电平
  * @retval NULL
 */
@@ -303,7 +303,7 @@ void  OCD_SPI_Read_M3D3100_soft(uint8_t reg_addr,uint8_t *dataout,uint8_t lenth,
 	uint8_t temp=0;	
 
 	Drv_SPI_NSS(_tSPI,0);
-//	HAL_Delay(10);
+	//HAL_Delay(10);
 	temp=0x80+(reg_addr); //MSB=1 rw=1-->addr auto increase
 	Drv_SPI_WriteByte_soft(_tSPI,temp);
 

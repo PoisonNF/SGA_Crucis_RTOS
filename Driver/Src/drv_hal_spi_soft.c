@@ -44,7 +44,7 @@ void Drv_SPI_CLK(tagSPISoft_T *_tSPI, uint8_t level)
 
 GPIO_PinState Drv_SPI_MISO(tagSPISoft_T *_tSPI)
 {
-	return HAL_GPIO_ReadPin(_tSPI->tSPISoft[3].tGPIOPort, _tSPI->tSPISoft[3].tGPIOInit.Pin);
+	return HAL_GPIO_ReadPin(_tSPI->tSPISoft[1].tGPIOPort, _tSPI->tSPISoft[1].tGPIOInit.Pin);
 
 }
 
@@ -67,7 +67,7 @@ void Drv_SPI_MOSI(tagSPISoft_T *_tSPI, uint8_t level)
 */
 void Drv_SPI_NSS(tagSPISoft_T *_tSPI,uint8_t level)
 {
-	HAL_GPIO_WritePin(_tSPI->tSPISoft[1].tGPIOPort, _tSPI->tSPISoft[1].tGPIOInit.Pin, level?GPIO_PIN_SET:GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(_tSPI->tSPISoft[3].tGPIOPort, _tSPI->tSPISoft[3].tGPIOInit.Pin, level?GPIO_PIN_SET:GPIO_PIN_RESET);
 }
 
 /**

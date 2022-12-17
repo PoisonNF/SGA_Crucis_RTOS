@@ -23,6 +23,9 @@ void Task_UserInit(void)
 
     Drv_Uart_DMAInit(&Uart4);
     printf("UART4 IT INIT!\r\n");
+
+    Drv_Uart_ITInit(&OpenMV);
+    printf("OpenMV IT INIT!\r\n");
     
     Drv_PWM_Init(PWM,8);
     printf("PWM INIT!\r\n");

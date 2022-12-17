@@ -119,22 +119,22 @@ void Huba511_thread(void* paramenter)
 /* Rm3100接收线程*/
 void Rm3100_thread(void* paramenter)
 {
-	MagData_t buffer1,buffer2,buffer3,buffer4;
+	//MagData_t buffer1,buffer2,buffer3,buffer4;
 	while(1)
 	{
 		/*需要安装所有的RM3100才解开注释*/
 		//OCD_ThreeD3100_magic_GetData(&buffer1,&SPI[0]);
-		OCD_ThreeD3100_magic_GetData(&buffer2,&SPI[1]);
+		//OCD_ThreeD3100_magic_GetData(&buffer2,&SPI[1]);
 		//OCD_ThreeD3100_magic_GetData_soft(&buffer3,&SPI_soft[1]);
 		//OCD_ThreeD3100_magic_GetData_soft(&buffer4,&SPI_soft[0]);
-		printf("mag_x1=%d mag_y1=%d  mag_z1=%d \r\n mag_x2=%d mag_y2=%d  mag_z2=%d \r\n mag_x3=%d mag_y3=%d  mag_z3=%d \r\n mag_x4=%d mag_y4=%d  mag_z4=%d \r\n",buffer1.MAG_X,buffer1.MAG_Y,buffer1.MAG_Z,buffer2.MAG_X,buffer2.MAG_Y,buffer2.MAG_Z,buffer3.MAG_X,buffer3.MAG_Y,buffer3.MAG_Z,buffer4.MAG_X,buffer4.MAG_Y,buffer4.MAG_Z);
+		//printf("mag_x1=%d mag_y1=%d  mag_z1=%d \r\nmag_x2=%d mag_y2=%d  mag_z2=%d \r\nmag_x3=%d mag_y3=%d  mag_z3=%d \r\nmag_x4=%d mag_y4=%d  mag_z4=%d \r\n\r\n",buffer1.MAG_X,buffer1.MAG_Y,buffer1.MAG_Z,buffer2.MAG_X,buffer2.MAG_Y,buffer2.MAG_Z,buffer3.MAG_X,buffer3.MAG_Y,buffer3.MAG_Z,buffer4.MAG_X,buffer4.MAG_Y,buffer4.MAG_Z);
 
-		// printf("mag_x3=%d mag_y3=%d  mag_z3=%d \r\n",buffer3.MAG_X,buffer3.MAG_Y,buffer3.MAG_Z);
-		// printf("mag_x4=%d mag_y4=%d  mag_z4=%d \r\n",buffer4.MAG_X,buffer4.MAG_Y,buffer4.MAG_Z);
+		//printf("mag_x3=%d mag_y3=%d  mag_z3=%d \r\n",buffer3.MAG_X,buffer3.MAG_Y,buffer3.MAG_Z);
+		//printf("mag_x4=%d mag_y4=%d  mag_z4=%d \r\n",buffer4.MAG_X,buffer4.MAG_Y,buffer4.MAG_Z);
+		//OCD_ThreeD3100_magic_init(&SPI[0]);
+		//OCD_ThreeD3100_magic_init(&SPI[1]);
 		//OCD_ThreeD3100_magic_init_soft(&SPI_soft[0]);
 		//OCD_ThreeD3100_magic_init_soft(&SPI_soft[1]);
-		//OCD_ThreeD3100_magic_init(&SPI[0]);
-		OCD_ThreeD3100_magic_init(&SPI[1]);
 
 		Drv_Delay_Ms(2000);
 	}
@@ -159,6 +159,8 @@ void Jetson_thread(void* paramenter)
 		rt_thread_yield();
 	}
 }
+
+extern uint8_t rData[100];
 /* OpenMV接收线程 */
 void OpenMV_thread(void* paramenter)
 {
@@ -167,13 +169,9 @@ void OpenMV_thread(void* paramenter)
 		//获取OpenMV信号量
 		if(rt_sem_take(OpenMV_sem,RT_WAITING_FOREVER) == RT_EOK)
 		{
-			//如果接收完成标志位为1
-			if(Uart4.tUartDMA.DMARxCplt)
-			{
-				Drv_Uart_Transmit(&Uart1,Uart4.tRxInfo.ucpRxCache,Uart4.tRxInfo.usRxLenth);
-				memset(Uart4.tRxInfo.ucpRxCache,0,Uart4.tRxInfo.usRxLenth);
-			}
-			Uart4.tUartDMA.DMARxCplt = 0;	//标志位清0
+			//测试判断帧头代码
+			if(rData[0] == 'a' && rData[1] == 'b')
+			printf("OK!\r\n");
 		}
 		rt_thread_yield();
 	}

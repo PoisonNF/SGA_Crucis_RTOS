@@ -8,9 +8,9 @@ typedef struct{
 } tagSPISoft_T;
 	/**SPI GPIO Configuration  按照这个顺序来定义
     PXxx     ------> SPI_SCK
-    PXxx      ------> SPI_NSS 
-    PXxx      ------> SPI_MOSI
     PXxx      ------> SPI_MISO
+    PXxx      ------> SPI_MOSI
+    PXxx      ------> SPI_NSS 
     */
 
 #define SPI_Delay  {__nop();__nop();}

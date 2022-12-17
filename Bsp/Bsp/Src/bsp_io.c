@@ -251,7 +251,7 @@ tagSPISoft_T SPI_soft[2] =
 	.tSPISoft[0].AFMode				= NO_REMAP,
 	
 	.tSPISoft[1].tGPIOInit.Pin		= GPIO_PIN_4,
-	.tSPISoft[1].tGPIOInit.Mode 	= GPIO_MODE_OUTPUT_PP,
+	.tSPISoft[1].tGPIOInit.Mode 	= GPIO_MODE_INPUT,
 	.tSPISoft[1].tGPIOInit.Pull 	= GPIO_PULLUP,
 	.tSPISoft[1].tGPIOInit.Speed 	= GPIO_SPEED_FREQ_HIGH,
 	.tSPISoft[1].tGPIOPort			= GPIOE,
@@ -265,8 +265,8 @@ tagSPISoft_T SPI_soft[2] =
 	.tSPISoft[2].AFMode				= NO_REMAP,
 	
 	.tSPISoft[3].tGPIOInit.Pin		= GPIO_PIN_1,
-	.tSPISoft[3].tGPIOInit.Mode 	= GPIO_MODE_INPUT,
-	.tSPISoft[3].tGPIOInit.Pull 	= GPIO_NOPULL,
+	.tSPISoft[3].tGPIOInit.Mode 	= GPIO_MODE_OUTPUT_PP,
+	.tSPISoft[3].tGPIOInit.Pull 	= GPIO_PULLUP,
 	.tSPISoft[3].tGPIOPort			= GPIOE,
 	.tSPISoft[3].AFMode				= NO_REMAP,
 	},
@@ -274,9 +274,9 @@ tagSPISoft_T SPI_soft[2] =
 	{
 	/**SPI Soft GPIO Configuration
     PE12     ------> SPI_SCK
-    PE15     ------> SPI_NSS 
+    PE15     ------> SPI_MISO 
     PE14     ------> SPI_MOSI
-    PE13     ------> SPI_MISO
+    PE13     ------> SPI_NSS
     */
 	.tSPISoft[0].tGPIOInit.Pin		= GPIO_PIN_12,
 	.tSPISoft[0].tGPIOInit.Mode 	= GPIO_MODE_OUTPUT_PP,
@@ -286,7 +286,7 @@ tagSPISoft_T SPI_soft[2] =
 	.tSPISoft[0].AFMode				= NO_REMAP,
 	
 	.tSPISoft[1].tGPIOInit.Pin		= GPIO_PIN_15,
-	.tSPISoft[1].tGPIOInit.Mode 	= GPIO_MODE_OUTPUT_PP,
+	.tSPISoft[1].tGPIOInit.Mode 	= GPIO_MODE_INPUT,
 	.tSPISoft[1].tGPIOInit.Pull 	= GPIO_PULLUP,
 	.tSPISoft[1].tGPIOInit.Speed 	= GPIO_SPEED_FREQ_HIGH,
 	.tSPISoft[1].tGPIOPort			= GPIOE,
@@ -300,8 +300,8 @@ tagSPISoft_T SPI_soft[2] =
 	.tSPISoft[2].AFMode				= NO_REMAP,
 	
 	.tSPISoft[3].tGPIOInit.Pin		= GPIO_PIN_13,
-	.tSPISoft[3].tGPIOInit.Mode 	= GPIO_MODE_INPUT,
-	.tSPISoft[3].tGPIOInit.Pull 	= GPIO_NOPULL,
+	.tSPISoft[3].tGPIOInit.Mode 	= GPIO_MODE_OUTPUT_PP,
+	.tSPISoft[3].tGPIOInit.Pull 	= GPIO_PULLUP,
 	.tSPISoft[3].tGPIOPort			= GPIOE,
 	.tSPISoft[3].AFMode				= NO_REMAP,
 	},
@@ -673,3 +673,40 @@ tagGPIO_T U4485Ctrl =
 	.AFMode 							= NO_REMAP,
 };
 
+
+/* Uart5参数设置 */
+tagUART_T OpenMV = 
+{
+	.tUARTHandle.Instance 				= UART5,			/* STM32 串口设备 */
+	.tUARTHandle.Init.BaudRate   		= 115200,				/* 串口波特率 */
+	.tUARTHandle.Init.WordLength 		= UART_WORDLENGTH_8B,
+	.tUARTHandle.Init.StopBits   		= UART_STOPBITS_1,
+	.tUARTHandle.Init.Parity     		= UART_PARITY_NONE,
+	.tUARTHandle.Init.HwFlowCtl  		= UART_HWCONTROL_NONE,
+	.tUARTHandle.Init.Mode       		= UART_MODE_TX_RX,
+	.tUARTHandle.Init.OverSampling 		= UART_OVERSAMPLING_16,
+
+	.tRxInfo.usRxMAXLenth             	= 100,                 /* 接收数据长度 长度保持在协议最长字节*2以上，确保缓存池一定能够稳定接收一个完整的数据帧*/
+
+#if defined (STM32L4_SGA_ENABLE)
+	.tUARTHandle.Init.OneBitSampling 	= UART_ONE_BIT_SAMPLE_DISABLE,
+	.tUARTHandle.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT,
+#endif
+	
+	.ulPriority							= 1,				/* 中断优先级 */
+	.ulSubPriority						= 3,				/* 中断子优先级 */
+	
+	.tGPIO[0].tGPIOInit.Pin 			= GPIO_PIN_12,				/* GPIO引脚 */
+	.tGPIO[0].tGPIOInit.Mode 			= GPIO_MODE_AF_PP,			/* GPIO模式 */
+	.tGPIO[0].tGPIOInit.Pull 			= GPIO_NOPULL,				/* GPIO上下拉设置，是否需要上下拉看硬件 */
+	.tGPIO[0].tGPIOInit.Speed 			= GPIO_SPEED_FREQ_HIGH,		/* GPIO速度 */	
+	.tGPIO[0].tGPIOPort 				= GPIOC,					/* GPIO分组 */
+	.tGPIO[0].AFMode					= NO_REMAP,					/* GPIO重映射 */
+	
+	.tGPIO[1].tGPIOInit.Pin 			= GPIO_PIN_2,				/* GPIO引脚 */
+	.tGPIO[1].tGPIOInit.Mode 			= GPIO_MODE_INPUT,			/* GPIO模式 */
+	.tGPIO[1].tGPIOInit.Pull 			= GPIO_NOPULL,				/* GPIO上下拉设置，是否需要上下拉看硬件 */
+	.tGPIO[1].tGPIOInit.Speed 			= GPIO_SPEED_FREQ_HIGH,		/* GPIO速度 */	
+	.tGPIO[1].tGPIOPort 				= GPIOD,					/* GPIO分组 */
+	.tGPIO[1].AFMode					= NO_REMAP,					/* GPIO重映射 */
+};

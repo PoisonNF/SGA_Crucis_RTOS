@@ -20,6 +20,8 @@ extern tagUART_T Uart3;
 
 extern tagUART_T Uart4;
 
+extern tagUART_T OpenMV;
+
 extern tagPWM_T PWM[];
 
 extern tagOLED_T OLED;

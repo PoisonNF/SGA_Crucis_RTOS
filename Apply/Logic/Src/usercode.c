@@ -70,7 +70,7 @@ void UserLogic_Code(void)
 	if(RT_NULL != thread2)
 	{
 		rt_kprintf("RT-Thread create thread2 successful\r\n");
-		rt_thread_startup(thread2);
+		//rt_thread_startup(thread2);
 	}
 	else rt_kprintf("RT-Thread create thread2 failed\r\n");
 
@@ -86,7 +86,7 @@ void UserLogic_Code(void)
 	if(RT_NULL != thread4)
 	{
 		rt_kprintf("RT-Thread create thread4 successful\r\n");
-		rt_thread_startup(thread4);
+		//rt_thread_startup(thread4);
 	}
 	else rt_kprintf("RT-Thread create thread4 failed\r\n");
 
@@ -102,7 +102,7 @@ void UserLogic_Code(void)
 	if(RT_NULL != thread6)
 	{
 		rt_kprintf("RT-Thread create thread6 successful\r\n");
-		//rt_thread_startup(thread6);
+		rt_thread_startup(thread6);
 	}
 	else rt_kprintf("RT-Thread create thread6 failed\r\n");
 
