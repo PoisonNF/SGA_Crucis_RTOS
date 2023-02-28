@@ -25,10 +25,10 @@
 		CLK PE8
 
 	SPI_soft
-		PE2     ------> SPI_SCK			PE12     ------> SPI_SCK
-		PE4     ------> SPI_MISO		PE15     ------> SPI_NSS
-    	PE3     ------> SPI_MOSI		PE14     ------> SPI_MOSI
-		PE1     ------> SPI_NSS 		PE13     ------> SPI_MISO
+		PE2     ------> SPI_SCK				
+		PE4     ------> SPI_MISO		
+    	PE3     ------> SPI_MOSI		
+		PE1     ------> SPI_NSS 		
 
 	SPI
 		PA5     ------> SPI1_SCK		PB13     ------> SPI2_SCK		PB3     ------> SPI3_SCK
@@ -204,31 +204,31 @@ tagGPIO_T GPIO[] =
 tagPS2_T PS2 = 
 {
 	//DI/DAT
-	.tGPIO[0].tGPIOInit.Pin = GPIO_PIN_1,
+	.tGPIO[0].tGPIOInit.Pin = GPIO_PIN_8,
 	.tGPIO[0].tGPIOInit.Mode = GPIO_MODE_INPUT,
 	.tGPIO[0].tGPIOInit.Pull = GPIO_NOPULL,
-	.tGPIO[0].tGPIOPort = GPIOB,
+	.tGPIO[0].tGPIOPort = GPIOA,
 	.tGPIO[0].AFMode = NO_REMAP,
 	//DO/CMD
-	.tGPIO[1].tGPIOInit.Pin = GPIO_PIN_2,
+	.tGPIO[1].tGPIOInit.Pin = GPIO_PIN_11,
 	.tGPIO[1].tGPIOInit.Mode = GPIO_MODE_OUTPUT_PP,
 	.tGPIO[1].tGPIOInit.Pull = GPIO_NOPULL,
 	.tGPIO[1].tGPIOInit.Speed = GPIO_SPEED_FREQ_HIGH,
-	.tGPIO[1].tGPIOPort = GPIOB,
+	.tGPIO[1].tGPIOPort = GPIOA,
 	.tGPIO[1].AFMode = NO_REMAP,
 	//CS
-	.tGPIO[2].tGPIOInit.Pin = GPIO_PIN_7,
+	.tGPIO[2].tGPIOInit.Pin = GPIO_PIN_12,
 	.tGPIO[2].tGPIOInit.Mode = GPIO_MODE_OUTPUT_PP,
 	.tGPIO[2].tGPIOInit.Pull = GPIO_NOPULL,
 	.tGPIO[2].tGPIOInit.Speed = GPIO_SPEED_FREQ_HIGH,
-	.tGPIO[2].tGPIOPort = GPIOE,
+	.tGPIO[2].tGPIOPort = GPIOA,
 	.tGPIO[2].AFMode = NO_REMAP,
 	//CLK
-	.tGPIO[3].tGPIOInit.Pin = GPIO_PIN_8,
+	.tGPIO[3].tGPIOInit.Pin = GPIO_PIN_15,
 	.tGPIO[3].tGPIOInit.Mode = GPIO_MODE_OUTPUT_PP,
 	.tGPIO[3].tGPIOInit.Pull = GPIO_NOPULL,
 	.tGPIO[3].tGPIOInit.Speed = GPIO_SPEED_FREQ_HIGH,
-	.tGPIO[3].tGPIOPort = GPIOE,
+	.tGPIO[3].tGPIOPort = GPIOA,
 	.tGPIO[3].AFMode = NO_REMAP,
 };
 
@@ -253,7 +253,6 @@ tagSPISoft_T SPI_soft[2] =
 	.tSPISoft[1].tGPIOInit.Pin		= GPIO_PIN_4,
 	.tSPISoft[1].tGPIOInit.Mode 	= GPIO_MODE_INPUT,
 	.tSPISoft[1].tGPIOInit.Pull 	= GPIO_PULLUP,
-	.tSPISoft[1].tGPIOInit.Speed 	= GPIO_SPEED_FREQ_HIGH,
 	.tSPISoft[1].tGPIOPort			= GPIOE,
 	.tSPISoft[1].AFMode				= NO_REMAP,
 	
@@ -267,42 +266,43 @@ tagSPISoft_T SPI_soft[2] =
 	.tSPISoft[3].tGPIOInit.Pin		= GPIO_PIN_1,
 	.tSPISoft[3].tGPIOInit.Mode 	= GPIO_MODE_OUTPUT_PP,
 	.tSPISoft[3].tGPIOInit.Pull 	= GPIO_PULLUP,
+	.tSPISoft[3].tGPIOInit.Speed 	= GPIO_SPEED_FREQ_HIGH,
 	.tSPISoft[3].tGPIOPort			= GPIOE,
 	.tSPISoft[3].AFMode				= NO_REMAP,
 	},
 	[1] = 
 	{
 	/**SPI Soft GPIO Configuration
-    PE12     ------> SPI_SCK
-    PE15     ------> SPI_MISO 
-    PE14     ------> SPI_MOSI
-    PE13     ------> SPI_NSS
+    PB13      ------> SPI_SCK
+    PB14      ------> SPI_MISO 
+    PB15      ------> SPI_MOSI
+    PD9      ------> SPI_NSS
     */
-	.tSPISoft[0].tGPIOInit.Pin		= GPIO_PIN_12,
+	.tSPISoft[0].tGPIOInit.Pin		= GPIO_PIN_13,
 	.tSPISoft[0].tGPIOInit.Mode 	= GPIO_MODE_OUTPUT_PP,
 	.tSPISoft[0].tGPIOInit.Pull 	= GPIO_PULLUP,
 	.tSPISoft[0].tGPIOInit.Speed 	= GPIO_SPEED_FREQ_HIGH,
-	.tSPISoft[0].tGPIOPort			= GPIOE,
+	.tSPISoft[0].tGPIOPort			= GPIOB,
 	.tSPISoft[0].AFMode				= NO_REMAP,
 	
-	.tSPISoft[1].tGPIOInit.Pin		= GPIO_PIN_15,
+	.tSPISoft[1].tGPIOInit.Pin		= GPIO_PIN_14,
 	.tSPISoft[1].tGPIOInit.Mode 	= GPIO_MODE_INPUT,
 	.tSPISoft[1].tGPIOInit.Pull 	= GPIO_PULLUP,
-	.tSPISoft[1].tGPIOInit.Speed 	= GPIO_SPEED_FREQ_HIGH,
-	.tSPISoft[1].tGPIOPort			= GPIOE,
+	.tSPISoft[1].tGPIOPort			= GPIOB,
 	.tSPISoft[1].AFMode				= NO_REMAP,
 	
-	.tSPISoft[2].tGPIOInit.Pin		= GPIO_PIN_14,
+	.tSPISoft[2].tGPIOInit.Pin		= GPIO_PIN_15,
 	.tSPISoft[2].tGPIOInit.Mode 	= GPIO_MODE_OUTPUT_PP,
 	.tSPISoft[2].tGPIOInit.Pull 	= GPIO_PULLUP,
 	.tSPISoft[2].tGPIOInit.Speed 	= GPIO_SPEED_FREQ_HIGH,
-	.tSPISoft[2].tGPIOPort			= GPIOE,
+	.tSPISoft[2].tGPIOPort			= GPIOB,
 	.tSPISoft[2].AFMode				= NO_REMAP,
 	
-	.tSPISoft[3].tGPIOInit.Pin		= GPIO_PIN_13,
+	.tSPISoft[3].tGPIOInit.Pin		= GPIO_PIN_9,
 	.tSPISoft[3].tGPIOInit.Mode 	= GPIO_MODE_OUTPUT_PP,
 	.tSPISoft[3].tGPIOInit.Pull 	= GPIO_PULLUP,
-	.tSPISoft[3].tGPIOPort			= GPIOE,
+	.tSPISoft[3].tGPIOInit.Speed	= GPIO_SPEED_FREQ_HIGH,
+	.tSPISoft[3].tGPIOPort			= GPIOD,
 	.tSPISoft[3].AFMode				= NO_REMAP,
 	},
 };
@@ -487,7 +487,7 @@ tagUART_T Uart1 =
 	.tUartDMA.tDMARx.Init.MemInc		= DMA_MINC_ENABLE,
 	.tUartDMA.tDMARx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE,
 	.tUartDMA.tDMARx.Init.MemDataAlignment	  = DMA_MDATAALIGN_BYTE,
-	.tUartDMA.tDMARx.Init.Mode			= DMA_NORMAL,
+	.tUartDMA.tDMARx.Init.Mode			= DMA_CIRCULAR,
 	.tUartDMA.tDMARx.Init.Priority		= DMA_PRIORITY_LOW,
 
 	.tUartDMA.ulDMAPriority				= 1,				/* DMA中断优先级 */
@@ -541,7 +541,7 @@ tagJY901_T JY901S =
 	.tUART.tUartDMA.tDMARx.Init.MemInc				= DMA_MINC_ENABLE,
 	.tUART.tUartDMA.tDMARx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE,
 	.tUART.tUartDMA.tDMARx.Init.MemDataAlignment	= DMA_MDATAALIGN_BYTE,
-	.tUART.tUartDMA.tDMARx.Init.Mode				= DMA_NORMAL,
+	.tUART.tUartDMA.tDMARx.Init.Mode				= DMA_CIRCULAR,
 	.tUART.tUartDMA.tDMARx.Init.Priority			= DMA_PRIORITY_LOW,
 
 	.tUART.tUartDMA.ulDMAPriority				= 1,				/* DMA中断优先级 */
@@ -591,7 +591,7 @@ tagUART_T Uart3 =
 	.tUartDMA.tDMARx.Init.MemInc		= DMA_MINC_ENABLE,
 	.tUartDMA.tDMARx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE,
 	.tUartDMA.tDMARx.Init.MemDataAlignment	  = DMA_MDATAALIGN_BYTE,
-	.tUartDMA.tDMARx.Init.Mode			= DMA_NORMAL,
+	.tUartDMA.tDMARx.Init.Mode			= DMA_CIRCULAR,
 	.tUartDMA.tDMARx.Init.Priority		= DMA_PRIORITY_LOW,
 
 	.tUartDMA.ulDMAPriority				= 2,				/* DMA中断优先级 */
@@ -641,7 +641,7 @@ tagUART_T Uart4 =
 	.tUartDMA.tDMARx.Init.MemInc			= DMA_MINC_ENABLE,
 	.tUartDMA.tDMARx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE,
 	.tUartDMA.tDMARx.Init.MemDataAlignment	= DMA_MDATAALIGN_BYTE,
-	.tUartDMA.tDMARx.Init.Mode				= DMA_NORMAL,
+	.tUartDMA.tDMARx.Init.Mode				= DMA_CIRCULAR,
 	.tUartDMA.tDMARx.Init.Priority			= DMA_PRIORITY_LOW,
 
 	.tUartDMA.ulDMAPriority				= 2,				/* DMA中断优先级 */
@@ -710,3 +710,4 @@ tagUART_T OpenMV =
 	.tGPIO[1].tGPIOPort 				= GPIOD,					/* GPIO分组 */
 	.tGPIO[1].AFMode					= NO_REMAP,					/* GPIO重映射 */
 };
+

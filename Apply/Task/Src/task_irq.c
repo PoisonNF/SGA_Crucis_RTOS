@@ -79,7 +79,7 @@ void USART2_IRQHandler(void)
 //	Task_USART2_IRQHandler();
 	//Drv_Uart_DMA_Handler(&demoUart2);
 	Drv_Uart_DMA_Handler(&JY901S.tUART);
-	//rt_mq_send(msgqueue,"进入中断",sizeof("进入中断"));	//发送消息队列
+	rt_mq_send(msgqueue,"interrupt",sizeof("interrupt"));	//发送消息队列
 	rt_sem_release(JY901_sem);	//释放信号量
 	rt_interrupt_leave();
 }

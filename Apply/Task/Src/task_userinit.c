@@ -4,9 +4,9 @@
 
 void Task_UserInit(void)
 {
-	Drv_GPIO_Init(GPIO,2);
-    Drv_GPIO_Set(&GPIO[0]);
-    Drv_GPIO_Set(&GPIO[1]);
+	//Drv_GPIO_Init(GPIO,2);
+    //Drv_GPIO_Set(&GPIO[0]);
+    //Drv_GPIO_Set(&GPIO[1]);
 
     Drv_GPIO_Init(&U4485Ctrl,1);
     //将485通信一直处于接收模式
@@ -35,15 +35,16 @@ void Task_UserInit(void)
 
     //Drv_ADC_Init(&demoADC,1);
 
-	Drv_SPISoft_Init(&SPI_soft[0]);
-	Drv_SPISoft_Init(&SPI_soft[1]);
 	Drv_SPI_Init(&SPI[0]);
 	Drv_SPI_Init(&SPI[1]);
+    Drv_SPI_Init(&SPI[2]);
+    Drv_SPISoft_Init(&SPI_soft[0]);
 
 	OCD_ThreeD3100_magic_init(&SPI[0]); 
     OCD_ThreeD3100_magic_init(&SPI[1]);
+    OCD_ThreeD3100_magic_init(&SPI[2]);
 	OCD_ThreeD3100_magic_init_soft(&SPI_soft[0]);
-	OCD_ThreeD3100_magic_init_soft(&SPI_soft[1]);
+
     printf("RM3100 INIT!\r\n");
 
     PS2_Init(&PS2);

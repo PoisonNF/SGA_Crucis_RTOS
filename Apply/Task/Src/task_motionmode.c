@@ -54,10 +54,10 @@ void Task_Motion_Process(int L_Diff,int R_Diff)
 	Task_Motor_SpeedSet(3,(uint16_t)(*(Pout+2)+STOP_PWM_VALUE));
 	Task_Motor_SpeedSet(4,(uint16_t)(*(Pout+3)+STOP_PWM_VALUE));
 
-	printf("1号推进器 %d\r\n",(uint16_t)(*Pout+STOP_PWM_VALUE));
-	printf("2号推进器 %d\r\n",(uint16_t)(*(Pout+1)+STOP_PWM_VALUE));
-	printf("3号推进器 %d\r\n",(uint16_t)(*(Pout+2)+STOP_PWM_VALUE));
-	printf("4号推进器 %d\r\n",(uint16_t)(*(Pout+3)+STOP_PWM_VALUE));
+	printf("M NO.1 %d\r\n",(uint16_t)(*Pout+STOP_PWM_VALUE));
+	printf("M NO.2 %d\r\n",(uint16_t)(*(Pout+1)+STOP_PWM_VALUE));
+	printf("M NO.3 %d\r\n",(uint16_t)(*(Pout+2)+STOP_PWM_VALUE));
+	printf("M NO.4 %d\r\n",(uint16_t)(*(Pout+3)+STOP_PWM_VALUE));
 }
 
 uint8_t HOR_FLAG = 0,VER_FLAG = 0;//水平模式标志，竖直模式标志
@@ -78,7 +78,7 @@ void Task_Motioncontrol(int PS2_LY,int PS2_RX,int PS2_KEY)
 	{
 		if(LY_Diff == 0)//左摇杆无动作
 		{
-			printf("STOP!\r\n");
+			printf("M STOP!\r\n");
 			Task_Motor_AllStop();
 			//标志位清零
 			HOR_FLAG = 0;
@@ -91,10 +91,10 @@ void Task_Motioncontrol(int PS2_LY,int PS2_RX,int PS2_KEY)
 				if(HOR_FLAG==0)//如果不是水平模式
 				{
 					Task_AllSteer_0Angle();
-					printf("进入水平模式\r\n");
+					//printf("进入水平模式\r\n");
 					HOR_FLAG = 1;
 				}
-				printf("前进！\r\n");
+				printf("M GO!\r\n");
 				Task_Motion_Process(LY_Diff,RX_Diff);
 			}
 			else if(LY_Diff<0&&RX_Diff == 0)//按照模拟量后退
@@ -102,10 +102,10 @@ void Task_Motioncontrol(int PS2_LY,int PS2_RX,int PS2_KEY)
 				if(HOR_FLAG==0)
 				{
 					Task_AllSteer_0Angle();
-					printf("进入水平模式\r\n");
+					//printf("进入水平模式\r\n");
 					HOR_FLAG = 1;
 				}
-				printf("后退！\r\n");
+				printf("M BACK!\r\n");
 				Task_Motion_Process(LY_Diff,RX_Diff);
 			}
 			else if(LY_Diff>0&&RX_Diff>0)//前进同时左转，按照夹角给油门
@@ -113,10 +113,10 @@ void Task_Motioncontrol(int PS2_LY,int PS2_RX,int PS2_KEY)
 				if(HOR_FLAG==0)//如果不是水平模式
 				{
 					Task_AllSteer_0Angle();
-					printf("进入水平模式\r\n");
+					//printf("进入水平模式\r\n");
 					HOR_FLAG = 1;
 				}
-				printf("前进同时左转\r\n");
+				printf("M GO and LEFT!\r\n");
 				Task_Motion_Process(LY_Diff,RX_Diff);
 			}
 			else if(LY_Diff>0&&RX_Diff<0)//前进同时右转，按照夹角给油门
@@ -124,10 +124,10 @@ void Task_Motioncontrol(int PS2_LY,int PS2_RX,int PS2_KEY)
 				if(HOR_FLAG==0)//如果不是水平模式
 				{
 					Task_AllSteer_0Angle();
-					printf("进入水平模式\r\n");
+					//printf("进入水平模式\r\n");
 					HOR_FLAG = 1;
 				}
-				printf("前进同时右转\r\n");
+				printf("M GO and RIGHT!\r\n");
 				Task_Motion_Process(LY_Diff,RX_Diff);
 			}
 			else if(LY_Diff<0&&RX_Diff>0)//后退同时左转，按照夹角给油门
@@ -135,10 +135,10 @@ void Task_Motioncontrol(int PS2_LY,int PS2_RX,int PS2_KEY)
 			if(HOR_FLAG==0)//如果不是水平模式
 				{
 					Task_AllSteer_0Angle();
-					printf("进入水平模式\r\n");
+					//printf("进入水平模式\r\n");
 					HOR_FLAG = 1;
 				}
-				printf("后退同时左转\r\n");
+				printf("M BACK and LEFT!\r\n");
 				Task_Motion_Process(LY_Diff,RX_Diff);
 			}
 			else if(LY_Diff<0&&RX_Diff<0)//后退同时右转，按照夹角给油门
@@ -146,10 +146,10 @@ void Task_Motioncontrol(int PS2_LY,int PS2_RX,int PS2_KEY)
 				if(HOR_FLAG==0)//如果不是水平模式
 				{
 					Task_AllSteer_0Angle();
-					printf("进入水平模式\r\n");
+					//printf("进入水平模式\r\n");
 					HOR_FLAG = 1;
 				}
-				printf("后退同时右转\r\n");
+				printf("M BACK and RIGHT!\r\n");
 				Task_Motion_Process(LY_Diff,RX_Diff);
 			}
 		}
@@ -162,7 +162,7 @@ void Task_Motioncontrol(int PS2_LY,int PS2_RX,int PS2_KEY)
             VER_FLAG = 1;
 		}
 		Task_Motor_AllSpeedSet(1550);
-		printf("上升！\r\n");
+		printf("M Come-Up!\r\n");
 	}
 	else if(PS2_KEY == PSB_R2)//垂直下沉模式
 	{
@@ -172,52 +172,52 @@ void Task_Motioncontrol(int PS2_LY,int PS2_RX,int PS2_KEY)
             VER_FLAG = 1;
 		}
 		Task_Motor_AllSpeedSet(1450);
-		printf("下沉！\r\n");
+		printf("M Dive!\r\n");
 	}
 	else if(PS2_KEY == PSB_PAD_UP)//满输出前进
 	{
         if(HOR_FLAG==0)//如果不是水平模式
 		{
 			Task_AllSteer_0Angle();
-			printf("进入水平模式\r\n");
+			//printf("进入水平模式\r\n");
 			HOR_FLAG = 1;
 		}
-		printf("满输出前进！\r\n");
+		printf("M PowerMAX GO!\r\n");
 		Task_Motor_SpeedSet(1,1544);
 		Task_Motor_SpeedSet(2,1455);
 		Task_Motor_SpeedSet(3,1455);
 		Task_Motor_SpeedSet(4,1544);
 
-		printf("1号推进器 %d\r\n",1544);
-		printf("2号推进器 %d\r\n",1455);
-		printf("3号推进器 %d\r\n",1455);
-		printf("4号推进器 %d\r\n",1544);
+		printf("M NO.1 %d\r\n",1544);
+		printf("M NO.2 %d\r\n",1455);
+		printf("M NO.3 %d\r\n",1455);
+		printf("M NO.4 %d\r\n",1544);
 	}
 	else if(PS2_KEY == PSB_PAD_DOWN)//满输出后退
 	{
         if(HOR_FLAG==0)//如果不是水平模式
 		{
 			Task_AllSteer_0Angle();
-			printf("进入水平模式\r\n");
+			//printf("进入水平模式\r\n");
 			HOR_FLAG = 1;
 		}
-		printf("满输出后退！\r\n");
+		printf("M PowerMAX GO!\r\n");
 		Task_Motor_SpeedSet(1,1454);
 		Task_Motor_SpeedSet(2,1545);
 		Task_Motor_SpeedSet(3,1545);
 		Task_Motor_SpeedSet(4,1454);
 
-		printf("1号推进器 %d\r\n",1454);
-		printf("2号推进器 %d\r\n",1545);
-		printf("3号推进器 %d\r\n",1545);
-		printf("4号推进器 %d\r\n",1454);
+		printf("M NO.1 %d\r\n",1454);
+		printf("M NO.2 %d\r\n",1545);
+		printf("M NO.3 %d\r\n",1545);
+		printf("M NO.4 %d\r\n",1454);
 	}
 	else if(PS2_KEY == PSB_PAD_LEFT)//原地左转90度
 	{
-		printf("原地左转90度!\r\n");
+		printf("M Turn left in place!\r\n");
 	}
 	else if(PS2_KEY == PSB_PAD_RIGHT)//原地右转90度
 	{
-		printf("原地右转90度!\r\n");
+		printf("M Turn right in place!\r\n");
 	}
 }

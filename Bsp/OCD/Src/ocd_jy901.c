@@ -342,14 +342,14 @@ void OCD_JY901_Printf(tagJY901_T *_tJY901)
 	//打印时间
 	if(_tJY901->tConfig.ucType & JY901_OUTPUT_TIME)		printf("time: %d年%d月%d日%d时%d分%d秒\r\n",_tJY901->stcTime.Year,_tJY901->stcTime.Month,_tJY901->stcTime.Day,_tJY901->stcTime.Hour,_tJY901->stcTime.Min,_tJY901->stcTime.Sec);
 	//打印加速度
-	if(_tJY901->tConfig.ucType & JY901_OUTPUT_ACCEL)	printf("Acc:  %.3f %.3f %.3f\r\n",_tJY901->stcAcc.ConAccX,_tJY901->stcAcc.ConAccY,_tJY901->stcAcc.ConAccZ);
+	if(_tJY901->tConfig.ucType & JY901_OUTPUT_ACCEL)	printf("J 1 Acc %.3f %.3f %.3f\r\n",_tJY901->stcAcc.ConAccX,_tJY901->stcAcc.ConAccY,_tJY901->stcAcc.ConAccZ);
 	//打印角速度
-	if(_tJY901->tConfig.ucType & JY901_OUTPUT_GYRO)		printf("Gyro: %.3f %.3f %.3f\r\n",_tJY901->stcGyro.ConGyroX,_tJY901->stcGyro.ConGyroY,_tJY901->stcGyro.ConGyroZ);
+	if(_tJY901->tConfig.ucType & JY901_OUTPUT_GYRO)		printf("J 2 Gyro %.3f %.3f %.3f\r\n",_tJY901->stcGyro.ConGyroX,_tJY901->stcGyro.ConGyroY,_tJY901->stcGyro.ConGyroZ);
 	//打印欧拉角
-	if(_tJY901->tConfig.ucType & JY901_OUTPUT_ANGLE)	printf("Angle:%.3f %.3f %.3f\r\n",_tJY901->stcAngle.ConRoll,_tJY901->stcAngle.ConPitch,_tJY901->stcAngle.ConYaw);
+	if(_tJY901->tConfig.ucType & JY901_OUTPUT_ANGLE)	printf("J 3 Angle %.3f %.3f %.3f\r\n",_tJY901->stcAngle.ConRoll,_tJY901->stcAngle.ConPitch,_tJY901->stcAngle.ConYaw);
 	//打印磁场
-	if(_tJY901->tConfig.ucType & JY901_OUTPUT_MAG)		printf("Mag:  %.3f %.3f %.3f\r\n",_tJY901->stcMag.ConMagX,_tJY901->stcMag.ConMagY,_tJY901->stcMag.ConMagZ);
+	if(_tJY901->tConfig.ucType & JY901_OUTPUT_MAG)		printf("J 4 Mag %.3f %.3f %.3f\r\n",_tJY901->stcMag.ConMagX,_tJY901->stcMag.ConMagY,_tJY901->stcMag.ConMagZ);
 	//打印四元数
-	if(_tJY901->tConfig.ucType & JY901_OUTPUT_QUATER)	printf("Quater:  %.3f %.3f %.3f %.3f\r\n",_tJY901->stcQuater.Conq0,_tJY901->stcQuater.Conq1,_tJY901->stcQuater.Conq2,_tJY901->stcQuater.Conq3);
+	if(_tJY901->tConfig.ucType & JY901_OUTPUT_QUATER)	printf("J 5 Quater %.3f %.3f %.3f %.3f\r\n",_tJY901->stcQuater.Conq0,_tJY901->stcQuater.Conq1,_tJY901->stcQuater.Conq2,_tJY901->stcQuater.Conq3);
 
 }

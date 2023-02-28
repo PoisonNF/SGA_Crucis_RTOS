@@ -129,7 +129,17 @@
       },
       {
         "name": "Doc",
-        "files": [],
+        "files": [
+          {
+            "path": "../Doc/工程目录介绍.txt"
+          },
+          {
+            "path": "../Doc/工程维护记录.txt"
+          },
+          {
+            "path": "../Doc/句柄资源示例.txt"
+          }
+        ],
         "folders": []
       },
       {
@@ -488,16 +498,16 @@
         },
         "options": "null"
       },
-      "uploader": "STLink",
+      "uploader": "JLink",
       "uploadConfig": {
         "bin": "",
-        "proType": "SWD",
-        "resetMode": "default",
-        "runAfterProgram": true,
-        "speed": 4000,
-        "address": "0x8000000",
-        "elFile": "None",
-        "optionBytes": ".eide/demo.st.option.bytes.ini",
+        "baseAddr": "",
+        "cpuInfo": {
+          "vendor": "ST",
+          "cpuName": "STM32F103VC"
+        },
+        "proType": 1,
+        "speed": 8000,
         "otherCmds": ""
       },
       "uploadConfigMap": {
