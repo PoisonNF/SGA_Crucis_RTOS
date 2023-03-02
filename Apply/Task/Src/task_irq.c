@@ -49,7 +49,6 @@ __weak void Task_USART1_IRQHandler(void)
  * @param null
  * @retval Null
 */
-
 void USART1_IRQHandler(void)
 {
 	/* 示例 */
@@ -122,7 +121,7 @@ void UART5_IRQHandler(void)
 	rt_interrupt_leave();
 }
 
-uint8_t rData[100];
+uint8_t rData[10];
 uint8_t rflag;
 /**
  * @brief 串口接收完成服务函数
@@ -134,23 +133,59 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 	//判断是否是串口5
 	if(huart->Instance == UART5)
 	{
-		if(OpenMV.tRxInfo.ucpRxBuffer[0] == '\n') //当检测到换行
+		uint8_t com_data; //临时变量
+		static int rDataFlag = 0;  //buffer下标位置
+		static uint8_t RXstate = 0;
+		//uint16_t cx,cy;
+
+		com_data = OpenMV.tRxInfo.ucpRxBuffer[0];
+
+		if(RXstate == 0 && com_data == 0x2C)  //0x2C帧头
 		{
-			rData[rflag] = '\0'; //加上字符串结尾
-			rflag = 0;
-			printf("%s",rData);
-			rt_sem_release(OpenMV_sem);	//释放OpenMV信号量
+			RXstate = 1;
+			rData[rDataFlag++] = com_data;
 		}
-		else //没检测到换行
+		else if(RXstate == 1 && com_data == 0x12) //0x12帧头
 		{
-			if(rflag < OpenMV.tRxInfo.usRxMAXLenth) //标志数小于最大可装载数
+			RXstate = 2;
+			rData[rDataFlag++] = com_data;
+		}
+		else if(RXstate == 2) //开始传数据
+		{
+			rData[rDataFlag++] = com_data;
+			if(rDataFlag >= 7 || com_data == 0x5B)
 			{
-				//将RxBuffer中的数据放入数组
-				rData[rflag] = OpenMV.tRxInfo.ucpRxBuffer[0];
-				rflag += 1;
+				RXstate = 3;
+
+				//cx = (rData[rDataFlag-4]<<8 + rData[rDataFlag-5]);
+				//cy = (rData[rDataFlag-2]<<8 + rData[rDataFlag-3]);
 			}
 		}
-		HAL_UART_Receive_IT(huart,OpenMV.tRxInfo.ucpRxBuffer,1); //再次开启接收
+		else if(RXstate == 3 )
+		{
+			if(rData[rDataFlag-1] == 0x5B)
+			{
+				rt_sem_release(OpenMV_sem);	//释放OpenMV信号量
+				rDataFlag = 0;
+				RXstate = 0;
+				//cx = hextodec(rData[3])*256 + hextodec(rData[2]);
+				//cy = hextodec(rData[5])*256 + hextodec(rData[4]);
+
+				//printf("OPENMV %x %x %x %x\r\n",rData[2],rData[3],rData[4],rData[5]);
+				//printf("%d %d\r\n",cx,cy);
+				//memset(rData,0,sizeof(rData));
+			}
+		}
+		else
+		{
+			rDataFlag = 0;
+			RXstate = 0;
+			for (int i = 0; i < 7; i++)
+			{
+				rData[i] = 0x00;
+			}		
+		}
+		while(HAL_UART_Receive_IT(&OpenMV.tUARTHandle, OpenMV.tRxInfo.ucpRxBuffer, 1) != HAL_OK); 
 	}
 }
 /**

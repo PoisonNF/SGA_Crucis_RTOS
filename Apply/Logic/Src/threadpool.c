@@ -20,10 +20,10 @@ void Order(void* paramenter)
 				printf("buf = %s",buf);
 				if(strcmp(buf,"Shutdown\r\n")==0)
 				{
-					Drv_Uart_Transmit(&Uart3,"ok",sizeof("ok"));
+					Drv_Uart_Transmit(&Uart3,"ok\r\n",sizeof("ok\r\n"));
 					printf("shutting down!\r\n");
 					Drv_Delay_Ms(1000);
-					Drv_Uart_Transmit(&Uart3,"ok",sizeof("ok"));
+					Drv_Uart_Transmit(&Uart3,"ok\r\n",sizeof("ok\r\n"));
 					printf("shutting down!!\r\n");
 				}
 				else
@@ -160,7 +160,7 @@ void Jetson_thread(void* paramenter)
 	}
 }
 
-extern uint8_t rData[100];
+extern uint8_t rData[10];
 /* OpenMV接收线程 */
 void OpenMV_thread(void* paramenter)
 {
@@ -169,9 +169,7 @@ void OpenMV_thread(void* paramenter)
 		//获取OpenMV信号量
 		if(rt_sem_take(OpenMV_sem,RT_WAITING_FOREVER) == RT_EOK)
 		{
-			//测试判断帧头代码
-			if(rData[0] == 'a' && rData[1] == 'b')
-			printf("OK!\r\n");
+			printf("OPENMV %x %x %x %x\r\n",rData[2],rData[3],rData[4],rData[5]);
 		}
 		rt_thread_yield();
 	}
@@ -182,9 +180,11 @@ void Test_thread(void* paramenter)
 {
 	while(1)
 	{
-		Drv_GPIO_Write(&GPIO[1],GPIO_PIN_RESET);
-		Drv_Delay_Ms(1000);
-		Drv_GPIO_Write(&GPIO[1],GPIO_PIN_SET);
+		// Drv_GPIO_Write(&GPIO[1],GPIO_PIN_RESET);
+		// Drv_Delay_Ms(1000);
+		// Drv_GPIO_Write(&GPIO[1],GPIO_PIN_SET);
+		// Drv_Delay_Ms(1000);
+		printf("test\r\n");
 		Drv_Delay_Ms(1000);
 		rt_thread_yield();
 	}

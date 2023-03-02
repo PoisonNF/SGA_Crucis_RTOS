@@ -106,11 +106,11 @@ void UserLogic_Code(void)
 	}
 	else rt_kprintf("RT-Thread create thread6 failed\r\n");
 
-	thread7 = rt_thread_create("Jetson",Jetson_thread,NULL,512,4,20);
+	thread7 = rt_thread_create("Jetson",Jetson_thread,NULL,1024,2,20);
 	if(RT_NULL != thread7)
 	{
 		rt_kprintf("RT-Thread create thread7 successful\r\n");
-		//rt_thread_startup(thread7);
+		rt_thread_startup(thread7);
 	}
 	else rt_kprintf("RT-Thread create thread7 failed\r\n");
 
@@ -118,11 +118,11 @@ void UserLogic_Code(void)
 	if(RT_NULL != thread8)
 	{
 		rt_kprintf("RT-Thread create thread8 successful\r\n");
-		//rt_thread_startup(thread8);
+		rt_thread_startup(thread8);
 	}
 	else rt_kprintf("RT-Thread create thread8 failed\r\n");
 
-	thread9 = rt_thread_create("Test",Test_thread,NULL,200,6,20);
+	thread9 = rt_thread_create("Test",Test_thread,NULL,512,6,20);
 	if(RT_NULL != thread9)
 	{
 		rt_kprintf("RT-Thread create thread9 successful\r\n");

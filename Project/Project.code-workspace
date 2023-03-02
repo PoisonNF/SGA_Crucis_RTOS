@@ -7,7 +7,8 @@
     "settings": {
         "files.associations": {
             "bsp_io.h": "c",
-            "drv_hal_conf.h": "c"
+            "drv_hal_conf.h": "c",
+            "usercode.h": "c"
         }
     },
     "extensions": {}
