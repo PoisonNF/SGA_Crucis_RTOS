@@ -39,7 +39,7 @@
 
 // <o>the size of main thread<1-4086>
 //  <i>Default: 512
-#define RT_MAIN_THREAD_STACK_SIZE 1024
+#define RT_MAIN_THREAD_STACK_SIZE 512
 // </h>
 
 // <h>Debug Configuration
@@ -54,7 +54,7 @@
 
 // <c1>thread stack over flow detect
 //  <i> Diable Thread stack over flow detect
-#define RT_USING_OVERFLOW_CHECK
+//#define RT_USING_OVERFLOW_CHECK
 // </c>
 // </h>
 

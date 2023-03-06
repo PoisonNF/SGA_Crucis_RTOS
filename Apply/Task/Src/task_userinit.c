@@ -1,6 +1,6 @@
 #include "task_conf.h"
 #include "ocd_conf.h"
-#include "bsp_io.h"
+#include "config.h"
 
 void Task_UserInit(void)
 {
@@ -40,14 +40,14 @@ void Task_UserInit(void)
     Drv_SPI_Init(&SPI[2]);
     Drv_SPISoft_Init(&SPI_soft[0]);
 
-	OCD_ThreeD3100_magic_init(&SPI[0]); 
-    OCD_ThreeD3100_magic_init(&SPI[1]);
-    OCD_ThreeD3100_magic_init(&SPI[2]);
-	OCD_ThreeD3100_magic_init_soft(&SPI_soft[0]);
+	OCD_ThreeD3100_Magic_Init(&SPI[0]); 
+    OCD_ThreeD3100_Magic_Init(&SPI[1]);
+    OCD_ThreeD3100_Magic_Init(&SPI[2]);
+	OCD_ThreeD3100_Magic_Init_Soft(&SPI_soft[0]);
 
     printf("RM3100 INIT!\r\n");
 
-    PS2_Init(&PS2);
+    OCD_PS2_Init(&PS2);
     printf("PS2 INIT!\r\n");
 
     //Task_Motor_Init();//推进器初始化

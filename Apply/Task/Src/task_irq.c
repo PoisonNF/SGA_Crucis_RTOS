@@ -1,6 +1,6 @@
 #include "task_conf.h"
 #include "usercode.h"
-#include "bsp_io.h"
+#include "config.h"
 
 /**
  * @brief 串口1中断函数
@@ -55,7 +55,7 @@ void USART1_IRQHandler(void)
 //	Drv_Uart_IRQHandler(&tPCUart);		/* 必需部分 */	
 	//Task_USART1_IRQHandler();
 	rt_interrupt_enter();
-	Drv_Uart_DMA_Handler(&Uart1);
+	Drv_Uart_DMA_RxHandler(&Uart1);
 	rt_sem_release(Order_sem);
 	rt_interrupt_leave();
 }
@@ -77,7 +77,7 @@ void USART2_IRQHandler(void)
 	rt_interrupt_enter();
 //	Task_USART2_IRQHandler();
 	//Drv_Uart_DMA_Handler(&demoUart2);
-	Drv_Uart_DMA_Handler(&JY901S.tUART);
+	Drv_Uart_DMA_RxHandler(&JY901S.tUART);
 	rt_mq_send(msgqueue,"interrupt",sizeof("interrupt"));	//发送消息队列
 	rt_sem_release(JY901_sem);	//释放信号量
 	rt_interrupt_leave();
@@ -92,7 +92,7 @@ void USART3_IRQHandler(void)
 {
 	rt_interrupt_enter();
 	//Drv_Uart_IRQHandler(&Uart3);
-	Drv_Uart_DMA_Handler(&Uart3);
+	Drv_Uart_DMA_RxHandler(&Uart3);
 	rt_sem_release(Jetson_sem);	//释放Jetson信号量
 	rt_interrupt_leave();
 }
@@ -105,7 +105,7 @@ void USART3_IRQHandler(void)
 void UART4_IRQHandler(void)
 {
 	rt_interrupt_enter();
-	Drv_Uart_DMA_Handler(&Uart4);
+	Drv_Uart_DMA_RxHandler(&Uart4);
 	rt_interrupt_leave();
 }
 

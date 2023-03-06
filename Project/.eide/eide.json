@@ -15,6 +15,9 @@
             "name": "Logic",
             "files": [
               {
+                "path": "../Apply/Logic/Src/config.c"
+              },
+              {
                 "path": "../Apply/Logic/Src/main.c"
               },
               {
@@ -60,15 +63,6 @@
         "files": [],
         "folders": [
           {
-            "name": "Bsp",
-            "files": [
-              {
-                "path": "../Bsp/Bsp/Src/bsp_io.c"
-              }
-            ],
-            "folders": []
-          },
-          {
             "name": "FatFs",
             "files": [
               {
@@ -112,15 +106,6 @@
               },
               {
                 "path": "../Bsp/OCD/Src/ocd_sdcard.c"
-              }
-            ],
-            "folders": []
-          },
-          {
-            "name": "SGA",
-            "files": [
-              {
-                "path": "../Bsp/Third/SGA/src/sga_func.c"
               }
             ],
             "folders": []
@@ -383,7 +368,9 @@
   },
   "targets": {
     "Demo": {
-      "excludeList": [],
+      "excludeList": [
+        "<virtual_root>/Bsp/Bsp"
+      ],
       "toolchain": "AC5",
       "compileConfig": {
         "cpuType": "Cortex-M3",

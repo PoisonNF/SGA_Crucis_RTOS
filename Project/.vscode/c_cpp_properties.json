@@ -19,16 +19,14 @@
                 "D:\\Keil_v5\\ARM\\ARMCC\\include\\rw",
                 "e:\\OneDrive\\Code\\SGA_Curcis_RTOS\\Apply\\Logic\\Src",
                 "e:\\OneDrive\\Code\\SGA_Curcis_RTOS\\Apply\\Task\\Src",
-                "e:\\OneDrive\\Code\\SGA_Curcis_RTOS\\Bsp\\Bsp\\Src",
                 "e:\\OneDrive\\Code\\SGA_Curcis_RTOS\\Bsp\\OCD\\Src",
                 "e:\\OneDrive\\Code\\SGA_Curcis_RTOS\\Bsp\\FatFs\\Src",
-                "e:\\OneDrive\\Code\\SGA_Curcis_RTOS\\Bsp\\Third\\SGA\\src",
                 "e:\\OneDrive\\Code\\SGA_Curcis_RTOS\\Driver\\Src",
-                "e:\\OneDrive\\Code\\SGA_Curcis_RTOS\\Bsp\\Third\\RT-Thread\\Src",
-                "e:\\OneDrive\\Code\\SGA_Curcis_RTOS\\Bsp\\Third\\RT-Thread\\libcpu\\arm\\cortex-m3",
                 "e:\\OneDrive\\Code\\SGA_Curcis_RTOS\\Hardware\\STM32F1XX\\STM32F1xx_HAL_Driver\\Src",
                 "e:\\OneDrive\\Code\\SGA_Curcis_RTOS\\Hardware\\STM32F1XX\\CMSIS\\Device\\ST\\STM32F1xx\\Source\\Templates",
                 "e:\\OneDrive\\Code\\SGA_Curcis_RTOS\\Hardware\\STM32F1XX\\CMSIS\\Device\\ST\\STM32F1xx\\Source\\Templates\\arm",
+                "e:\\OneDrive\\Code\\SGA_Curcis_RTOS\\Bsp\\Third\\RT-Thread\\Src",
+                "e:\\OneDrive\\Code\\SGA_Curcis_RTOS\\Bsp\\Third\\RT-Thread\\libcpu\\arm\\cortex-m3",
                 "e:\\OneDrive\\Code\\SGA_Curcis_RTOS\\Doc"
             ],
             "defines": [
