@@ -68,13 +68,13 @@ void JY901S_thread(void* paramenter)
 			OCD_JY901_DataProcess(&JY901S);
 			OCD_JY901_DataConversion(&JY901S);
 			/* 打印加速度 */
-            if(JY901S.tConfig.usType & JY901_OUTPUT_ACCEL)	    printf("J Acc:  %.3f %.3f %.3f\r\n",JY901S.stcAcc.ConAccX,JY901S.stcAcc.ConAccY,JY901S.stcAcc.ConAccZ);
+            if(JY901S.tConfig.usType & JY901_OUTPUT_ACCEL)	    printf("J 1 Acc %.3f %.3f %.3f\r\n",JY901S.stcAcc.ConAccX,JY901S.stcAcc.ConAccY,JY901S.stcAcc.ConAccZ);
             /* 打印角速度 */
-            if(JY901S.tConfig.usType & JY901_OUTPUT_GYRO)		printf("J Gyro: %.3f %.3f %.3f\r\n",JY901S.stcGyro.ConGyroX,JY901S.stcGyro.ConGyroY,JY901S.stcGyro.ConGyroZ);
+            if(JY901S.tConfig.usType & JY901_OUTPUT_GYRO)		printf("J 2 Gyro %.3f %.3f %.3f\r\n",JY901S.stcGyro.ConGyroX,JY901S.stcGyro.ConGyroY,JY901S.stcGyro.ConGyroZ);
             /* 打印欧拉角 */
-            if(JY901S.tConfig.usType & JY901_OUTPUT_ANGLE)	    printf("J Angle:%.3f %.3f %.3f\r\n",JY901S.stcAngle.ConRoll,JY901S.stcAngle.ConPitch,JY901S.stcAngle.ConYaw);
+            if(JY901S.tConfig.usType & JY901_OUTPUT_ANGLE)	    printf("J 3 Angle %.3f %.3f %.3f\r\n",JY901S.stcAngle.ConRoll,JY901S.stcAngle.ConPitch,JY901S.stcAngle.ConYaw);
             /* 打印磁场 */
-            if(JY901S.tConfig.usType & JY901_OUTPUT_MAG)		printf("J Mag:  %.3f %.3f %.3f\r\n",JY901S.stcMag.ConMagX,JY901S.stcMag.ConMagY,JY901S.stcMag.ConMagZ);
+            if(JY901S.tConfig.usType & JY901_OUTPUT_MAG)		printf("J 4 Mag %.3f %.3f %.3f\r\n",JY901S.stcMag.ConMagX,JY901S.stcMag.ConMagY,JY901S.stcMag.ConMagZ);
 		}
 		rt_thread_yield();
 	}

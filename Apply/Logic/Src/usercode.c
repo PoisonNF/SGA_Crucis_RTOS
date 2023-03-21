@@ -77,6 +77,7 @@ void UserLogic_Code(void)
 
 	thread3 = rt_thread_create("JY901S",JY901S_thread,NULL,512,4,20);
 	if(RT_NULL != thread3)
+	
 	{
 		rt_kprintf("RT-Thread create thread3 successful\r\n");
 		rt_thread_startup(thread3);
@@ -103,7 +104,7 @@ void UserLogic_Code(void)
 	if(RT_NULL != thread6)
 	{
 		rt_kprintf("RT-Thread create thread6 successful\r\n");
-		rt_thread_startup(thread6);
+        rt_thread_startup(thread6);
 	}
 	else rt_kprintf("RT-Thread create thread6 failed\r\n");
 
@@ -111,7 +112,7 @@ void UserLogic_Code(void)
 	if(RT_NULL != thread7)
 	{
 		rt_kprintf("RT-Thread create thread7 successful\r\n");
-		rt_thread_startup(thread7);
+		//rt_thread_startup(thread7);
 	}
 	else rt_kprintf("RT-Thread create thread7 failed\r\n");
 

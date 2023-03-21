@@ -9,7 +9,7 @@ void Task_UserInit(void)
     //Drv_GPIO_Set(&GPIO[1]);
 
     Drv_GPIO_Init(&U4485Ctrl,1);
-    //å°†485é€šä¿¡ä¸€ç›´å¤„äºæ¥æ”¶æ¨¡å¼
+    //RS485¿ØÖÆIO³£±Õ
     Drv_GPIO_Set(&U4485Ctrl);
 
     Drv_Uart_DMAInit(&Uart1);
@@ -50,6 +50,7 @@ void Task_UserInit(void)
     OCD_PS2_Init(&PS2);
     printf("PS2 INIT!\r\n");
 
-    //Task_Motor_Init();//æ¨è¿›å™¨åˆå§‹åŒ–
-    //Task_Steer_Init();//èˆµæœºåˆå§‹åŒ–
+    Task_Motor_Init();//ÍÆ»úÆ÷³õÊ¼»¯
+    Task_Steer_Init();//¶æ»ú³õÊ¼»¯
 }
+

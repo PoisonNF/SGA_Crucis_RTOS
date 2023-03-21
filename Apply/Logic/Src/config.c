@@ -19,10 +19,10 @@
 		PA2	PA3 Uart2
 	
 	PS2ÊÖ±ú
-		DAT	PB1
-		CMD PB2
-		CS	PE7
-		CLK PE8
+		DAT	PA8
+		CMD PA11
+		CS	PA12
+		CLK PA15
 
 	SPI_soft
 		PE2     ------> SPI_SCK				
