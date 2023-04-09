@@ -1,5 +1,4 @@
 #include "task_conf.h"
-#include "ocd_conf.h"
 #include "config.h"
 
 void Task_UserInit(void)
@@ -47,7 +46,7 @@ void Task_UserInit(void)
 
     printf("RM3100 INIT!\r\n");
 
-    OCD_PS2_Init(&PS2);
+    Dev_PS2_Init(&PS2);
     printf("PS2 INIT!\r\n");
 
     Task_Motor_Init();//推机器初始化

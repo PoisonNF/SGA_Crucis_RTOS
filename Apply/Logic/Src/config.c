@@ -471,7 +471,7 @@ tagUART_T Uart1 =
 	.tUARTHandle.Init.Mode       		= UART_MODE_TX_RX,
 	.tUARTHandle.Init.OverSampling 		= UART_OVERSAMPLING_16,
 
-	.tRxInfo.usRxMAXLenth             	= 100,                 /* 接收数据长度 长度保持在协议最长字节*2以上，确保缓存池一定能够稳定接收一个完整的数据帧*/
+	.tRxInfo.usDMARxMAXSize             	= 100,                 /* 接收数据长度 长度保持在协议最长字节*2以上，确保缓存池一定能够稳定接收一个完整的数据帧*/
 
 #if defined (STM32L4_SGA_ENABLE)
 	.tUARTHandle.Init.OneBitSampling 	= UART_ONE_BIT_SAMPLE_DISABLE,
@@ -526,7 +526,7 @@ tagJY901_T JY901S =
 	.tUART.tUARTHandle.Init.Mode       			= UART_MODE_TX_RX,
 	.tUART.tUARTHandle.Init.OverSampling 		= UART_OVERSAMPLING_16,
 
-	.tUART.tRxInfo.usRxMAXLenth             	= 100,                 /* 接收数据长度 长度保持在协议最长字节*2以上，确保缓存池一定能够稳定接收一个完整的数据帧*/
+	.tUART.tRxInfo.usDMARxMAXSize             	= 100,                 /* 接收数据长度 长度保持在协议最长字节*2以上，确保缓存池一定能够稳定接收一个完整的数据帧*/
 
 #if defined (STM32L4_SGA_ENABLE)
 	.tUARTHandle.Init.OneBitSampling 	= UART_ONE_BIT_SAMPLE_DISABLE,
@@ -577,7 +577,7 @@ tagUART_T Uart3 =
 	.tUARTHandle.Init.Mode       		= UART_MODE_TX_RX,
 	.tUARTHandle.Init.OverSampling 		= UART_OVERSAMPLING_16,
 
-	.tRxInfo.usRxMAXLenth             	= 256,                 /* 接收数据长度 长度保持在协议最长字节*2以上，确保缓存池一定能够稳定接收一个完整的数据帧*/
+	.tRxInfo.usDMARxMAXSize             	= 256,                 /* 接收数据长度 长度保持在协议最长字节*2以上，确保缓存池一定能够稳定接收一个完整的数据帧*/
 
 #if defined (STM32L4_SGA_ENABLE)
 	.tUARTHandle.Init.OneBitSampling 	= UART_ONE_BIT_SAMPLE_DISABLE,
@@ -628,7 +628,7 @@ tagUART_T Uart4 =
 	.tUARTHandle.Init.Mode       		= UART_MODE_TX_RX,
 	.tUARTHandle.Init.OverSampling 		= UART_OVERSAMPLING_16,
 
-	.tRxInfo.usRxMAXLenth             	= 100,                 /* 接收数据长度 长度保持在协议最长字节*2以上，确保缓存池一定能够稳定接收一个完整的数据帧*/
+	.tRxInfo.usDMARxMAXSize             	= 100,                 /* 接收数据长度 长度保持在协议最长字节*2以上，确保缓存池一定能够稳定接收一个完整的数据帧*/
 
 #if defined (STM32L4_SGA_ENABLE)
 	.tUARTHandle.Init.OneBitSampling 	= UART_ONE_BIT_SAMPLE_DISABLE,
@@ -690,7 +690,7 @@ tagUART_T OpenMV =
 	.tUARTHandle.Init.Mode       		= UART_MODE_TX_RX,
 	.tUARTHandle.Init.OverSampling 		= UART_OVERSAMPLING_16,
 
-	.tRxInfo.usRxMAXLenth             	= 100,                 /* 接收数据长度 长度保持在协议最长字节*2以上，确保缓存池一定能够稳定接收一个完整的数据帧*/
+	.tRxInfo.usDMARxMAXSize             	= 100,                 /* 接收数据长度 长度保持在协议最长字节*2以上，确保缓存池一定能够稳定接收一个完整的数据帧*/
 
 #if defined (STM32L4_SGA_ENABLE)
 	.tUARTHandle.Init.OneBitSampling 	= UART_ONE_BIT_SAMPLE_DISABLE,

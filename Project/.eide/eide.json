@@ -63,6 +63,24 @@
         "files": [],
         "folders": [
           {
+            "name": "Algo",
+            "files": [
+              {
+                "path": "../Bsp/Algo/Src/algo_func.c"
+              }
+            ],
+            "folders": []
+          },
+          {
+            "name": "Dev",
+            "files": [
+              {
+                "path": "../Bsp/Dev/Src/dev_ps2.c"
+              }
+            ],
+            "folders": []
+          },
+          {
             "name": "FatFs",
             "files": [
               {
@@ -81,9 +99,6 @@
                 "path": "../Bsp/OCD/Src/ocd_ads1256.c"
               },
               {
-                "path": "../Bsp/OCD/Src/ocd_ads4111.c"
-              },
-              {
                 "path": "../Bsp/OCD/Src/ocd_at24cxx.c"
               },
               {
@@ -97,9 +112,6 @@
               },
               {
                 "path": "../Bsp/OCD/Src/ocd_oled.c"
-              },
-              {
-                "path": "../Bsp/OCD/Src/ocd_ps2.c"
               },
               {
                 "path": "../Bsp/OCD/Src/ocd_rm3100.c"
@@ -302,58 +314,58 @@
         "name": "RT-Thread",
         "files": [
           {
-            "path": "../Bsp/Third/RT-Thread/libcpu/arm/cortex-m3/context_rvds.S"
+            "path": "../Bsp/RTOS/RT-Thread/libcpu/arm/cortex-m3/context_rvds.S"
           },
           {
-            "path": "../Bsp/Third/RT-Thread/libcpu/arm/cortex-m3/cpuport.c"
+            "path": "../Bsp/RTOS/RT-Thread/libcpu/arm/cortex-m3/cpuport.c"
           },
           {
-            "path": "../Bsp/Third/RT-Thread/Src/board.c"
+            "path": "../Bsp/RTOS/RT-Thread/Src/board.c"
           },
           {
-            "path": "../Bsp/Third/RT-Thread/Src/clock.c"
+            "path": "../Bsp/RTOS/RT-Thread/Src/clock.c"
           },
           {
-            "path": "../Bsp/Third/RT-Thread/Src/components.c"
+            "path": "../Bsp/RTOS/RT-Thread/Src/components.c"
           },
           {
-            "path": "../Bsp/Third/RT-Thread/Src/cpu.c"
+            "path": "../Bsp/RTOS/RT-Thread/Src/cpu.c"
           },
           {
-            "path": "../Bsp/Third/RT-Thread/Src/idle.c"
+            "path": "../Bsp/RTOS/RT-Thread/Src/idle.c"
           },
           {
-            "path": "../Bsp/Third/RT-Thread/Src/ipc.c"
+            "path": "../Bsp/RTOS/RT-Thread/Src/ipc.c"
           },
           {
-            "path": "../Bsp/Third/RT-Thread/Src/irq.c"
+            "path": "../Bsp/RTOS/RT-Thread/Src/irq.c"
           },
           {
-            "path": "../Bsp/Third/RT-Thread/Src/kservice.c"
+            "path": "../Bsp/RTOS/RT-Thread/Src/kservice.c"
           },
           {
-            "path": "../Bsp/Third/RT-Thread/Src/mem.c"
+            "path": "../Bsp/RTOS/RT-Thread/Src/mem.c"
           },
           {
-            "path": "../Bsp/Third/RT-Thread/Src/memheap.c"
+            "path": "../Bsp/RTOS/RT-Thread/Src/memheap.c"
           },
           {
-            "path": "../Bsp/Third/RT-Thread/Src/mempool.c"
+            "path": "../Bsp/RTOS/RT-Thread/Src/mempool.c"
           },
           {
-            "path": "../Bsp/Third/RT-Thread/Src/object.c"
+            "path": "../Bsp/RTOS/RT-Thread/Src/object.c"
           },
           {
-            "path": "../Bsp/Third/RT-Thread/Src/scheduler.c"
+            "path": "../Bsp/RTOS/RT-Thread/Src/scheduler.c"
           },
           {
-            "path": "../Bsp/Third/RT-Thread/Src/slab.c"
+            "path": "../Bsp/RTOS/RT-Thread/Src/slab.c"
           },
           {
-            "path": "../Bsp/Third/RT-Thread/Src/thread.c"
+            "path": "../Bsp/RTOS/RT-Thread/Src/thread.c"
           },
           {
-            "path": "../Bsp/Third/RT-Thread/Src/timer.c"
+            "path": "../Bsp/RTOS/RT-Thread/Src/timer.c"
           }
         ],
         "folders": []
@@ -526,17 +538,17 @@
         "incList": [
           "../Apply/Logic/Inc",
           "../Apply/Task/Inc",
-          "../Bsp/Bsp/Inc",
           "../Bsp/OCD/Inc",
           "../Bsp/FatFs/Inc",
-          "../Bsp/Third/SGA/inc",
           "../Driver/Inc",
           "../Hardware/STM32F1XX/CMSIS/Include",
           "../Hardware/STM32F1XX/CMSIS/Device/ST/STM32F1xx/Include",
           "../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Inc",
           "../Hardware/STM32F1XX/STM32F1xx_HAL_Driver/Inc/Legacy",
-          "../Bsp/Third/RT-Thread/include",
-          "RTE/_Demo"
+          "RTE/_Demo",
+          "../Bsp/Algo/Inc",
+          "../Bsp/Dev/Inc",
+          "../Bsp/RTOS/RT-Thread/include"
         ],
         "libList": [],
         "sourceDirList": [],

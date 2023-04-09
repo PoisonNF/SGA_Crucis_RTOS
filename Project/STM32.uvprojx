@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F103xE,STM32F1_SGA_ENABLE</Define>
               <Undefine></Undefine>
-              <IncludePath>..\Apply\Logic\Inc;..\Apply\Task\Inc;..\Bsp\Bsp\Inc;..\Bsp\OCD\Inc;..\Bsp\FatFs\Inc;..\Bsp\Third\SGA\inc;..\Driver\Inc;..\Hardware\STM32F1XX\CMSIS\Include;..\Hardware\STM32F1XX\CMSIS\Device\ST\STM32F1xx\Include;..\Hardware\STM32F1XX\STM32F1xx_HAL_Driver\Inc;..\Hardware\STM32F1XX\STM32F1xx_HAL_Driver\Inc\Legacy;..\Bsp\Third\RT-Thread\include</IncludePath>
+              <IncludePath>..\Apply\Logic\Inc;..\Apply\Task\Inc;..\Bsp\Algo\Inc;..\Bsp\Dev\Inc;..\Bsp\OCD\Inc;..\Bsp\FatFs\Inc;..\Bsp\RTOS\RT-Thread\include;..\Driver\Inc;..\Hardware\STM32F1XX\CMSIS\Include;..\Hardware\STM32F1XX\CMSIS\Device\ST\STM32F1xx\Include;..\Hardware\STM32F1XX\STM32F1xx_HAL_Driver\Inc;..\Hardware\STM32F1XX\STM32F1xx_HAL_Driver\Inc\Legacy</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -445,17 +445,32 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Bsp/Algo</GroupName>
+          <Files>
+            <File>
+              <FileName>algo_func.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Bsp\Algo\Src\algo_func.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Bsp/Dev</GroupName>
+          <Files>
+            <File>
+              <FileName>dev_ps2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Bsp\Dev\Src\dev_ps2.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Bsp/OCD</GroupName>
           <Files>
             <File>
               <FileName>ocd_ads1256.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Bsp\OCD\Src\ocd_ads1256.c</FilePath>
-            </File>
-            <File>
-              <FileName>ocd_ads4111.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Bsp\OCD\Src\ocd_ads4111.c</FilePath>
             </File>
             <File>
               <FileName>ocd_at24cxx.c</FileName>
@@ -491,16 +506,6 @@
               <FileName>ocd_rm3100.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Bsp\OCD\Src\ocd_rm3100.c</FilePath>
-            </File>
-            <File>
-              <FileName>ocd_ps2.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Bsp\OCD\Src\ocd_ps2.c</FilePath>
-            </File>
-            <File>
-              <FileName>ocd_func.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Bsp\OCD\Src\ocd_func.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -800,92 +805,92 @@
             <File>
               <FileName>board.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Bsp\Third\RT-Thread\Src\board.c</FilePath>
+              <FilePath>..\Bsp\RTOS\RT-Thread\Src\board.c</FilePath>
             </File>
             <File>
               <FileName>clock.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Bsp\Third\RT-Thread\Src\clock.c</FilePath>
+              <FilePath>..\Bsp\RTOS\RT-Thread\Src\clock.c</FilePath>
             </File>
             <File>
               <FileName>components.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Bsp\Third\RT-Thread\Src\components.c</FilePath>
+              <FilePath>..\Bsp\RTOS\RT-Thread\Src\components.c</FilePath>
             </File>
             <File>
               <FileName>cpu.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Bsp\Third\RT-Thread\Src\cpu.c</FilePath>
+              <FilePath>..\Bsp\RTOS\RT-Thread\Src\cpu.c</FilePath>
             </File>
             <File>
               <FileName>idle.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Bsp\Third\RT-Thread\Src\idle.c</FilePath>
+              <FilePath>..\Bsp\RTOS\RT-Thread\Src\idle.c</FilePath>
             </File>
             <File>
               <FileName>ipc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Bsp\Third\RT-Thread\Src\ipc.c</FilePath>
+              <FilePath>..\Bsp\RTOS\RT-Thread\Src\ipc.c</FilePath>
             </File>
             <File>
               <FileName>irq.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Bsp\Third\RT-Thread\Src\irq.c</FilePath>
+              <FilePath>..\Bsp\RTOS\RT-Thread\Src\irq.c</FilePath>
             </File>
             <File>
               <FileName>kservice.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Bsp\Third\RT-Thread\Src\kservice.c</FilePath>
+              <FilePath>..\Bsp\RTOS\RT-Thread\Src\kservice.c</FilePath>
             </File>
             <File>
               <FileName>mem.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Bsp\Third\RT-Thread\Src\mem.c</FilePath>
+              <FilePath>..\Bsp\RTOS\RT-Thread\Src\mem.c</FilePath>
             </File>
             <File>
               <FileName>memheap.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Bsp\Third\RT-Thread\Src\memheap.c</FilePath>
+              <FilePath>..\Bsp\RTOS\RT-Thread\Src\memheap.c</FilePath>
             </File>
             <File>
               <FileName>mempool.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Bsp\Third\RT-Thread\Src\mempool.c</FilePath>
+              <FilePath>..\Bsp\RTOS\RT-Thread\Src\mempool.c</FilePath>
             </File>
             <File>
               <FileName>object.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Bsp\Third\RT-Thread\Src\object.c</FilePath>
+              <FilePath>..\Bsp\RTOS\RT-Thread\Src\object.c</FilePath>
             </File>
             <File>
               <FileName>scheduler.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Bsp\Third\RT-Thread\Src\scheduler.c</FilePath>
+              <FilePath>..\Bsp\RTOS\RT-Thread\Src\scheduler.c</FilePath>
             </File>
             <File>
               <FileName>slab.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Bsp\Third\RT-Thread\Src\slab.c</FilePath>
+              <FilePath>..\Bsp\RTOS\RT-Thread\Src\slab.c</FilePath>
             </File>
             <File>
               <FileName>thread.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Bsp\Third\RT-Thread\Src\thread.c</FilePath>
+              <FilePath>..\Bsp\RTOS\RT-Thread\Src\thread.c</FilePath>
             </File>
             <File>
               <FileName>timer.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Bsp\Third\RT-Thread\Src\timer.c</FilePath>
+              <FilePath>..\Bsp\RTOS\RT-Thread\Src\timer.c</FilePath>
             </File>
             <File>
               <FileName>cpuport.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Bsp\Third\RT-Thread\libcpu\arm\cortex-m3\cpuport.c</FilePath>
+              <FilePath>..\Bsp\RTOS\RT-Thread\libcpu\arm\cortex-m3\cpuport.c</FilePath>
             </File>
             <File>
               <FileName>context_rvds.S</FileName>
               <FileType>2</FileType>
-              <FilePath>..\Bsp\Third\RT-Thread\libcpu\arm\cortex-m3\context_rvds.S</FilePath>
+              <FilePath>..\Bsp\RTOS\RT-Thread\libcpu\arm\cortex-m3\context_rvds.S</FilePath>
             </File>
           </Files>
         </Group>

@@ -16,7 +16,10 @@
             "task_userinit.h": "c",
             "main.h": "c",
             "task_conf.h": "c",
-            "ocd_rm3100.h": "c"
+            "ocd_rm3100.h": "c",
+            "algo_conf.h": "c",
+            "dev_conf.h": "c",
+            "dev_ps2.h": "c"
         }
     },
     "extensions": {}

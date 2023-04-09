@@ -3,8 +3,7 @@
 
 #include "drv_hal_conf.h"
 #include "ocd_conf.h"
-
-
+#include "dev_conf.h"
 
 /* 用户句柄声明包含区 */
 

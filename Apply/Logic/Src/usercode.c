@@ -1,9 +1,11 @@
-#include "usercode.h"
-#include "threadpool.h"
-#include "drv_hal_conf.h"   //SGA库头文件配置
-#include "task_conf.h"      //task层头文件配置
-#include "ocd_conf.h"       //OCD层头文件配置
-#include "config.h"			//I/O头文件配置
+#include "usercode.h"		/* usercode头文件 */
+#include "threadpool.h"		/* 线程池头文件 */
+#include "drv_hal_conf.h"   /* SGA库头文件配置 */
+#include "task_conf.h"      /* task层头文件配置 */
+#include "ocd_conf.h"       /* OCD层头文件配置 */
+#include "dev_conf.h"		/* Dev层头文件配置 */
+#include "algo_conf.h"		/* Algo层头文件配置 */
+#include "config.h"			/* I/O配置头文件配置 */
 
 /* 线程句柄 */
 rt_thread_t thread1 = RT_NULL;
@@ -63,7 +65,7 @@ void UserLogic_Code(void)
 	if(RT_NULL != thread1)
 	{
 		rt_kprintf("RT-Thread create thread1 successful\r\n");
-		rt_thread_startup(thread1);
+		//rt_thread_startup(thread1);
 	}
 	else rt_kprintf("RT-Thread create thread1 failed\r\n");
 

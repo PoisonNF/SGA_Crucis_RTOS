@@ -1,8 +1,11 @@
-#include "usercode.h"
-#include "drv_hal_conf.h"   //SGA库头文件配置
-#include "task_conf.h"      //task层头文件配置
-#include "ocd_conf.h"       //OCD层头文件配置
-#include "config.h"			//I/O头文件配置
+#include "usercode.h"		/* usercode头文件 */
+#include "threadpool.h"		/* 线程池头文件 */
+#include "drv_hal_conf.h"   /* SGA库头文件配置 */
+#include "task_conf.h"      /* task层头文件配置 */
+#include "ocd_conf.h"       /* OCD层头文件配置 */
+#include "dev_conf.h"		/* Dev层头文件配置 */
+#include "algo_conf.h"		/* Algo层头文件配置 */
+#include "config.h"			/* I/O配置头文件配置 */
 
 int PS2_LX=128,PS2_LY=127,PS2_RX=128,PS2_RY=127,PS2_KEY=0; 	//PS2摇杆数据接收变量
 
@@ -14,9 +17,9 @@ void Order(void* paramenter)
 	{	
 		if(rt_sem_take(Order_sem,RT_WAITING_FOREVER) == RT_EOK)
 		{	
-			if(Uart1.tUartDMA.ucDMARxCplt)
+			if(Uart1.tRxInfo.ucDMARxCplt)
 			{
-				memcpy(buf,Uart1.tRxInfo.ucpRxCache,Uart1.tRxInfo.usRxLenth);
+				memcpy(buf,Uart1.tRxInfo.ucpDMARxCache,Uart1.tRxInfo.usDMARxLength);
 				printf("buf = %s",buf);
 				if(strcmp(buf,"Shutdown\r\n")==0)
 				{
@@ -31,7 +34,7 @@ void Order(void* paramenter)
 					printf("Invalid instruction\r\n");
 				}
 			}
-			Uart1.tUartDMA.ucDMARxCplt = 0;
+			Uart1.tRxInfo.ucDMARxCplt = 0;
 		}
 		rt_thread_yield();
 	}
@@ -47,11 +50,14 @@ void Motioncontrol(void* paramenter)
 		{
 			printf("M PS2_LY:%d  PS2_RX:%d  PS2_KEY:%d\r\n",PS2_LY,PS2_RX,PS2_KEY);
 
-			if(OCD_PS2_RedLight(&PS2) == 0) //读取手柄模式，红灯模式开始运动控制
+			//Task_Motor_AllSpeedSet(1550);
+			//Task_Motioncontrol(200,128,0);
+			if(Dev_PS2_RedLight(&PS2) == 0) //读取手柄模式，红灯模式开始运动控制
 			{
-				Task_Motioncontrol(PS2_LY,PS2_RX,PS2_KEY);//运动控制函数
+			 	Task_Motioncontrol(PS2_LY,PS2_RX,PS2_KEY);//运动控制函数
 			}
 			Drv_Delay_Ms(1000);//执行时间
+            //Task_Motor_AllSpeedSet(1500);
 			rt_mutex_release(ps2_mutex);//完成读取,释放互斥量
 		}
 	}
@@ -88,10 +94,10 @@ void PS2_thread(void* paramenter)
 		//尝试获取互斥量
 		if(rt_mutex_take(ps2_mutex,RT_WAITING_FOREVER) == RT_EOK)
 		{
-			PS2_KEY=OCD_PS2_DataKey(&PS2);	
+			PS2_KEY = Dev_PS2_DataKey(&PS2);	
 			//PS2_LX=PS2_AnologData(PSS_LX);
-			PS2_LY=OCD_PS2_AnologData(PSS_LY);
-			PS2_RX=OCD_PS2_AnologData(PSS_RX);
+			PS2_LY =  Dev_PS2_AnologData(PSS_LY);
+			PS2_RX =  Dev_PS2_AnologData(PSS_RX);
 			//PS2_RY=PS2_AnologData(PSS_RY);
 		
 			rt_mutex_release(ps2_mutex);//完成修改,释放互斥量
@@ -127,23 +133,23 @@ void Rm3100_thread(void* paramenter)
 	MagData_t buffer1,buffer2,buffer3,buffer4;
 	while(1)
 	{
-		/*需要安装所有的RM3100才解开注释*/
-		OCD_ThreeD3100_Magic_GetData(&SPI[0],&buffer1);
-		OCD_ThreeD3100_Magic_GetData(&SPI[1],&buffer2);
-		OCD_ThreeD3100_Magic_GetData(&SPI[2],&buffer3);
-		OCD_ThreeD3100_Magic_GetData_Soft(&SPI_soft[0],&buffer4);
+		 /*需要安装所有的RM3100才解开注释*/
+		 OCD_ThreeD3100_Magic_GetData(&SPI[0],&buffer1);
+		 OCD_ThreeD3100_Magic_GetData(&SPI[1],&buffer2);
+		 OCD_ThreeD3100_Magic_GetData(&SPI[2],&buffer3);
+		 OCD_ThreeD3100_Magic_GetData_Soft(&SPI_soft[0],&buffer4);
 
-        printf("R 1 %d %d %d\r\n",buffer1.MAG_X,buffer1.MAG_Y,buffer1.MAG_Z);
-		printf("R 2 %d %d %d\r\n",buffer2.MAG_X,buffer2.MAG_Y,buffer2.MAG_Z);
-		printf("R 3 %d %d %d\r\n",buffer3.MAG_X,buffer3.MAG_Y,buffer3.MAG_Z);
-		printf("R 4 %d %d %d\r\n",buffer4.MAG_X,buffer4.MAG_Y,buffer4.MAG_Z);
+         printf("R 1 %d %d %d\r\n",buffer1.MAG_X,buffer1.MAG_Y,buffer1.MAG_Z);
+		 printf("R 2 %d %d %d\r\n",buffer2.MAG_X,buffer2.MAG_Y,buffer2.MAG_Z);
+		 printf("R 3 %d %d %d\r\n",buffer3.MAG_X,buffer3.MAG_Y,buffer3.MAG_Z);
+		 printf("R 4 %d %d %d\r\n",buffer4.MAG_X,buffer4.MAG_Y,buffer4.MAG_Z);
 
-		OCD_ThreeD3100_Magic_Init(&SPI[0]);
-		OCD_ThreeD3100_Magic_Init(&SPI[1]);
-		OCD_ThreeD3100_Magic_Init(&SPI[2]);
-		OCD_ThreeD3100_Magic_Init_Soft(&SPI_soft[0]);
+		 OCD_ThreeD3100_Magic_Init(&SPI[0]);
+		 OCD_ThreeD3100_Magic_Init(&SPI[1]);
+		 OCD_ThreeD3100_Magic_Init(&SPI[2]);
+		 OCD_ThreeD3100_Magic_Init_Soft(&SPI_soft[0]);
 
-		Drv_Delay_Ms(2000);
+		 Drv_Delay_Ms(2000);
 	}
 }
 
@@ -156,12 +162,12 @@ void Jetson_thread(void* paramenter)
 		if(rt_sem_take(Jetson_sem,RT_WAITING_FOREVER) == RT_EOK)
 		{
 			//如果接收完成标志位为1
-			if(Uart3.tUartDMA.ucDMARxCplt)
+			if(Uart3.tRxInfo.ucDMARxCplt)
 			{
-				Drv_Uart_Transmit(&Uart1,Uart3.tRxInfo.ucpRxCache,Uart3.tRxInfo.usRxLenth);
-				memset(Uart3.tRxInfo.ucpRxCache,0,Uart3.tRxInfo.usRxLenth);
+				Drv_Uart_Transmit(&Uart1,Uart3.tRxInfo.ucpDMARxCache,Uart3.tRxInfo.usDMARxLength);
+				memset(Uart3.tRxInfo.ucpDMARxCache,0,Uart3.tRxInfo.usDMARxLength);
 			}
-		 	Uart3.tUartDMA.ucDMARxCplt = 0;	//标志位清0
+		 	Uart3.tRxInfo.ucDMARxCplt = 0;	//标志位清0
 		}	
 		rt_thread_yield();
 	}

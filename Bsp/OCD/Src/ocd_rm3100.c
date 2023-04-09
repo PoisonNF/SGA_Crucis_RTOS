@@ -260,7 +260,7 @@ void OCD_ThreeD3100_Magic_GetData(tagSPI_T *_tSPI,MagData_t *_tBuff)
 
 /**
  * @brief RM3100的多字节写入
-* @param _tSPI-软件spi句柄指针
+ * @param _tSPI-软件spi句柄指针
  * @param _ucReg_addr-寄存器地址
  * @param _ucpDataIn-写入数据的地址
  * @param _ucLenth-写入数据的长度
