@@ -19,7 +19,10 @@
             "ocd_rm3100.h": "c",
             "algo_conf.h": "c",
             "dev_conf.h": "c",
-            "dev_ps2.h": "c"
+            "dev_ps2.h": "c",
+            "ocd_oled.h": "c",
+            "rtthread.h": "c",
+            "rtconfig.h": "c"
         }
     },
     "extensions": {}

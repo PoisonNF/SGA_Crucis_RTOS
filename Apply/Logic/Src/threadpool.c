@@ -130,26 +130,23 @@ void Huba511_thread(void* paramenter)
 /* Rm3100接收线程*/
 void Rm3100_thread(void* paramenter)
 {
-	MagData_t buffer1,buffer2,buffer3,buffer4;
+	int i;
 	while(1)
 	{
-		 /*需要安装所有的RM3100才解开注释*/
-		 OCD_ThreeD3100_Magic_GetData(&SPI[0],&buffer1);
-		 OCD_ThreeD3100_Magic_GetData(&SPI[1],&buffer2);
-		 OCD_ThreeD3100_Magic_GetData(&SPI[2],&buffer3);
-		 OCD_ThreeD3100_Magic_GetData_Soft(&SPI_soft[0],&buffer4);
+		/*需要安装所有的RM3100才解开注释*/
 
-         printf("R 1 %d %d %d\r\n",buffer1.MAG_X,buffer1.MAG_Y,buffer1.MAG_Z);
-		 printf("R 2 %d %d %d\r\n",buffer2.MAG_X,buffer2.MAG_Y,buffer2.MAG_Z);
-		 printf("R 3 %d %d %d\r\n",buffer3.MAG_X,buffer3.MAG_Y,buffer3.MAG_Z);
-		 printf("R 4 %d %d %d\r\n",buffer4.MAG_X,buffer4.MAG_Y,buffer4.MAG_Z);
+		for(i = 0;i < 4;i++)
+			OCD_RM3100_GetData(&RM3100[i]);
 
-		 OCD_ThreeD3100_Magic_Init(&SPI[0]);
-		 OCD_ThreeD3100_Magic_Init(&SPI[1]);
-		 OCD_ThreeD3100_Magic_Init(&SPI[2]);
-		 OCD_ThreeD3100_Magic_Init_Soft(&SPI_soft[0]);
+        printf("R 1 %d %d %d\r\n",RM3100[0].tMagData.MAG_X,RM3100[0].tMagData.MAG_Y,RM3100[0].tMagData.MAG_Z);
+		printf("R 2 %d %d %d\r\n",RM3100[1].tMagData.MAG_X,RM3100[1].tMagData.MAG_Y,RM3100[1].tMagData.MAG_Z);
+		printf("R 3 %d %d %d\r\n",RM3100[2].tMagData.MAG_X,RM3100[2].tMagData.MAG_Y,RM3100[2].tMagData.MAG_Z);
+		printf("R 4 %d %d %d\r\n",RM3100[3].tMagData.MAG_X,RM3100[3].tMagData.MAG_Y,RM3100[3].tMagData.MAG_Z);
 
-		 Drv_Delay_Ms(2000);
+		for(i = 0;i < 4;i++)
+			OCD_RM3100_ModeConfig(&RM3100[i]);
+
+		Drv_Delay_Ms(2000);
 	}
 }
 
@@ -197,9 +194,17 @@ void Test_thread(void* paramenter)
 		// Drv_Delay_Ms(1000);
 		// Drv_GPIO_Write(&GPIO[1],GPIO_PIN_SET);
 		// Drv_Delay_Ms(1000);
-		printf("test\r\n");
+		// printf("test\r\n");
+		// Drv_Delay_Ms(1000);
+		// rt_thread_yield();
+        
+        Task_AllSteer_0Angle();
 		Drv_Delay_Ms(1000);
-		rt_thread_yield();
+        
+        Task_AllSteer_90Angle();
+		Drv_Delay_Ms(1000);
+        
+        
 	}
 }
 

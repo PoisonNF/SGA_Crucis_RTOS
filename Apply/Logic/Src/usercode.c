@@ -130,7 +130,7 @@ void UserLogic_Code(void)
 	if(RT_NULL != thread9)
 	{
 		rt_kprintf("RT-Thread create thread9 successful\r\n");
-		//rt_thread_startup(thread9);
+		rt_thread_startup(thread9);
 	}
 	else rt_kprintf("RT-Thread create thread9 failed\r\n");
 
