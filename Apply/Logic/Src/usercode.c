@@ -8,130 +8,132 @@
 #include "config.h"			/* I/O配置头文件配置 */
 
 /* 线程句柄 */
-rt_thread_t thread1 = RT_NULL;
-rt_thread_t thread2 = RT_NULL;
-rt_thread_t thread3 = RT_NULL;
-rt_thread_t thread4 = RT_NULL;
-rt_thread_t thread5 = RT_NULL;
-rt_thread_t thread6 = RT_NULL;
-rt_thread_t thread7 = RT_NULL;
-rt_thread_t thread8 = RT_NULL;
-rt_thread_t thread9 = RT_NULL;
+osThreadId_t thread1;
+const osThreadAttr_t thread1_attributes = {
+  .name = "Order",
+  .stack_size = 512,
+  .priority = (osPriority_t) osPriorityNormal3,
+};
+
+osThreadId_t thread2;
+const osThreadAttr_t thread2_attributes = {
+  .name = "Motioncontrol",
+  .stack_size = 512,
+  .priority = (osPriority_t) osPriorityNormal1,
+};
+
+osThreadId_t thread3;
+const osThreadAttr_t thread3_attributes = {
+  .name = "JY901S",
+  .stack_size = 512,
+  .priority = (osPriority_t) osPriorityNormal,
+};
+
+osThreadId_t thread4;
+const osThreadAttr_t thread4_attributes = {
+  .name = "PS2",
+  .stack_size = 512,
+  .priority = (osPriority_t) osPriorityNormal1,
+};
+
+osThreadId_t thread5;
+const osThreadAttr_t thread5_attributes = {
+  .name = "Huba511",
+  .stack_size = 512,
+  .priority = (osPriority_t) osPriorityNormal,
+};
+osThreadId_t thread6;
+const osThreadAttr_t thread6_attributes = {
+  .name = "Rm3100",
+  .stack_size = 512,
+  .priority = (osPriority_t) osPriorityBelowNormal7,
+};
+osThreadId_t thread7;
+const osThreadAttr_t thread7_attributes = {
+  .name = "Jetson",
+  .stack_size = 512,
+  .priority = (osPriority_t) osPriorityNormal,
+};
+
+osThreadId_t thread8;
+const osThreadAttr_t thread8_attributes = {
+  .name = "OpenMV",
+  .stack_size = 512,
+  .priority = (osPriority_t) osPriorityNormal,
+};
+
+osThreadId_t thread9;
+const osThreadAttr_t thread9_attributes = {
+  .name = "Test",
+  .stack_size = 512,
+  .priority = (osPriority_t) osPriorityNormal6,
+};
 
 /* 信号量句柄*/
-rt_sem_t JY901_sem = RT_NULL;
-rt_sem_t Jetson_sem = RT_NULL;
-rt_sem_t OpenMV_sem = RT_NULL;
-rt_sem_t Order_sem = RT_NULL;
+osSemaphoreId JY901_sem;
+osSemaphoreDef(JY901_sem_def);
+
+osSemaphoreId Jetson_sem;
+osSemaphoreDef(Jetson_sem_def);
+
+osSemaphoreId OpenMV_sem;
+osSemaphoreDef(OpenMV_sem_def);
+
+osSemaphoreId Order_sem;
+osSemaphoreDef(Order_sem_def);
 
 /* 互斥量句柄 */
-rt_mutex_t ps2_mutex = RT_NULL;
+osMutexId ps2_mutex;
+osMutexDef(ps2_mutex_def);
 
 /*消息队列句柄*/
-rt_mq_t msgqueue = RT_NULL;
+osMessageQId msgqueue;
+osMessageQDef(msgqueue_def,10,uint32_t);
 
-ALIGN(RT_ALIGN_SIZE)
 /* 用户逻辑代码 */
 void UserLogic_Code(void)
 {
 	//创建信号量
-	JY901_sem = rt_sem_create("JY901_sem",0,RT_IPC_FLAG_FIFO);
-	if(RT_NULL != JY901_sem)	rt_kprintf("RT-Thread create semaphore successful\r\n");
-	else 						rt_kprintf("RT-Thread create semaphore failed\r\n");
-	//创建Jetson信号量
-	Jetson_sem = rt_sem_create("Jetson_sem",0,RT_IPC_FLAG_FIFO);
-	if(RT_NULL != Jetson_sem)	rt_kprintf("RT-Thread create semaphoreJ successful\r\n");
-	else 						rt_kprintf("RT-Thread create semaphoreJ failed\r\n");
-	//创建OpenMV信号量
-	OpenMV_sem = rt_sem_create("OpenMV_sem",0,RT_IPC_FLAG_FIFO);
-	if(RT_NULL != OpenMV_sem)	rt_kprintf("RT-Thread create semaphoreJ successful\r\n");
-	else 						rt_kprintf("RT-Thread create semaphoreJ failed\r\n");
-	//创建Order信号量
-	Order_sem = rt_sem_create("Order_sem",0,RT_IPC_FLAG_FIFO);
-	if(RT_NULL != Order_sem)	rt_kprintf("RT-Thread create semaphoreO successful\r\n");
-	else 						rt_kprintf("RT-Thread create semaphoreO failed\r\n");
+	osSemaphoreCreate(osSemaphore(JY901_sem_def),0);
+	osSemaphoreCreate(osSemaphore(Jetson_sem_def),0);
+	osSemaphoreCreate(osSemaphore(OpenMV_sem_def),0);
+	osSemaphoreCreate(osSemaphore(Order_sem_def),0);
 
 	//创建互斥量
-	ps2_mutex = rt_mutex_create("ps2_mutex",RT_IPC_FLAG_FIFO);
-	if(RT_NULL != ps2_mutex)	rt_kprintf("RT-Thread create mutex successful\r\n");
-	else						rt_kprintf("RT-Thread create mutex failed\r\n");
+	osMutexCreate(osMutex(ps2_mutex_def));
+
 	//创建消息队列
-	msgqueue = rt_mq_create("msgqueue",50,10,RT_IPC_FLAG_FIFO);
-	if(RT_NULL != msgqueue)		rt_kprintf("RT-Thread create msgqueue successful\r\n");
-	else						rt_kprintf("RT-Thread create msgqueue failed\r\n");
+	osMessageCreate(osMessageQ(msgqueue_def),msgqueue);
 
 	//创建线程
-	thread1 = rt_thread_create("Order",Order,NULL,512,1,20);
-	if(RT_NULL != thread1)
-	{
-		rt_kprintf("RT-Thread create thread1 successful\r\n");
-		//rt_thread_startup(thread1);
-	}
-	else rt_kprintf("RT-Thread create thread1 failed\r\n");
+	thread1 = osThreadNew(Order, NULL, &thread1_attributes);
+  if(thread1 != NULL) printf("FreeRTOS create thread1 successful\r\n");
 
-	thread2 = rt_thread_create("Motioncontrol",Motioncontrol,NULL,512,3,20);
-	if(RT_NULL != thread2)
-	{
-		rt_kprintf("RT-Thread create thread2 successful\r\n");
-		rt_thread_startup(thread2);
-	}
-	else rt_kprintf("RT-Thread create thread2 failed\r\n");
+	thread2 = osThreadNew(Motioncontrol, NULL, &thread2_attributes);
+  if(thread2 != NULL) printf("FreeRTOS create thread2 successful\r\n");
 
-	thread3 = rt_thread_create("JY901S",JY901S_thread,NULL,512,4,20);
-	if(RT_NULL != thread3)
+	thread3 = osThreadNew(JY901S_thread, NULL, &thread3_attributes);
+  if(thread3 != NULL) printf("FreeRTOS create thread3 successful\r\n");
+
+	thread4 = osThreadNew(PS2_thread, NULL, &thread4_attributes);
+  if(thread4 != NULL) printf("FreeRTOS create thread4 successful\r\n");
+
+	thread5 = osThreadNew(Huba511_thread, NULL, &thread5_attributes);
+  if(thread5 != NULL) printf("FreeRTOS create thread5 successful\r\n");
+
+	thread6 = osThreadNew(Rm3100_thread, NULL, &thread6_attributes);
+  if(thread6 != NULL) printf("FreeRTOS create thread6 successful\r\n");
+
+	thread7 = osThreadNew(Jetson_thread, NULL, &thread7_attributes);
+  if(thread7 != NULL) printf("FreeRTOS create thread7 successful\r\n");
+
+	thread8 = osThreadNew(OpenMV_thread, NULL, &thread8_attributes);
+  if(thread8 != NULL) printf("FreeRTOS create thread8 successful\r\n");
+
+	thread9 = osThreadNew(Test_thread, NULL, &thread9_attributes);
+  if(thread9 != NULL) printf("FreeRTOS create thread9 successful\r\n");
+
+	printf("Thread Start!\r\n");
+	osKernelStart();
 	
-	{
-		rt_kprintf("RT-Thread create thread3 successful\r\n");
-		rt_thread_startup(thread3);
-	}
-	else rt_kprintf("RT-Thread create thread3 failed\r\n");
-
-	thread4 = rt_thread_create("PS2",PS2_thread,NULL,512,3,20);
-	if(RT_NULL != thread4)
-	{
-		rt_kprintf("RT-Thread create thread4 successful\r\n");
-		rt_thread_startup(thread4);
-	}
-	else rt_kprintf("RT-Thread create thread4 failed\r\n");
-
-	thread5 = rt_thread_create("Huba511",Huba511_thread,NULL,512,4,20);
-	if(RT_NULL != thread5)
-	{
-		rt_kprintf("RT-Thread create thread5 successful\r\n");
-		//rt_thread_startup(thread5);
-	}
-	else rt_kprintf("RT-Thread create thread5 failed\r\n");
-
-	thread6 = rt_thread_create("Rm3100",Rm3100_thread,NULL,512,5,20);
-	if(RT_NULL != thread6)
-	{
-		rt_kprintf("RT-Thread create thread6 successful\r\n");
-        rt_thread_startup(thread6);
-	}
-	else rt_kprintf("RT-Thread create thread6 failed\r\n");
-
-	thread7 = rt_thread_create("Jetson",Jetson_thread,NULL,1024,2,20);
-	if(RT_NULL != thread7)
-	{
-		rt_kprintf("RT-Thread create thread7 successful\r\n");
-		//rt_thread_startup(thread7);
-	}
-	else rt_kprintf("RT-Thread create thread7 failed\r\n");
-
-	thread8 = rt_thread_create("OpenMV",OpenMV_thread,NULL,512,4,20);
-	if(RT_NULL != thread8)
-	{
-		rt_kprintf("RT-Thread create thread8 successful\r\n");
-		rt_thread_startup(thread8);
-	}
-	else rt_kprintf("RT-Thread create thread8 failed\r\n");
-
-	thread9 = rt_thread_create("Test",Test_thread,NULL,512,6,20);
-	if(RT_NULL != thread9)
-	{
-		rt_kprintf("RT-Thread create thread9 successful\r\n");
-		//rt_thread_startup(thread9);
-	}
-	else rt_kprintf("RT-Thread create thread9 failed\r\n");
-
 }

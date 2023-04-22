@@ -54,10 +54,10 @@ void USART1_IRQHandler(void)
 	/* 示例 */
 //	Drv_Uart_IRQHandler(&tPCUart);		/* 必需部分 */	
 	//Task_USART1_IRQHandler();
-	rt_interrupt_enter();
+	//vPortEnterCritical();
 	Drv_Uart_DMA_RxHandler(&Uart1);
-	rt_sem_release(Order_sem);
-	rt_interrupt_leave();
+	osSemaphoreRelease(Order_sem);
+	//vPortExitCritical();
 }
 
 /**
@@ -74,13 +74,15 @@ void USART2_IRQHandler(void)
 {
 		/* 示例 */
 //	Drv_Uart_IRQHandler(&tJY901B.tUART);		/* 必需部分 */
-	rt_interrupt_enter();
+
 //	Task_USART2_IRQHandler();
 	//Drv_Uart_DMA_Handler(&demoUart2);
+
+	//vPortEnterCritical();
 	Drv_Uart_DMA_RxHandler(&JY901S.tUART);
-	rt_mq_send(msgqueue,"interrupt",sizeof("interrupt"));	//发送消息队列
-	rt_sem_release(JY901_sem);	//释放信号量
-	rt_interrupt_leave();
+	//osMessageQueuePut(msgqueue,"interrupt",0,portMAX_DELAY);
+	osSemaphoreRelease(JY901_sem);	//释放信号量
+	//vPortExitCritical();
 }
 
 /**
@@ -90,11 +92,11 @@ void USART2_IRQHandler(void)
 */
 void USART3_IRQHandler(void)
 {
-	rt_interrupt_enter();
+	vPortEnterCritical();
 	//Drv_Uart_IRQHandler(&Uart3);
 	Drv_Uart_DMA_RxHandler(&Uart3);
-	rt_sem_release(Jetson_sem);	//释放Jetson信号量
-	rt_interrupt_leave();
+	osSemaphoreRelease(Jetson_sem);	//释放Jetson信号量
+	vPortExitCritical();
 }
 
 /**
@@ -104,9 +106,9 @@ void USART3_IRQHandler(void)
 */
 void UART4_IRQHandler(void)
 {
-	rt_interrupt_enter();
+	vPortEnterCritical();
 	Drv_Uart_DMA_RxHandler(&Uart4);
-	rt_interrupt_leave();
+	vPortExitCritical();
 }
 
 /**
@@ -116,9 +118,9 @@ void UART4_IRQHandler(void)
 */
 void UART5_IRQHandler(void)
 {
-	rt_interrupt_enter();
+	vPortEnterCritical();
 	Drv_Uart_IRQHandler(&OpenMV);
-	rt_interrupt_leave();
+	vPortExitCritical();
 }
 
 uint8_t rData[10];
@@ -165,7 +167,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 		{
 			if(rData[rDataFlag-1] == 0x5B)
 			{
-				rt_sem_release(OpenMV_sem);	//释放OpenMV信号量
+				osSemaphoreRelease(OpenMV_sem);	//释放OpenMV信号量
 				rDataFlag = 0;
 				RXstate = 0;
 				//cx = hextodec(rData[3])*256 + hextodec(rData[2]);
@@ -253,44 +255,4 @@ void TIM7_IRQHandler(void)
 	/* 示例 */
 //    Drv_Timer_IRQHandler(&demoTIM);
 }
-
-#ifndef RTT_ENABLE
-/**
- * @brief This function handles Pendable request for system service.
- */
-void PendSV_Handler(void)
-{
- /* USER CODE BEGIN PendSV_IRQn 0 */
-
- /* USER CODE END PendSV_IRQn 0 */
- /* USER CODE BEGIN PendSV_IRQn 1 */
-
- /* USER CODE END PendSV_IRQn 1 */
-}
-
-/**
-* @brief 系统滴答中断
-* @param Null
-* @retval Null
-*/
-void SysTick_Handler(void)
-{
-   Drv_HAL_IncTick();
-}
-
-/**
-* @brief HAL库系统报错中断
-* @param Null
-* @retval Null
-*/
-void HardFault_Handler(void)
-{
-	while(1)
-	{
-		/* USER CODE BEGIN W1_HardFault_IRQn 0 */
-		/* USER CODE END W1_HardFault_IRQn 0 */
-	}
-}
-
-#endif
 

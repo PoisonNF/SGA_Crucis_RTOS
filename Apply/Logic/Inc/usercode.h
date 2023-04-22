@@ -3,28 +3,14 @@
 
 #include "drv_hal_conf.h"
 
-/* 线程句柄 */
-extern rt_thread_t thread1;
-extern rt_thread_t thread2;
-extern rt_thread_t thread3;
-extern rt_thread_t thread4;
-extern rt_thread_t thread5;
-extern rt_thread_t thread6;
-extern rt_thread_t thread7;
-extern rt_thread_t thread8;
-extern rt_thread_t thread9;
+extern osSemaphoreId_t JY901_sem;
+extern osSemaphoreId_t Jetson_sem;
+extern osSemaphoreId_t OpenMV_sem;
+extern osSemaphoreId_t Order_sem;
 
-/* 信号量句柄*/
-extern rt_sem_t JY901_sem;
-extern rt_sem_t Jetson_sem;
-extern rt_sem_t OpenMV_sem;
-extern rt_sem_t Order_sem;
+extern osMutexId_t ps2_mutex;
 
-/* 互斥量句柄 */
-extern rt_mutex_t ps2_mutex;
-
-/*消息队列句柄*/
-extern rt_mq_t msgqueue;
+extern osMessageQId msgqueue;
 
 void UserLogic_Code(void);
 

@@ -85,10 +85,10 @@ void OCD_JY901_RxTypeConfig(tagJY901_T *_tJY901)
 	ucpWrite[4] = _tJY901->tConfig.usType;
 	
 	S_JY901_UnLock(_tJY901);
-	S_JY901_Delay();
+	HAL_Delay(20);
 	
 	Drv_Uart_Transmit(&_tJY901->tUART, ucpWrite, sizeof(ucpWrite));
-	S_JY901_Delay();
+	HAL_Delay(20);
 	
 	S_JY901_SaveConfig(_tJY901, SAVE_NOW);		
 }
@@ -106,10 +106,10 @@ void OCD_JY901_Correct(tagJY901_T *_tJY901, uint8_t _ucMode)
 	ucpWrite[3] = _ucMode;
 	
 	S_JY901_UnLock(_tJY901);
-	S_JY901_Delay();
+	HAL_Delay(20);
 	
 	Drv_Uart_Transmit(&_tJY901->tUART, ucpWrite, sizeof(ucpWrite));
-	S_JY901_Delay();
+	HAL_Delay(20);
 	
 	S_JY901_SaveConfig(_tJY901, SAVE_NOW);
 }
@@ -123,10 +123,10 @@ const uint8_t ucpSleepCmd[] = {0xff, 0xaa, 0x22, 0x01, 0x00};
 void OCD_JY901_Sleep(tagJY901_T *_tJY901)
 {
 	S_JY901_UnLock(_tJY901);
-	S_JY901_Delay();
+	HAL_Delay(20);
 	
 	Drv_Uart_Transmit(&_tJY901->tUART, (uint8_t*)ucpSleepCmd, sizeof(ucpSleepCmd));
-	S_JY901_Delay();
+	HAL_Delay(20);
 	
 	S_JY901_SaveConfig(_tJY901, SAVE_NOW);
 }
@@ -143,10 +143,10 @@ void OCD_JY901_RxSpeedConfig(tagJY901_T *_tJY901)
 	ucpWrite[3] = _tJY901->tConfig.ucRate;
 	
 	S_JY901_UnLock(_tJY901);
-	S_JY901_Delay();
+	HAL_Delay(20);
 	
 	Drv_Uart_Transmit(&_tJY901->tUART, ucpWrite, sizeof(ucpWrite));
-	S_JY901_Delay();
+	HAL_Delay(20);
 	
 	S_JY901_SaveConfig(_tJY901, SAVE_NOW);		
 }
@@ -163,10 +163,10 @@ void OCD_JY901_RxBaudConfig(tagJY901_T *_tJY901)
 	ucpWrite[3] = _tJY901->tConfig.ucBaud;
 	
 	S_JY901_UnLock(_tJY901);
-	S_JY901_Delay();
+	HAL_Delay(20);
 	
 	Drv_Uart_Transmit(&_tJY901->tUART, ucpWrite, sizeof(ucpWrite));
-	S_JY901_Delay();
+	HAL_Delay(20);
 	
 	S_JY901_SaveConfig(_tJY901, SAVE_NOW);		
 }
@@ -184,10 +184,10 @@ void OCD_JY901_GyroAutoCorrect(tagJY901_T *_tJY901, uint8_t _ucMode)
 	ucpWrite[3] = _ucMode;
 	
 	S_JY901_UnLock(_tJY901);
-	S_JY901_Delay();
+	HAL_Delay(20);
 	
 	Drv_Uart_Transmit(&_tJY901->tUART, ucpWrite, sizeof(ucpWrite));
-	S_JY901_Delay();
+	HAL_Delay(20);
 	
 	S_JY901_SaveConfig(_tJY901, SAVE_NOW);
 }
@@ -201,10 +201,10 @@ const uint8_t ucpOutputOnceCmd[] = {0xff, 0xaa, 0x03, 0x0c, 0x00};
 void OCD_JY901_OutputOnce(tagJY901_T *_tJY901)
 {
 	S_JY901_UnLock(_tJY901);
-	S_JY901_Delay();
+	HAL_Delay(20);
 	
 	Drv_Uart_Transmit(&_tJY901->tUART, (uint8_t*)ucpOutputOnceCmd, sizeof(ucpOutputOnceCmd));
-	S_JY901_Delay();
+	HAL_Delay(20);
 	
 	S_JY901_SaveConfig(_tJY901, SAVE_NOW);
 }

@@ -1,19 +1,23 @@
 #ifndef __DRV_CONF_H_
 #define __DRV_CONF_H_
 
-#define DRIVER_VERSION	"2023/4/3 V2.2.1"
+#define DRIVER_VERSION	"2023/4/9 V2.2.2"
 
 /* RT-Thread开关 使用RTT时需解除注释，且在工程中导入RTT相关内核 */ 
-#define RTT_ENABLE               
+//#define RTT_ENABLE               
 #ifdef RTT_ENABLE
 #include <rtthread.h>		/* RTT相关头文件 */
 #include "threadpool.h"		/* threadpool头文件 */ 
 #endif
 
 /* FreeRTOS开关 使用时需解除注释，且在工程中导入FreeRTOS相关内核 */ 
-//#define FREERTOS_ENABLE
+#define FREERTOS_ENABLE
 #ifdef FREERTOS_ENABLE
 #include "cmsis_os.h"		/* FreeRTOS相关头文件 */
+#include "FreeRTOS.h"       /* ARM.FreeRTOS::RTOS:Core */
+#include "task.h"           /* ARM.FreeRTOS::RTOS:Core */
+#include "event_groups.h"   /* ARM.FreeRTOS::RTOS:Event Groups */
+#include "semphr.h"         /* ARM.FreeRTOS::RTOS:Core */
 #include "threadpool.h"		/* threadpool头文件 */
 #endif
 

@@ -26,7 +26,7 @@ int main()
 #endif
 
 #ifdef FREERTOS_ENABLE
-    printf("FreeRTOS Start!\r\n");
+    //printf("FreeRTOS Start!\r\n");
 	/*
      * 1.在 usercode 中，创建线程和启动线程。
      * 2.在 threadpool 中，写入线程入口函数。

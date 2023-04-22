@@ -14,8 +14,8 @@ void Order(void* paramenter)
 {
 	char buf[20];
 	while(1)
-	{	
-		if(rt_sem_take(Order_sem,RT_WAITING_FOREVER) == RT_EOK)
+	{
+		if(osSemaphoreWait(Order_sem,1000) == osOK)
 		{	
 			if(Uart1.tRxInfo.ucDMARxCplt)
 			{
@@ -36,7 +36,7 @@ void Order(void* paramenter)
 			}
 			Uart1.tRxInfo.ucDMARxCplt = 0;
 		}
-		rt_thread_yield();
+		osThreadYield();
 	}
 }
 
@@ -46,7 +46,7 @@ void Motioncontrol(void* paramenter)
 
 	while(1)
 	{
-		if(rt_mutex_take(ps2_mutex,RT_WAITING_FOREVER) == RT_EOK)
+		if(osMutexAcquire(ps2_mutex,1000) == osOK)
 		{
 			printf("M PS2_LY:%d  PS2_RX:%d  PS2_KEY:%d\r\n",PS2_LY,PS2_RX,PS2_KEY);
 
@@ -58,7 +58,7 @@ void Motioncontrol(void* paramenter)
 			}
 			Drv_Delay_Ms(1000);//执行时间
             //Task_Motor_AllSpeedSet(1500);
-			rt_mutex_release(ps2_mutex);//完成读取,释放互斥量
+			osMutexRelease(ps2_mutex);//完成读取,释放互斥量
 		}
 	}
 }
@@ -69,7 +69,7 @@ void JY901S_thread(void* paramenter)
 {
 	while(1)
 	{
-		if(rt_sem_take(JY901_sem,RT_WAITING_FOREVER) == RT_EOK)
+		if(osSemaphoreWait(JY901_sem,osWaitForever) == 1)
 		{
 			OCD_JY901_DataProcess(&JY901S);
 			OCD_JY901_DataConversion(&JY901S);
@@ -82,7 +82,7 @@ void JY901S_thread(void* paramenter)
             /* 打印磁场 */
             if(JY901S.tConfig.usType & JY901_OUTPUT_MAG)		printf("J 4 Mag %.3f %.3f %.3f\r\n",JY901S.stcMag.ConMagX,JY901S.stcMag.ConMagY,JY901S.stcMag.ConMagZ);
 		}
-		rt_thread_yield();
+		osThreadYield();
 	}
 }
 
@@ -92,7 +92,7 @@ void PS2_thread(void* paramenter)
 	while(1)
 	{	
 		//尝试获取互斥量
-		if(rt_mutex_take(ps2_mutex,RT_WAITING_FOREVER) == RT_EOK)
+		if(osSemaphoreWait(ps2_mutex,1000) == 1)
 		{
 			PS2_KEY = Dev_PS2_DataKey(&PS2);	
 			//PS2_LX=PS2_AnologData(PSS_LX);
@@ -100,9 +100,9 @@ void PS2_thread(void* paramenter)
 			PS2_RX =  Dev_PS2_AnologData(PSS_RX);
 			//PS2_RY=PS2_AnologData(PSS_RY);
 		
-			rt_mutex_release(ps2_mutex);//完成修改,释放互斥量
+			osSemaphoreRelease(ps2_mutex);//完成修改,释放互斥量
 		}
-		rt_thread_yield();
+		osThreadYield();
 	}
 
 }
@@ -114,7 +114,7 @@ void Huba511_thread(void* paramenter)
 	//int i = 0;
 	while(1)
 	{
-		if(rt_mq_recv(msgqueue,buf,sizeof(buf),RT_WAITING_FOREVER) == RT_EOK)
+		if(osMessageQueueGet(msgqueue,buf,0,1000) == osOK)
 		{
 			printf("%s\r\n",buf);
             Drv_GPIO_Write(&GPIO[0],GPIO_PIN_RESET);
@@ -123,33 +123,30 @@ void Huba511_thread(void* paramenter)
 			//OCD_OLED_ShowNum(&OLED,0,0,i,2,16);
 			//i++;
 		}
-		rt_thread_yield();
+		osThreadYield();
 	}
 }
 
 /* Rm3100接收线程*/
 void Rm3100_thread(void* paramenter)
 {
-	MagData_t buffer1,buffer2,buffer3,buffer4;
+	int i;
 	while(1)
 	{
-		 /*需要安装所有的RM3100才解开注释*/
-		 OCD_ThreeD3100_Magic_GetData(&SPI[0],&buffer1);
-		 OCD_ThreeD3100_Magic_GetData(&SPI[1],&buffer2);
-		 OCD_ThreeD3100_Magic_GetData(&SPI[2],&buffer3);
-		 OCD_ThreeD3100_Magic_GetData_Soft(&SPI_soft[0],&buffer4);
+		/*需要安装所有的RM3100才解开注释*/
 
-         printf("R 1 %d %d %d\r\n",buffer1.MAG_X,buffer1.MAG_Y,buffer1.MAG_Z);
-		 printf("R 2 %d %d %d\r\n",buffer2.MAG_X,buffer2.MAG_Y,buffer2.MAG_Z);
-		 printf("R 3 %d %d %d\r\n",buffer3.MAG_X,buffer3.MAG_Y,buffer3.MAG_Z);
-		 printf("R 4 %d %d %d\r\n",buffer4.MAG_X,buffer4.MAG_Y,buffer4.MAG_Z);
+		for(i = 0;i < 4;i++)
+			OCD_RM3100_GetData(&RM3100[i]);
 
-		 OCD_ThreeD3100_Magic_Init(&SPI[0]);
-		 OCD_ThreeD3100_Magic_Init(&SPI[1]);
-		 OCD_ThreeD3100_Magic_Init(&SPI[2]);
-		 OCD_ThreeD3100_Magic_Init_Soft(&SPI_soft[0]);
+        printf("R 1 %d %d %d\r\n",RM3100[0].tMagData.MAG_X,RM3100[0].tMagData.MAG_Y,RM3100[0].tMagData.MAG_Z);
+		printf("R 2 %d %d %d\r\n",RM3100[1].tMagData.MAG_X,RM3100[1].tMagData.MAG_Y,RM3100[1].tMagData.MAG_Z);
+		printf("R 3 %d %d %d\r\n",RM3100[2].tMagData.MAG_X,RM3100[2].tMagData.MAG_Y,RM3100[2].tMagData.MAG_Z);
+		printf("R 4 %d %d %d\r\n",RM3100[3].tMagData.MAG_X,RM3100[3].tMagData.MAG_Y,RM3100[3].tMagData.MAG_Z);
 
-		 Drv_Delay_Ms(2000);
+		for(i = 0;i < 4;i++)
+			OCD_RM3100_ModeConfig(&RM3100[i]);
+
+		Drv_Delay_Ms(2000);
 	}
 }
 
@@ -159,7 +156,7 @@ void Jetson_thread(void* paramenter)
 	while(1)
 	{
 		//获取jetson信号量
-		if(rt_sem_take(Jetson_sem,RT_WAITING_FOREVER) == RT_EOK)
+		if(osSemaphoreWait(Jetson_sem,1000) == osOK)
 		{
 			//如果接收完成标志位为1
 			if(Uart3.tRxInfo.ucDMARxCplt)
@@ -169,7 +166,7 @@ void Jetson_thread(void* paramenter)
 			}
 		 	Uart3.tRxInfo.ucDMARxCplt = 0;	//标志位清0
 		}	
-		rt_thread_yield();
+		osThreadYield();
 	}
 }
 
@@ -180,11 +177,11 @@ void OpenMV_thread(void* paramenter)
 	while(1)
 	{
 		//获取OpenMV信号量
-		if(rt_sem_take(OpenMV_sem,RT_WAITING_FOREVER) == RT_EOK)
+		if(osSemaphoreWait(OpenMV_sem,1000) == osOK)
 		{
 			printf("OPENMV %x %x %x %x\r\n",rData[2],rData[3],rData[4],rData[5]);
 		}
-		rt_thread_yield();
+		osThreadYield();
 	}
 }
 
@@ -197,9 +194,18 @@ void Test_thread(void* paramenter)
 		// Drv_Delay_Ms(1000);
 		// Drv_GPIO_Write(&GPIO[1],GPIO_PIN_SET);
 		// Drv_Delay_Ms(1000);
-		printf("test\r\n");
+		// printf("test\r\n");
+		// Drv_Delay_Ms(1000);
+		// rt_thread_yield();
+        
+        //Task_AllSteer_0Angle();
+		Task_Steer_0Angle(1);
 		Drv_Delay_Ms(1000);
-		rt_thread_yield();
+        
+        //Task_AllSteer_90Angle();
+		Task_Steer_0Angle(1);
+		Drv_Delay_Ms(1000);
+        
 	}
 }
 

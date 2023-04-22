@@ -34,16 +34,7 @@ void Task_UserInit(void)
 
     //Drv_ADC_Init(&demoADC,1);
 
-	Drv_SPI_Init(&SPI[0]);
-	Drv_SPI_Init(&SPI[1]);
-    Drv_SPI_Init(&SPI[2]);
-    Drv_SPISoft_Init(&SPI_soft[0]);
-
-	OCD_ThreeD3100_Magic_Init(&SPI[0]); 
-    OCD_ThreeD3100_Magic_Init(&SPI[1]);
-    OCD_ThreeD3100_Magic_Init(&SPI[2]);
-	OCD_ThreeD3100_Magic_Init_Soft(&SPI_soft[0]);
-
+    OCD_RM3100_Init(RM3100,4);
     printf("RM3100 INIT!\r\n");
 
     Dev_PS2_Init(&PS2);

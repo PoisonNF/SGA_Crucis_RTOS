@@ -57,7 +57,7 @@ void Task_AllSteer_0Angle(void)
     Task_Steer_0Angle(2);
     Task_Steer_0Angle(3);
     Task_Steer_0Angle(4);
-    Drv_Delay_Ms(500);//延时500ms完成转动,延时时间待测试
+    //Drv_Delay_Ms(500);//延时500ms完成转动,延时时间待测试
 }
 
 /**
@@ -81,7 +81,7 @@ void Task_AllSteer_90Angle(void)
     Task_Steer_90Angle(2);
     Task_Steer_90Angle(3);
     Task_Steer_90Angle(4);
-    Drv_Delay_Ms(500);//延时500ms完成转动
+    //Drv_Delay_Ms(500);//延时500ms完成转动
 }
 
 /**

@@ -29,7 +29,5 @@ extern tagADC_T ADC[1];
 
 extern tagPS2_T PS2;
 
-extern tagSPISoft_T SPI_soft[2];
-
-extern tagSPI_T SPI[3]; 
+extern tagRM3100_T RM3100[];
 #endif
