@@ -10,11 +10,21 @@
 #endif
 #define DBG_ERROR(...) Drv_HAL_PrintLog("ERROR", __FUNCTION__, __LINE__, __VA_ARGS__)
 
+#define DEFAULT(config,value)   do{					    \
+                                    if(config == 0)		\
+                                        config = value;	\
+                                }					    \
+                                while(0)
+
 /* Hal库包含 */
 #ifdef STM32F1_SGA_ENABLE
 	#include "stm32f1xx_hal.h"
 	
 	#define STM32F1XX_HAL_DRIVER
+#endif
+
+#ifdef STM32F4_SGA_ENABLE
+	#include "stm32f4xx_hal.h"
 #endif
 	
 #ifdef STM32L4_SGA_ENABLE
@@ -24,6 +34,13 @@
 #define bool	_Bool
 #define true	1
 #define false	0
+
+/* DWT数据观察点与跟踪相关 */
+#define  DEM_CR      *(volatile uint32_t *)0xE000EDFC
+#define  DWT_CR      *(volatile uint32_t *)0xE0001000
+#define  DWT_CYCCNT  *(volatile uint32_t *)0xE0001004
+#define  DEM_CR_TRCENA                   (1 << 24)
+#define  DWT_CR_CYCCNTENA                (1 <<  0)
 
 void Drv_HAL_PrintBuf(const char *_cpMsg, ...);
 void Drv_HAL_PrintLog(const char *_cpMsg,const char *_cpFunc, const int _iLine,const char *_cpFmt,...);

@@ -15,16 +15,20 @@
 typedef struct
 {
 	GPIO_InitTypeDef 	tGPIOInit;
-	GPIO_TypeDef* 		tGPIOPort;
+	GPIO_TypeDef        *tGPIOPort;
 	uint8_t				ucPriority;		/* 中断优先级，0-15 */
 	uint8_t 			ucSubPriority;	/* 中断子优先级，0-15 */
+#ifdef STM32F1_SGA_ENABLE
 	uint8_t				ucAFMode;		/* 重映射设置参数 @ref ucAFMode_define*/
+#endif
 }tagGPIO_T;
 
 void Drv_GPIO_Set(tagGPIO_T *_tGPIO);
 void Drv_GPIO_Reset(tagGPIO_T *_tGPIO);
 void Drv_GPIO_Write(tagGPIO_T *_tGPIO, GPIO_PinState _PinStatus);
 GPIO_PinState Drv_GPIO_Read(tagGPIO_T *_tGPIO);
+void Drv_GPIO_Toggle(tagGPIO_T *_tGPIO);
+
 void Drv_GPIO_Init(tagGPIO_T *_tGPIO, uint8_t _ucNum);
 void Drv_GPIO_DeInit(tagGPIO_T *_tGPIO);
 

@@ -95,6 +95,24 @@
   * @}
   */
 
+/** @defgroup OrientConfig	_ucOrient
+  * @{
+  */
+#define JY901_ORIENT_HORIZONTAL		0x00
+#define JY901_ORIENT_VERTICAL		0x01
+/**
+  * @}
+  */
+
+/** @defgroup AxisConfig	_ucAxis
+  * @{
+  */
+#define JY901_AXIS_9		0x00
+#define JY901_AXIS_6		0x01
+/**
+  * @}
+  */
+
 /* 时间数据结构体 */
 typedef struct 
 {
@@ -182,15 +200,17 @@ typedef struct
 	float Conq3;
 }tagJY901Quater;
 
-/*JY901参数配置结构体*/
+/* JY901参数配置结构体 */
 typedef struct 
 {
-	uint8_t 	ucBaud;	/* 波特率设置 */
-	uint8_t 	ucRate;	/* 速率设置 */
-	uint16_t 	usType; /* 输出类型设置 */
+	uint8_t 	ucBaud;		/* 波特率设置 */
+	uint8_t 	ucRate;		/* 速率设置 */
+	uint16_t 	usType; 	/* 输出类型设置 */
+	uint8_t		ucOrient;	/* 安装方向设置 */
+	uint8_t		ucAxis;		/* 解算算法设置 */
 }tagJY901config;
 
-/*JY901结构体*/
+/* JY901结构体 */
 typedef struct
 {
 	tagUART_T 			tUART;
@@ -203,16 +223,18 @@ typedef struct
 	tagJY901Quater		stcQuater;
 }tagJY901_T;
 
-void OCD_JY901_ITInit(tagJY901_T *_tJY901);
+
 void OCD_JY901_DMAInit(tagJY901_T *_tJY901);
 void OCD_JY901_RxTypeConfig(tagJY901_T *_tJY901);
 void OCD_JY901_RxSpeedConfig(tagJY901_T *_tJY901);
 void OCD_JY901_RxBaudConfig(tagJY901_T *_tJY901);
+void OCD_JY901_OrientConfig(tagJY901_T *_tJY901);
+void OCD_JY901_AxisConfig(tagJY901_T *_tJY901);
 void OCD_JY901_GyroAutoCorrect(tagJY901_T *_tJY901, uint8_t _ucMode);
 void OCD_JY901_Sleep(tagJY901_T *_tJY901);
 void OCD_JY901_Correct(tagJY901_T *_tJY901, uint8_t _ucMode);
 void OCD_JY901_OutputOnce(tagJY901_T *_tJY901);
-void OCD_JY901_DataProcess(tagJY901_T *_tJY901);
+uint8_t OCD_JY901_DataProcess(tagJY901_T *_tJY901);
 void OCD_JY901_DataConversion(tagJY901_T *_tJY901);
 void OCD_JY901_Printf(tagJY901_T *_tJY901);
 
