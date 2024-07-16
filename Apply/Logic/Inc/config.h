@@ -8,8 +8,20 @@
 
 /* 用户句柄声明包含区 */
 
-extern tagGPIO_T demoGPIO[];
+extern tagGPIO_T LED[];
 
-extern tagUART_T demoUart;
+extern tagUART_T Uart1;
+
+extern tagJY901_T JY901S;
+
+extern tagUART_T Uart3;
+
+extern tagAD24BIT_T AD4111_1;
+
+extern tagAD24BIT_T AD4111_2;
+
+extern tagPWM_T PWM[];
+
+extern tagMS5837_T MS5837;
 
 #endif

@@ -5,4 +5,6 @@
 
 void UserLogic_Code(void);
 
+extern rt_thread_t Testthread_t;
+
 #endif

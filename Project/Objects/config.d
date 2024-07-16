@@ -67,5 +67,8 @@
 .\objects\config.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 .\objects\config.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 .\objects\config.o: ..\Bsp\OCD\Inc\ocd_conf.h
+.\objects\config.o: ..\Bsp\OCD\Inc\ocd_ms5837.h
+.\objects\config.o: ..\Bsp\OCD\Inc\ocd_ad24bit.h
+.\objects\config.o: ..\Bsp\OCD\Inc\ocd_jy901.h
 .\objects\config.o: ..\Bsp\Algo\Inc\algo_conf.h
 .\objects\config.o: ..\Bsp\Dev\Inc\dev_conf.h

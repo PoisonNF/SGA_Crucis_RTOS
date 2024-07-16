@@ -41,7 +41,7 @@
 .\objects\task_irq.o: ..\Apply\Task\Inc\task_irq.h
 .\objects\task_irq.o: ..\Apply\Task\Inc\task_sysinit.h
 .\objects\task_irq.o: ..\Apply\Task\Inc\task_userinit.h
-.\objects\task_irq.o: ..\Apply\Logic\Inc\usercode.h
+.\objects\task_irq.o: ..\Apply\Task\Inc\task_test.h
 .\objects\task_irq.o: ..\Driver\Inc\drv_hal_conf.h
 .\objects\task_irq.o: ..\Bsp\RTOS\RT-Thread\include\rtthread.h
 .\objects\task_irq.o: ..\Bsp\RTOS\RT-Thread\include\rtconfig.h
@@ -72,5 +72,9 @@
 .\objects\task_irq.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 .\objects\task_irq.o: ..\Apply\Logic\Inc\config.h
 .\objects\task_irq.o: ..\Bsp\OCD\Inc\ocd_conf.h
+.\objects\task_irq.o: ..\Bsp\OCD\Inc\ocd_ms5837.h
+.\objects\task_irq.o: ..\Bsp\OCD\Inc\ocd_ad24bit.h
+.\objects\task_irq.o: ..\Bsp\OCD\Inc\ocd_jy901.h
 .\objects\task_irq.o: ..\Bsp\Algo\Inc\algo_conf.h
 .\objects\task_irq.o: ..\Bsp\Dev\Inc\dev_conf.h
+.\objects\task_irq.o: ..\Apply\Logic\Inc\usercode.h

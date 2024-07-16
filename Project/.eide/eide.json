@@ -40,6 +40,9 @@
               },
               {
                 "path": "../Apply/Task/Src/task_userinit.c"
+              },
+              {
+                "path": "../Apply/Task/Src/task_test.c"
               }
             ],
             "folders": []
@@ -79,6 +82,9 @@
               },
               {
                 "path": "../Bsp/OCD/Src/ocd_sdcard.c"
+              },
+              {
+                "path": "../Bsp/OCD/Src/ocd_ad24bit-1K_SYNC.lib"
               }
             ],
             "folders": []
@@ -366,7 +372,17 @@
       },
       {
         "name": "Doc",
-        "files": [],
+        "files": [
+          {
+            "path": "../Doc/工程目录介绍.txt"
+          },
+          {
+            "path": "../Doc/工程维护记录.txt"
+          },
+          {
+            "path": "../Doc/句柄资源示例.txt"
+          }
+        ],
         "folders": []
       }
     ]

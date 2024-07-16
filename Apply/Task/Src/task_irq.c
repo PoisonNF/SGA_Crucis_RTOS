@@ -27,8 +27,10 @@ void EXTI15_10_IRQHandler(void)
 */
 void USART1_IRQHandler(void)
 {
-	/* 示例 */
-    //Drv_Uart_IRQHandler(&tPCUart);		/* 必需部分 */
+    rt_interrupt_enter();
+    Drv_Uart_IRQHandler(&Uart1);
+    Drv_Uart_DMA_RxHandler(&Uart1);
+    rt_interrupt_leave();
 }
 
 /**
@@ -37,8 +39,9 @@ void USART1_IRQHandler(void)
 */
 void USART2_IRQHandler(void)
 {
-	/* 示例 */
-    //Drv_Uart_IRQHandler(&tJY901B.tUART);		/* 必需部分 */
+    rt_interrupt_enter();    //进入临界区
+    Drv_Uart_DMA_RxHandler(&JY901S.tUART);
+	rt_interrupt_leave();    //退出临界区
 }
 
 /**
@@ -47,7 +50,10 @@ void USART2_IRQHandler(void)
 */
 void USART3_IRQHandler(void)
 {
-
+    rt_interrupt_enter();
+    Drv_Uart_IRQHandler(&Uart3);
+    Drv_Uart_DMA_RxHandler(&Uart3);
+    rt_interrupt_leave();
 }
 
 /**

@@ -2,7 +2,7 @@
 
 
 /* GPIO句柄示例 */
-tagGPIO_T demoGPIO[] =
+tagGPIO_T LED[] =
 {
 	
 	[0]=
@@ -32,96 +32,272 @@ tagGPIO_T demoGPIO[] =
     
 };
 
-/* 串口句柄示例 */
-tagUART_T demoUart = 
+/* 串口1 DAP接口 有线RS232接口 */
+tagUART_T Uart1 = 
 {
 	//串口工作模式配置
 	.tUARTHandle.Instance 						= USART1,					/* STM32 串口设备 */
 	.tUARTHandle.Init.BaudRate   				= 115200,					/* 串口波特率 */
-	.tUARTHandle.Init.WordLength 				= UART_WORDLENGTH_8B,		/* 数据位长度 */
-	.tUARTHandle.Init.StopBits   				= UART_STOPBITS_1,			/* 停止位长度 */
-	.tUARTHandle.Init.Parity     				= UART_PARITY_NONE,			/* 校验位设置 */
-	.tUARTHandle.Init.HwFlowCtl  				= UART_HWCONTROL_NONE,		/* 硬件流控设置 */
-	.tUARTHandle.Init.Mode       				= UART_MODE_TX_RX,			/* 串口模式 */
-	.tUARTHandle.Init.OverSampling 				= UART_OVERSAMPLING_16,		/* 过采样 */
 
-#if defined (STM32L4_SGA_ENABLE)
-	.tUARTHandle.Init.OneBitSampling 			= UART_ONE_BIT_SAMPLE_DISABLE,
-	.tUARTHandle.AdvancedInit.AdvFeatureInit 	= UART_ADVFEATURE_NO_INIT,
-#endif
-	
 	.ucPriority									= 1,						/* 中断优先级 */
 	.ucSubPriority								= 3,						/* 中断子优先级 */
 	
 	//串口DMA接收参数配置
 	.tUartDMA.bRxEnable							= true,						/* DMA接收使能 */
-#ifdef STM32F1_SGA_ENABLE
-	.tUartDMA.tDMARx.Instance					= DMA1_Channel5,
-#endif
-#ifdef STM32F4_SGA_ENABLE
-	.tUartDMA.tDMARx.Instance					= DMA2_Stream2,
-	.tUartDMA.tDMARx.Init.Channel				= DMA_CHANNEL_4,
-#endif
-	.tUartDMA.tDMARx.Init.Direction				= DMA_PERIPH_TO_MEMORY,
-	.tUartDMA.tDMARx.Init.PeriphInc				= DMA_PINC_DISABLE,
-	.tUartDMA.tDMARx.Init.MemInc				= DMA_MINC_ENABLE,
-	.tUartDMA.tDMARx.Init.PeriphDataAlignment 	= DMA_PDATAALIGN_BYTE,
-	.tUartDMA.tDMARx.Init.MemDataAlignment	  	= DMA_MDATAALIGN_BYTE,
-	.tUartDMA.tDMARx.Init.Mode					= DMA_NORMAL,
-	.tUartDMA.tDMARx.Init.Priority				= DMA_PRIORITY_LOW,
-
 	.tRxInfo.usDMARxMAXSize             		= 100,              		/* DMA接收缓冲区大小 大小保持在协议最长字节*2以上，确保缓存池一定能够稳定接收一个完整的数据帧*/
 
-	.tUartDMA.ucDMARxPriority					= 1,						/* DMA接收中断优先级 */
-	.tUartDMA.ucDMARxSubPriority				= 1,						/* DMA接收中断子优先级 */
-	
 	//串口DMA发送参数配置
 	.tUartDMA.bTxEnable							= true,						/* DMA发送使能 */
-#ifdef STM32F1_SGA_ENABLE
-	.tUartDMA.tDMATx.Instance					= DMA1_Channel4,
-#endif
-#ifdef STM32F4_SGA_ENABLE
-	.tUartDMA.tDMATx.Instance					= DMA2_Stream7,
-	.tUartDMA.tDMATx.Init.Channel				= DMA_CHANNEL_4,
-	.tUartDMA.tDMATx.Init.FIFOMode				= DMA_FIFOMODE_ENABLE,
-#endif
-	.tUartDMA.tDMATx.Init.Direction				= DMA_MEMORY_TO_PERIPH,
-	.tUartDMA.tDMATx.Init.PeriphInc				= DMA_PINC_DISABLE,
-	.tUartDMA.tDMATx.Init.MemInc				= DMA_MINC_ENABLE,
-	.tUartDMA.tDMATx.Init.PeriphDataAlignment	= DMA_PDATAALIGN_BYTE,
-	.tUartDMA.tDMATx.Init.MemDataAlignment		= DMA_MDATAALIGN_BYTE,
-	.tUartDMA.tDMATx.Init.Mode					= DMA_NORMAL,
-	.tUartDMA.tDMATx.Init.Priority				= DMA_PRIORITY_HIGH,
-
 	.tTxInfo.usDMATxMAXSize						= 50,						/* DMA发送缓冲区大小 */
+};
+
+/* JY901S参数设置 */
+tagJY901_T JY901S = 
+{
+	.tConfig.ucBaud 	= JY901_RXBAUD_9600,
+	.tConfig.ucRate		= JY901_RX_2HZ,
+	.tConfig.usType		= JY901_OUTPUT_ANGLE,
+
+	.tUART.tRxInfo.usDMARxMAXSize             	= 100,                 /* 接收数据长度 长度保持在协议最长字节*2以上，确保缓存池一定能够稳定接收一个完整的数据帧*/
+
+    .tUART.tUartDMA.bRxEnable					= true,					/* DMA接收使能 */
+};
+
+/* 串口3 无线电台 */
+tagUART_T Uart3 = 
+{
+	//串口工作模式配置
+	.tUARTHandle.Instance 						= USART3,					/* STM32 串口设备 */
+	.tUARTHandle.Init.BaudRate   				= 9600,					/* 串口波特率 */
+
+	.ucPriority									= 1,						/* 中断优先级 */
+	.ucSubPriority								= 3,						/* 中断子优先级 */
 	
-	.tUartDMA.ucDMATxPriority					= 1,						/* DMA发送中断优先级 */
-	.tUartDMA.ucDMATxSubPriority				= 1,						/* DMA发送中断子优先级 */
+	//串口DMA接收参数配置
+	.tUartDMA.bRxEnable							= true,						/* DMA接收使能 */
+	.tRxInfo.usDMARxMAXSize             		= 100,              		/* DMA接收缓冲区大小 大小保持在协议最长字节*2以上，确保缓存池一定能够稳定接收一个完整的数据帧*/
 
-	//串口GPIO配置
-	.tGPIO[0].tGPIOInit.Pin 					= GPIO_PIN_9,				/* GPIO引脚 */
-	.tGPIO[0].tGPIOInit.Mode 					= GPIO_MODE_AF_PP,			/* GPIO模式 */
-	.tGPIO[0].tGPIOInit.Pull 					= GPIO_NOPULL,				/* GPIO上下拉设置，是否需要上下拉看硬件 */
-	.tGPIO[0].tGPIOInit.Speed 					= GPIO_SPEED_FREQ_HIGH,		/* GPIO速度 */	
-	.tGPIO[0].tGPIOPort 						= GPIOA,					/* GPIO分组 */
-#ifdef STM32F1_SGA_ENABLE
-	.tGPIO[0].ucAFMode							= NO_REMAP,					/* GPIO重映射 */
-#endif
-#ifdef STM32F4_SGA_ENABLE
-	.tGPIO[0].tGPIOInit.Alternate				= GPIO_AF7_USART1,
-#endif
+	//串口DMA发送参数配置
+	.tUartDMA.bTxEnable							= true,						/* DMA发送使能 */
+	.tTxInfo.usDMATxMAXSize						= 50,						/* DMA发送缓冲区大小 */
+};
 
-	.tGPIO[1].tGPIOInit.Pin 					= GPIO_PIN_10,				/* GPIO引脚 */
-	.tGPIO[1].tGPIOInit.Pull 					= GPIO_NOPULL,				/* GPIO上下拉设置，是否需要上下拉看硬件 */
-	.tGPIO[1].tGPIOInit.Speed 					= GPIO_SPEED_FREQ_HIGH,		/* GPIO速度 */	
-	.tGPIO[1].tGPIOPort 						= GPIOA,					/* GPIO分组 */
-#ifdef STM32F1_SGA_ENABLE	
-	.tGPIO[1].tGPIOInit.Mode 					= GPIO_MODE_INPUT,			/* F4系列需要设置为输入模式 */
-	.tGPIO[1].ucAFMode							= NO_REMAP,					/* GPIO重映射 */
-#endif
-#ifdef STM32F4_SGA_ENABLE
-	.tGPIO[1].tGPIOInit.Mode 					= GPIO_MODE_AF_PP,			/* F4系列需要设置为复用推挽 */
-	.tGPIO[1].tGPIOInit.Alternate				= GPIO_AF7_USART1,
-#endif
+/* AD芯片配置 */
+tagAD24BIT_T AD4111_1 =
+{
+	.tSPI.tSPIHandle.Instance 		    = SPI2,		
+    .tSPI.tGPIO[0].tGPIOInit.Pin 		= GPIO_PIN_13,				/* GPIO引脚 ,SPI2_SCK*/
+	.tSPI.tGPIO[0].tGPIOInit.Mode 		= GPIO_MODE_AF_PP,			/* GPIO模式 */
+	.tSPI.tGPIO[0].tGPIOInit.Pull 		= GPIO_NOPULL,				/* GPIO上下拉设置，是否需要上下拉看硬件 */
+	.tSPI.tGPIO[0].tGPIOInit.Speed 		= GPIO_SPEED_FREQ_HIGH,		/* GPIO速度 */	
+	.tSPI.tGPIO[0].tGPIOPort 			= GPIOB,					/* GPIO分组 */	
+	.tSPI.tGPIO[1].tGPIOInit.Pin 		= GPIO_PIN_15,				/* GPIO引脚 ,SPI2_MOSI*/
+	.tSPI.tGPIO[1].tGPIOInit.Mode 		= GPIO_MODE_AF_PP,			/* GPIO模式 */
+	.tSPI.tGPIO[1].tGPIOInit.Pull 		= GPIO_NOPULL,				/* GPIO上下拉设置，是否需要上下拉看硬件 */
+	.tSPI.tGPIO[1].tGPIOInit.Speed 		= GPIO_SPEED_FREQ_HIGH,		/* GPIO速度 */	
+	.tSPI.tGPIO[1].tGPIOPort 			= GPIOB,					/* GPIO分组 */	
+	.tSPI.tGPIO[2].tGPIOInit.Pin 		= GPIO_PIN_14,				/* GPIO引脚 ,SPI2_MISO*/
+	.tSPI.tGPIO[2].tGPIOInit.Mode 		= GPIO_MODE_AF_PP,			/* GPIO模式 */
+	.tSPI.tGPIO[2].tGPIOInit.Pull 		= GPIO_NOPULL,				/* GPIO上下拉设置，是否需要上下拉看硬件 */
+	.tSPI.tGPIO[2].tGPIOInit.Speed 		= GPIO_SPEED_FREQ_HIGH,		/* GPIO速度 */	
+	.tSPI.tGPIO[2].tGPIOPort 			= GPIOB,					/* GPIO分组 */		
+    .tSPI.tGPIO[3].tGPIOInit.Pin 		= GPIO_PIN_12,				/* GPIO引脚 ,CS*/
+	.tSPI.tGPIO[3].tGPIOInit.Mode 		= GPIO_MODE_OUTPUT_PP,		/* GPIO模式 */
+	.tSPI.tGPIO[3].tGPIOInit.Pull 		= GPIO_NOPULL,				/* GPIO上下拉设置，是否需要上下拉看硬件 */
+	.tSPI.tGPIO[3].tGPIOInit.Speed 		= GPIO_SPEED_FREQ_HIGH,		/* GPIO速度 */	
+	.tSPI.tGPIO[3].tGPIOPort 			= GPIOB,					/* GPIO分组 */	
+	.port_num = 8,  //测量的端口数，跟下面配置的端口对应起来
+	.port[0].enable = PORT_ENABLE,//端口使能
+	.port[0].num = VIN0,  //采集信号的,单端模式，信号的地接Vincom端口;差分模式，信号接对应端口
+	.port[0].gain = 1.001648338,  //校正参数增益Y =  gain*X+offset,若不需要校正则默认gain = 1.0,offset = 0.0;
+	.port[0].offset= 0.000936992, //校正参数偏移量Y =  gain*X+offset,若不需要校正则默认gain = 1.0,offset = 0.0;
+	.port[1].enable = PORT_ENABLE,
+	.port[1].num = VIN1,	//采集信号的,单端模式，信号的地接Vincom端口;差分模式，信号接对应端口
+	.port[1].gain = 1.00148387,  //校正参数增益Y =  gain*X+offset,若不需要校正则默认gain = 1.0,offset = 0.0;
+	.port[1].offset= 0.002501957,//校正参数偏移量Y =  gain*X+offset,若不需要校正则默认gain = 1.0,offset = 0.0;	
+	.port[2].enable = PORT_ENABLE,
+	.port[2].num = VIN2,	//采集信号的,单端模式，信号的地接Vincom端口;差分模式，信号接对应端口
+	.port[2].gain = 1.0,  //校正参数增益Y =  gain*X+offset,若不需要校正则默认gain = 1.0,offset = 0.0;
+	.port[2].offset= 0.0,//校正参数偏移量Y =  gain*X+offset,若不需要校正则默认gain = 1.0,offset = 0.0;
+	.port[3].enable = PORT_ENABLE,//端口使能
+	.port[3].num = VIN3,  //采集信号的,单端模式，信号的地接Vincom端口;差分模式，信号接对应端口
+	.port[3].gain = 1.0,  //校正参数增益Y =  gain*X+offset,若不需要校正则默认gain = 1.0,offset = 0.0;
+	.port[3].offset= 0.0,//校正参数偏移量Y =  gain*X+offset,若不需要校正则默认gain = 1.0,offset = 0.0;
+	.port[4].enable = PORT_ENABLE,
+	.port[4].num = VIN4,	//采集信号的,单端模式，信号的地接Vincom端口;差分模式，信号接对应端口
+	.port[4].gain = 1.001571984,  //校正参数增益Y =  gain*X+offset,若不需要校正则默认gain = 1.0,offset = 0.0;
+	.port[4].offset= 0.001703874,//校正参数偏移量Y =  gain*X+offset,若不需要校正则默认gain = 1.0,offset = 0.0;	
+	.port[5].enable = PORT_ENABLE,
+	.port[5].num = VIN5,	//采集信号的,单端模式，信号的地接Vincom端口;差分模式，信号接对应端口
+	.port[5].gain = 1.001649837,  //校正参数增益Y =  gain*X+offset,若不需要校正则默认gain = 1.0,offset = 0.0;
+	.port[5].offset= 0.001140979,//校正参数偏移量Y =  gain*X+offset,若不需要校正则默认gain = 1.0,offset = 0.0;
+    .port[6].enable = PORT_ENABLE,
+	.port[6].num = VIN6,	//采集信号的,单端模式，信号的地接Vincom端口;差分模式，信号接对应端口
+	.port[6].gain = 1.001620507,  //校正参数增益Y =  gain*X+offset,若不需要校正则默认gain = 1.0,offset = 0.0;
+	.port[6].offset= 0.001374424,//校正参数偏移量Y =  gain*X+offset,若不需要校正则默认gain = 1.0,offset = 0.0;
+    .port[7].enable = PORT_ENABLE,
+	.port[7].num = VIN7,	//采集信号的,单端模式，信号的地接Vincom端口;差分模式，信号接对应端口
+	.port[7].gain = 1.001448878,  //校正参数增益Y =  gain*X+offset,若不需要校正则默认gain = 1.0,offset = 0.0;
+	.port[7].offset= 0.00172139,//校正参数偏移量Y =  gain*X+offset,若不需要校正则默认gain = 1.0,offset = 0.0;
+};
+
+/* AD芯片配置 */
+tagAD24BIT_T AD4111_2 =
+{
+	.tSPI.tSPIHandle.Instance 		    = SPI3,		
+    .tSPI.tGPIO[0].tGPIOInit.Pin 		= GPIO_PIN_3,				/* GPIO引脚 ,SPI3_SCK*/
+	.tSPI.tGPIO[0].tGPIOInit.Mode 		= GPIO_MODE_AF_PP,			/* GPIO模式 */
+	.tSPI.tGPIO[0].tGPIOInit.Pull 		= GPIO_NOPULL,				/* GPIO上下拉设置，是否需要上下拉看硬件 */
+	.tSPI.tGPIO[0].tGPIOInit.Speed 		= GPIO_SPEED_FREQ_HIGH,		/* GPIO速度 */	
+	.tSPI.tGPIO[0].tGPIOPort 			= GPIOB,					/* GPIO分组 */	
+	.tSPI.tGPIO[1].tGPIOInit.Pin 		= GPIO_PIN_5,				/* GPIO引脚 ,SPI3_MOSI*/
+	.tSPI.tGPIO[1].tGPIOInit.Mode 		= GPIO_MODE_AF_PP,			/* GPIO模式 */
+	.tSPI.tGPIO[1].tGPIOInit.Pull 		= GPIO_NOPULL,				/* GPIO上下拉设置，是否需要上下拉看硬件 */
+	.tSPI.tGPIO[1].tGPIOInit.Speed 		= GPIO_SPEED_FREQ_HIGH,		/* GPIO速度 */	
+	.tSPI.tGPIO[1].tGPIOPort 			= GPIOB,					/* GPIO分组 */	
+	.tSPI.tGPIO[2].tGPIOInit.Pin 		= GPIO_PIN_4,				/* GPIO引脚 ,SPI3_MISO*/
+	.tSPI.tGPIO[2].tGPIOInit.Mode 		= GPIO_MODE_AF_PP,			/* GPIO模式 */
+	.tSPI.tGPIO[2].tGPIOInit.Pull 		= GPIO_NOPULL,				/* GPIO上下拉设置，是否需要上下拉看硬件 */
+	.tSPI.tGPIO[2].tGPIOInit.Speed 		= GPIO_SPEED_FREQ_HIGH,		/* GPIO速度 */	
+	.tSPI.tGPIO[2].tGPIOPort 			= GPIOB,					/* GPIO分组 */		
+    .tSPI.tGPIO[3].tGPIOInit.Pin 		= GPIO_PIN_7,				/* GPIO引脚 ,SPI3_CS*/
+	.tSPI.tGPIO[3].tGPIOInit.Mode 		= GPIO_MODE_OUTPUT_PP,		/* GPIO模式 */
+	.tSPI.tGPIO[3].tGPIOInit.Pull 		= GPIO_NOPULL,				/* GPIO上下拉设置，是否需要上下拉看硬件 */
+	.tSPI.tGPIO[3].tGPIOInit.Speed 		= GPIO_SPEED_FREQ_HIGH,		/* GPIO速度 */	
+	.tSPI.tGPIO[3].tGPIOPort 			= GPIOD,					/* GPIO分组 */	
+	.port_num = 8,  //测量的端口数，跟下面配置的端口对应起来
+	.port[0].enable = PORT_ENABLE,//端口使能
+	.port[0].num = VIN0,  //采集信号的,单端模式，信号的地接Vincom端口;差分模式，信号接对应端口
+	.port[0].gain = 1.001566898,  //校正参数增益Y =  gain*X+offset,若不需要校正则默认gain = 1.0,offset = 0.0;
+	.port[0].offset= 0.002822938,//校正参数偏移量Y =  gain*X+offset,若不需要校正则默认gain = 1.0,offset = 0.0;
+	.port[1].enable = PORT_ENABLE,
+	.port[1].num = VIN1,	//采集信号的,单端模式，信号的地接Vincom端口;差分模式，信号接对应端口
+	.port[1].gain = 1.001477404,  //校正参数增益Y =  gain*X+offset,若不需要校正则默认gain = 1.0,offset = 0.0;
+	.port[1].offset= 0.002462209,//校正参数偏移量Y =  gain*X+offset,若不需要校正则默认gain = 1.0,offset = 0.0;	
+	.port[2].enable = PORT_ENABLE,
+	.port[2].num = VIN2,	//采集信号的,单端模式，信号的地接Vincom端口;差分模式，信号接对应端口
+	.port[2].gain = 1.0,  //校正参数增益Y =  gain*X+offset,若不需要校正则默认gain = 1.0,offset = 0.0;
+	.port[2].offset= 0.0,//校正参数偏移量Y =  gain*X+offset,若不需要校正则默认gain = 1.0,offset = 0.0;
+	.port[3].enable = PORT_ENABLE,//端口使能
+	.port[3].num = VIN3,  //采集信号的,单端模式，信号的地接Vincom端口;差分模式，信号接对应端口
+	.port[3].gain = 1.0,  //校正参数增益Y =  gain*X+offset,若不需要校正则默认gain = 1.0,offset = 0.0;
+	.port[3].offset= 0.0,//校正参数偏移量Y =  gain*X+offset,若不需要校正则默认gain = 1.0,offset = 0.0;
+	.port[4].enable = PORT_ENABLE,
+	.port[4].num = VIN4,	//采集信号的,单端模式，信号的地接Vincom端口;差分模式，信号接对应端口
+	.port[4].gain = 1.001607121,  //校正参数增益Y =  gain*X+offset,若不需要校正则默认gain = 1.0,offset = 0.0;
+	.port[4].offset= 0.002711971,//校正参数偏移量Y =  gain*X+offset,若不需要校正则默认gain = 1.0,offset = 0.0;	
+	.port[5].enable = PORT_ENABLE,
+	.port[5].num = VIN5,	//采集信号的,单端模式，信号的地接Vincom端口;差分模式，信号接对应端口
+	.port[5].gain = 1.001525822,  //校正参数增益Y =  gain*X+offset,若不需要校正则默认gain = 1.0,offset = 0.0;
+	.port[5].offset= 0.00250732,//校正参数偏移量Y =  gain*X+offset,若不需要校正则默认gain = 1.0,offset = 0.0;
+    .port[6].enable = PORT_ENABLE,
+	.port[6].num = VIN6,	//采集信号的,单端模式，信号的地接Vincom端口;差分模式，信号接对应端口
+	.port[6].gain = 1.001581494,  //校正参数增益Y =  gain*X+offset,若不需要校正则默认gain = 1.0,offset = 0.0;
+	.port[6].offset= 0.003163044,//校正参数偏移量Y =  gain*X+offset,若不需要校正则默认gain = 1.0,offset = 0.0;
+    .port[7].enable = PORT_ENABLE,
+	.port[7].num = VIN7,	//采集信号的,单端模式，信号的地接Vincom端口;差分模式，信号接对应端口
+	.port[7].gain = 1.00152087,  //校正参数增益Y =  gain*X+offset,若不需要校正则默认gain = 1.0,offset = 0.0;
+	.port[7].offset= 0.002486376,//校正参数偏移量Y =  gain*X+offset,若不需要校正则默认gain = 1.0,offset = 0.0;
+};
+
+tagPWM_T PWM[] =
+{
+	[0] =       //A1
+	{
+		.fDuty					= 7.5,				/* 初始占空比（%） */
+		.ulFreq					= 50,				/* 频率（Hz） */
+        .tGPIO.tGPIOInit.Pin	= GPIO_PIN_0,		/* IO映射 */
+		.tGPIO.tGPIOPort		= GPIOB,			/* IO组映射 */
+	},
+	[1] =       //A2
+	{
+		.fDuty					= 7.5,				/* 初始占空比（%） */
+		.ulFreq					= 50,				/* 频率（Hz） */
+        .tGPIO.tGPIOInit.Pin	= GPIO_PIN_1,		/* IO映射 */
+		.tGPIO.tGPIOPort		= GPIOB,			/* IO组映射 */
+	},
+	[2] =       //B1
+	{
+		.fDuty					= 7.5,				/* 初始占空比（%） */
+		.ulFreq					= 50,				/* 频率（Hz） */
+        .tGPIO.tGPIOInit.Pin	= GPIO_PIN_13,		/* IO映射 */
+		.tGPIO.tGPIOPort		= GPIOE,			/* IO组映射 */
+	},
+	[3] =       //B2
+	{
+		.fDuty					= 7.5,				/* 初始占空比（%） */
+		.ulFreq					= 50,				/* 频率（Hz） */
+        .tGPIO.tGPIOInit.Pin	= GPIO_PIN_14,		/* IO映射 */
+		.tGPIO.tGPIOPort		= GPIOE,			/* IO组映射 */
+	},
+	[4] =       //C1
+	{
+		.fDuty					= 7.5,				/* 初始占空比（%） */
+		.ulFreq					= 50,				/* 频率（Hz） */
+        .tGPIO.tGPIOInit.Pin	= GPIO_PIN_12,		/* IO映射 */
+		.tGPIO.tGPIOPort		= GPIOD,			/* IO组映射 */
+	},
+	[5] =       //C2
+	{
+		.fDuty					= 7.5,				/* 初始占空比（%） */
+		.ulFreq					= 50,				/* 频率（Hz） */
+        .tGPIO.tGPIOInit.Pin	= GPIO_PIN_13,		/* IO映射 */
+		.tGPIO.tGPIOPort		= GPIOD,			/* IO组映射 */
+	},
+	[6] =       //D1
+	{
+		.fDuty					= 7.5,				/* 初始占空比（%） */
+		.ulFreq					= 50,				/* 频率（Hz） */
+        .tGPIO.tGPIOInit.Pin	= GPIO_PIN_14,		/* IO映射 */
+		.tGPIO.tGPIOPort		= GPIOD,			/* IO组映射 */
+	},
+	[7] =       //D2
+	{
+		.fDuty					= 7.5,				/* 初始占空比（%） */
+		.ulFreq					= 50,				/* 频率（Hz） */
+        .tGPIO.tGPIOInit.Pin	= GPIO_PIN_15,		/* IO映射 */
+		.tGPIO.tGPIOPort		= GPIOD,			/* IO组映射 */
+	},
+	[8] =       //SB-2
+	{
+		.fDuty					= 7.5,				/* 初始占空比（%） */
+		.ulFreq					= 50,				/* 频率（Hz） */
+        .tGPIO.tGPIOInit.Pin	= GPIO_PIN_6,		/* IO映射 */
+		.tGPIO.tGPIOPort		= GPIOC,			/* IO组映射 */
+	},
+	[9] =       //SB-3
+	{
+		.fDuty					= 7.5,				/* 初始占空比（%） */
+		.ulFreq					= 50,				/* 频率（Hz） */
+        .tGPIO.tGPIOInit.Pin	= GPIO_PIN_7,		/* IO映射 */
+		.tGPIO.tGPIOPort		= GPIOC,			/* IO组映射 */
+	},
+	[10] =      //SB-1
+	{
+		.fDuty					= 7.5,				/* 初始占空比（%） */
+		.ulFreq					= 50,				/* 频率（Hz） */
+        .tGPIO.tGPIOInit.Pin	= GPIO_PIN_8,		/* IO映射 */
+		.tGPIO.tGPIOPort		= GPIOC,			/* IO组映射 */
+	},
+};
+
+/* MS5837句柄*/
+tagMS5837_T MS5837 = 
+{
+	.setOSR = MS5837_OSR4096,
+	
+	/* SCL线 */
+	.tIIC.tIICSoft[0].tGPIOInit.Pin 		= GPIO_PIN_9,				/* GPIO引脚 */
+	.tIIC.tIICSoft[0].tGPIOInit.Mode 		= GPIO_MODE_OUTPUT_PP,		/* GPIO模式 */
+	.tIIC.tIICSoft[0].tGPIOInit.Pull 		= GPIO_NOPULL,				/* GPIO上下拉设置，是否需要上下拉看硬件 */
+	.tIIC.tIICSoft[0].tGPIOInit.Speed 		= GPIO_SPEED_FREQ_HIGH,		/* GPIO速度 */	
+	.tIIC.tIICSoft[0].tGPIOPort 			= GPIOC,					/* GPIO分组 */
+
+	/* SDA线 */
+	.tIIC.tIICSoft[1].tGPIOInit.Pin 		= GPIO_PIN_8,				/* GPIO引脚 */
+	.tIIC.tIICSoft[1].tGPIOInit.Mode		= GPIO_MODE_INPUT,			/* GPIO模式 */
+	.tIIC.tIICSoft[1].tGPIOInit.Pull		= GPIO_NOPULL,				/* GPIO上下拉设置，是否需要上下拉看硬件 */
+	.tIIC.tIICSoft[1].tGPIOInit.Speed		= GPIO_SPEED_FREQ_HIGH,		/* GPIO速度 */	
+	.tIIC.tIICSoft[1].tGPIOPort 			= GPIOA,					/* GPIO分组 */
 };
 

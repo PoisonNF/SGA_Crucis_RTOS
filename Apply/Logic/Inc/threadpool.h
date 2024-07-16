@@ -2,5 +2,6 @@
 #define __THREADPOOL_H_
 
 /* 线程入口函数声明 */
+void TestThread(void* paramenter);
 
 #endif

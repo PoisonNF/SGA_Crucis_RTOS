@@ -422,6 +422,11 @@
               <FileType>1</FileType>
               <FilePath>..\Apply\Task\Src\task_userinit.c</FilePath>
             </File>
+            <File>
+              <FileName>task_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Apply\Task\Src\task_test.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -471,6 +476,11 @@
               <FileName>ocd_sdcard.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Bsp\OCD\Src\ocd_sdcard.c</FilePath>
+            </File>
+            <File>
+              <FileName>ocd_ad24bit-1K_SYNC.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\Bsp\OCD\Src\ocd_ad24bit-1K_SYNC.lib</FilePath>
             </File>
           </Files>
         </Group>

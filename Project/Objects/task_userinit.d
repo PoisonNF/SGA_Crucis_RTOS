@@ -41,8 +41,7 @@
 .\objects\task_userinit.o: ..\Apply\Task\Inc\task_irq.h
 .\objects\task_userinit.o: ..\Apply\Task\Inc\task_sysinit.h
 .\objects\task_userinit.o: ..\Apply\Task\Inc\task_userinit.h
-.\objects\task_userinit.o: ..\Bsp\OCD\Inc\ocd_conf.h
-.\objects\task_userinit.o: ..\Apply\Logic\Inc\config.h
+.\objects\task_userinit.o: ..\Apply\Task\Inc\task_test.h
 .\objects\task_userinit.o: ..\Driver\Inc\drv_hal_conf.h
 .\objects\task_userinit.o: ..\Bsp\RTOS\RT-Thread\include\rtthread.h
 .\objects\task_userinit.o: ..\Bsp\RTOS\RT-Thread\include\rtconfig.h
@@ -71,5 +70,10 @@
 .\objects\task_userinit.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\objects\task_userinit.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 .\objects\task_userinit.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\objects\task_userinit.o: ..\Apply\Logic\Inc\config.h
+.\objects\task_userinit.o: ..\Bsp\OCD\Inc\ocd_conf.h
+.\objects\task_userinit.o: ..\Bsp\OCD\Inc\ocd_ms5837.h
+.\objects\task_userinit.o: ..\Bsp\OCD\Inc\ocd_ad24bit.h
+.\objects\task_userinit.o: ..\Bsp\OCD\Inc\ocd_jy901.h
 .\objects\task_userinit.o: ..\Bsp\Algo\Inc\algo_conf.h
 .\objects\task_userinit.o: ..\Bsp\Dev\Inc\dev_conf.h

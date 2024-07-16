@@ -9,7 +9,14 @@
 
 
 /* 线程入口函数（使用裸机忽略此文件） */
-
+void TestThread(void* paramenter)
+{
+    while(1)
+    {
+        Task_Test_Handle();
+        rt_thread_yield();
+    }
+}
 
 
 
