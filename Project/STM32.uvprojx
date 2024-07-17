@@ -437,6 +437,26 @@
               <FileType>1</FileType>
               <FilePath>..\Apply\Task\Src\task_jy901.c</FilePath>
             </File>
+            <File>
+              <FileName>task_ms5837.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Apply\Task\Src\task_ms5837.c</FilePath>
+            </File>
+            <File>
+              <FileName>task_ad4111.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Apply\Task\Src\task_ad4111.c</FilePath>
+            </File>
+            <File>
+              <FileName>task_ipccmd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Apply\Task\Src\task_ipccmd.c</FilePath>
+            </File>
+            <File>
+              <FileName>task_imx6ull.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Apply\Task\Src\task_imx6ull.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

@@ -78,5 +78,9 @@
 .\objects\usercode.o: ..\Bsp\OCD\Inc\ocd_jy901.h
 .\objects\usercode.o: ..\Bsp\Algo\Inc\algo_conf.h
 .\objects\usercode.o: ..\Bsp\Dev\Inc\dev_conf.h
+.\objects\usercode.o: ..\Apply\Task\Inc\task_ad4111.h
 .\objects\usercode.o: ..\Apply\Task\Inc\task_reportdata.h
 .\objects\usercode.o: ..\Apply\Task\Inc\task_jy901.h
+.\objects\usercode.o: ..\Apply\Task\Inc\task_ms5837.h
+.\objects\usercode.o: ..\Apply\Task\Inc\task_ipccmd.h
+.\objects\usercode.o: ..\Apply\Task\Inc\task_imx6ull.h

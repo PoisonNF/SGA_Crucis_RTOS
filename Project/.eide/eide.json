@@ -49,6 +49,18 @@
               },
               {
                 "path": "../Apply/Task/Src/task_jy901.c"
+              },
+              {
+                "path": "../Apply/Task/Src/task_ms5837.c"
+              },
+              {
+                "path": "../Apply/Task/Src/task_ad4111.c"
+              },
+              {
+                "path": "../Apply/Task/Src/task_ipccmd.c"
+              },
+              {
+                "path": "../Apply/Task/Src/task_imx6ull.c"
               }
             ],
             "folders": []

@@ -1,7 +1,7 @@
 #include "config.h"
 
 
-/* GPIO句柄示例 */
+/* LED */
 tagGPIO_T LED[] =
 {
 	
@@ -32,12 +32,22 @@ tagGPIO_T LED[] =
     
 };
 
+/* SYNC引脚 */
+tagGPIO_T SYNC =
+{
+	.tGPIOInit.Pin 		= GPIO_PIN_0,				/* GPIO引脚 */
+	.tGPIOInit.Mode 	= GPIO_MODE_OUTPUT_PP,		/* GPIO模式 */
+	.tGPIOInit.Pull 	= GPIO_NOPULL,				/* GPIO上下拉设置，是否需要上下拉看硬件 */
+	.tGPIOInit.Speed 	= GPIO_SPEED_FREQ_HIGH,		/* GPIO速度 */	
+	.tGPIOPort 			= GPIOE,					/* GPIO分组 */
+};
+
 /* 串口1 DAP接口 有线RS232接口 */
 tagUART_T Uart1 = 
 {
 	//串口工作模式配置
 	.tUARTHandle.Instance 						= USART1,					/* STM32 串口设备 */
-	.tUARTHandle.Init.BaudRate   				= 115200,					/* 串口波特率 */
+	.tUARTHandle.Init.BaudRate   				= 9600,					/* 串口波特率 */
 
 	.ucPriority									= 1,						/* 中断优先级 */
 	.ucSubPriority								= 3,						/* 中断子优先级 */
@@ -68,6 +78,25 @@ tagUART_T Uart3 =
 {
 	//串口工作模式配置
 	.tUARTHandle.Instance 						= USART3,					/* STM32 串口设备 */
+	.tUARTHandle.Init.BaudRate   				= 9600,					/* 串口波特率 */
+
+	.ucPriority									= 1,						/* 中断优先级 */
+	.ucSubPriority								= 3,						/* 中断子优先级 */
+	
+	//串口DMA接收参数配置
+	.tUartDMA.bRxEnable							= true,						/* DMA接收使能 */
+	.tRxInfo.usDMARxMAXSize             		= 100,              		/* DMA接收缓冲区大小 大小保持在协议最长字节*2以上，确保缓存池一定能够稳定接收一个完整的数据帧*/
+
+	//串口DMA发送参数配置
+	.tUartDMA.bTxEnable							= true,						/* DMA发送使能 */
+	.tTxInfo.usDMATxMAXSize						= 150,						/* DMA发送缓冲区大小 */
+};
+
+/* 串口4 I.MX6ull */
+tagUART_T Uart4 = 
+{
+	//串口工作模式配置
+	.tUARTHandle.Instance 						= UART4,					/* STM32 串口设备 */
 	.tUARTHandle.Init.BaudRate   				= 9600,					/* 串口波特率 */
 
 	.ucPriority									= 1,						/* 中断优先级 */

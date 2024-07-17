@@ -73,3 +73,6 @@
 .\objects\task_test.o: ..\Bsp\OCD\Inc\ocd_jy901.h
 .\objects\task_test.o: ..\Bsp\Algo\Inc\algo_conf.h
 .\objects\task_test.o: ..\Bsp\Dev\Inc\dev_conf.h
+.\objects\task_test.o: ..\Apply\Task\Inc\task_ad4111.h
+.\objects\task_test.o: ..\Apply\Logic\Inc\usercode.h
+.\objects\task_test.o: ..\Apply\Task\Inc\task_reportdata.h

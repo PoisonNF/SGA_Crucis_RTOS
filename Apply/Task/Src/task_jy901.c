@@ -14,13 +14,14 @@ void Task_JY901_Handle(void)
         {
             //数据转换
             OCD_JY901_DataConversion(&JY901S);
+#ifdef DEBUG_PRINTF
             //打印欧拉角
             if(JY901S.tConfig.usType & JY901_OUTPUT_ANGLE)	    
                 printf("J Angle %.3f %.3f %.3f\r\n",
                         JY901S.stcAngle.ConRoll,
                         JY901S.stcAngle.ConPitch,
                         JY901S.stcAngle.ConYaw);
-            
+#endif           
             //将数据放入报告数据缓存区
             memcpy(&ReportDataBuffer[ANGLE_BASE],&JY901S.stcAngle.ConRoll,FLOAT_SIZE);
             memcpy(&ReportDataBuffer[ANGLE_BASE + FLOAT_SIZE],&JY901S.stcAngle.ConPitch,FLOAT_SIZE);

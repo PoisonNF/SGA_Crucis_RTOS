@@ -6,9 +6,14 @@
 void UserLogic_Code(void);
 
 extern rt_sem_t JY901S_Sem;
+extern rt_sem_t CmdFromIPC_Sem;
 
 extern rt_thread_t TestThread_t;
 extern rt_thread_t ReportDataThread_t;
 extern rt_thread_t JY901Thread_t;
+extern rt_thread_t MS5837Thread_t;
+extern rt_thread_t AD4111Thread_t;
+extern rt_thread_t IPCcmdThread_t;
+extern rt_thread_t IMX6ULLThread_t;
 
 #endif

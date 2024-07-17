@@ -10,5 +10,8 @@
 #include "task_test.h"
 #include "task_reportdata.h"
 #include "task_jy901.h"
+#include "task_ms5837.h"
+#include "task_ipccmd.h"
+#include "task_imx6ull.h"
 
 #endif

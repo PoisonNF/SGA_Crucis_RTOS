@@ -17,7 +17,7 @@
 #define SERVO_BASE                  (THRUSTER_BASE + 4 * UINT16_T_SIZE)
 #define GPS_BASE                    (SERVO_BASE + 4 * UINT16_T_SIZE)
 #define DEPTH_BASE                  (GPS_BASE + 3 * UINT8_T_SIZE + 2 * FLOAT_SIZE)
-#define DATE_BASE                   (DEPTH_BASE + UINT16_T_SIZE)
+#define DATE_BASE                   (DEPTH_BASE + FLOAT_SIZE)
 #define ANGLE_BASE                  (DATE_BASE + 6 * UINT8_T_SIZE)
 #define MAG_BASE                    (ANGLE_BASE + 3 * FLOAT_SIZE)
 #define FRAMEEND_BASE               (MAG_BASE + 3 * UINT16_T_SIZE)

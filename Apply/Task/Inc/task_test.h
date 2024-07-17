@@ -3,6 +3,7 @@
 
 #include "drv_hal_conf.h"
 #include "config.h"
+#include "task_ad4111.h"
 
 void Task_Test_Handle(void);
 

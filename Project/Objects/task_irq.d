@@ -77,6 +77,10 @@
 .\objects\task_irq.o: ..\Bsp\OCD\Inc\ocd_jy901.h
 .\objects\task_irq.o: ..\Bsp\Algo\Inc\algo_conf.h
 .\objects\task_irq.o: ..\Bsp\Dev\Inc\dev_conf.h
+.\objects\task_irq.o: ..\Apply\Task\Inc\task_ad4111.h
+.\objects\task_irq.o: ..\Apply\Logic\Inc\usercode.h
 .\objects\task_irq.o: ..\Apply\Task\Inc\task_reportdata.h
 .\objects\task_irq.o: ..\Apply\Task\Inc\task_jy901.h
-.\objects\task_irq.o: ..\Apply\Logic\Inc\usercode.h
+.\objects\task_irq.o: ..\Apply\Task\Inc\task_ms5837.h
+.\objects\task_irq.o: ..\Apply\Task\Inc\task_ipccmd.h
+.\objects\task_irq.o: ..\Apply\Task\Inc\task_imx6ull.h

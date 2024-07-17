@@ -9,6 +9,7 @@
 
 
 /* 线程入口函数（使用裸机忽略此文件） */
+/* 测试线程 */
 void TestThread(void* paramenter)
 {
     while(1)
@@ -18,12 +19,13 @@ void TestThread(void* paramenter)
     }
 }
 
+/* 报告数据线程 */
 void ReportDataThread(void* paramenter)
 {
     Task_ReportData_Handle();
 }
 
-
+/* 读取JY901S数据线程 */
 void JY901Thread(void* paramenter)
 {
     while(1)
@@ -33,4 +35,43 @@ void JY901Thread(void* paramenter)
     }
 }
 
+/* 读取MS5837数据线程 */
+void MS5837Thread(void* paramenter)
+{
+    while(1)
+    {
+        Task_MS5837_Handle();
+        Drv_Delay_Ms(600);
+    }    
+}
 
+/* 读取AD4111数据线程 */
+void AD4111Thread(void* paramenter)
+{
+    Task_AD4111_Sync();
+    while(1)
+    {
+        Task_AD4111_Handle();
+        Drv_Delay_Ms(500);
+    }
+}
+
+/* 上位机命令解析线程 */
+void IPCcmdThread(void* paramenter)
+{
+    while(1)
+    {
+        Task_IPCcmd_Handle();
+        Drv_Delay_Ms(1);
+    }
+}
+
+/* I.MX6ull解析线程 */
+void IMX6ULLThread(void* paramenter)
+{
+    while(1)
+    {
+        Task_IMX6ULL_Handle();
+        Drv_Delay_Ms(1);     
+    }
+}

@@ -29,6 +29,7 @@ void USART1_IRQHandler(void)
 {
     rt_interrupt_enter();
     Drv_Uart_IRQHandler(&Uart1);
+    rt_sem_release(CmdFromIPC_Sem);	//释放信号量,接收上位机数据线程开始工作
     Drv_Uart_DMA_RxHandler(&Uart1);
     rt_interrupt_leave();
 }
@@ -53,6 +54,7 @@ void USART3_IRQHandler(void)
 {
     rt_interrupt_enter();
     Drv_Uart_IRQHandler(&Uart3);
+    rt_sem_release(CmdFromIPC_Sem);	//释放信号量,接收上位机数据线程开始工作
     Drv_Uart_DMA_RxHandler(&Uart3);
     rt_interrupt_leave();
 }
@@ -68,7 +70,10 @@ void DMA1_Channel2_IRQHandler(void)
 */
 void UART4_IRQHandler(void)
 {
-
+    rt_interrupt_enter();
+    Drv_Uart_IRQHandler(&Uart4);
+    Drv_Uart_DMA_RxHandler(&Uart4);
+    rt_interrupt_leave();
 }
 
 /**

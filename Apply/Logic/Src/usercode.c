@@ -10,9 +10,14 @@
 rt_thread_t TestThread_t = RT_NULL;
 rt_thread_t ReportDataThread_t = RT_NULL;
 rt_thread_t JY901Thread_t = RT_NULL;
+rt_thread_t MS5837Thread_t = RT_NULL;
+rt_thread_t AD4111Thread_t = RT_NULL;
+rt_thread_t IPCcmdThread_t = RT_NULL;
+rt_thread_t IMX6ULLThread_t = RT_NULL;
 
 /* 信号量句柄*/
-rt_sem_t JY901S_Sem = RT_NULL;		//JY901S数据信号量
+rt_sem_t JY901S_Sem = RT_NULL;			//JY901S数据信号量
+rt_sem_t CmdFromIPC_Sem = RT_NULL;		//上位机命令信号量
 
 /* 用户逻辑代码 */
 void UserLogic_Code(void)
@@ -20,12 +25,22 @@ void UserLogic_Code(void)
 	/* 创建信号量 */
 	JY901S_Sem = rt_sem_create("JY901Sem",0,RT_IPC_FLAG_FIFO);
 
+	CmdFromIPC_Sem = rt_sem_create("CmdFromIPC_Sem",0,RT_IPC_FLAG_FIFO);
+
 	/* 创建线程 */
 	TestThread_t 		= rt_thread_create("DataFromIPC",TestThread,NULL,512,15,20);
 	ReportDataThread_t  = rt_thread_create("ReportDataThread",ReportDataThread,NULL,512,2,20);
 	JY901Thread_t 		= rt_thread_create("JY901Thread",JY901Thread,NULL,512,7,20);
+	MS5837Thread_t 		= rt_thread_create("MS5837Thread",MS5837Thread,NULL,512,8,20);
+	AD4111Thread_t 		= rt_thread_create("AD4111Thread",AD4111Thread,NULL,512,8,20);
+	IPCcmdThread_t 		= rt_thread_create("IPCcmdThread",IPCcmdThread,NULL,512,1,20);
+	IMX6ULLThread_t 	= rt_thread_create("IMX6ULLThread",IMX6ULLThread,NULL,512,4,20);
 
 	//rt_thread_startup(TestThread_t);			//测试线程
 	rt_thread_startup(ReportDataThread_t);		//报告数据线程
 	rt_thread_startup(JY901Thread_t);			//JY901线程
+	rt_thread_startup(MS5837Thread_t);			//MS5837线程
+	rt_thread_startup(AD4111Thread_t);			//AD4111线程
+	rt_thread_startup(IPCcmdThread_t);			//上位机命令线程
+	rt_thread_startup(IMX6ULLThread_t);			//I.MX6ull线程
 }
