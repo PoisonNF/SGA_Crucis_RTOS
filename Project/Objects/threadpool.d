@@ -78,3 +78,5 @@
 .\objects\threadpool.o: ..\Bsp\OCD\Inc\ocd_jy901.h
 .\objects\threadpool.o: ..\Bsp\Algo\Inc\algo_conf.h
 .\objects\threadpool.o: ..\Bsp\Dev\Inc\dev_conf.h
+.\objects\threadpool.o: ..\Apply\Task\Inc\task_reportdata.h
+.\objects\threadpool.o: ..\Apply\Task\Inc\task_jy901.h

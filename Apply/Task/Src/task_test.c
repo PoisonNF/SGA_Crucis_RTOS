@@ -1,6 +1,7 @@
 #include "task_test.h"
 
 static uint8_t Uart3_ReceiveBuffer[100] = {0};        //用于测试串口3
+static uint8_t Uart3_ReceiveNum = 0;
 
 /**
  * @brief 专用于测试串口3无线电台的函数
@@ -8,11 +9,11 @@ static uint8_t Uart3_ReceiveBuffer[100] = {0};        //用于测试串口3
  */
 static void S_Test_Uart3_Function(void)
 {
-    Drv_Uart_Transmit(&Uart3,(uint8_t *)"Uart3",sizeof("Uart3"));
-
-    if(Drv_Uart_Receive_DMA(&Uart3,Uart3_ReceiveBuffer))
+    Uart3_ReceiveNum = Drv_Uart_Receive_DMA(&Uart3,Uart3_ReceiveBuffer);
+    if(Uart3_ReceiveNum != 0)
     {
-        Drv_Uart_Transmit(&Uart3,Uart3_ReceiveBuffer,sizeof(Uart3_ReceiveBuffer));
+        Drv_Uart_Transmit(&Uart3,Uart3_ReceiveBuffer,Uart3_ReceiveNum);
+        Uart3_ReceiveNum = 0;
     }
 }
 
@@ -99,8 +100,6 @@ static void S_Test_JY901S_Function(void)
  */
 void Task_Test_Handle(void)
 {
-    printf("SGA_TEST\r\n");
-
     S_Test_Uart3_Function();
 
     S_Test_AD4111_Function();
@@ -108,7 +107,5 @@ void Task_Test_Handle(void)
     S_Test_MS5837_Function();
 
     S_Test_JY901S_Function();
-
-    Drv_Delay_Ms(1000);
 }
 

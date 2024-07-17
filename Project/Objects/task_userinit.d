@@ -77,3 +77,6 @@
 .\objects\task_userinit.o: ..\Bsp\OCD\Inc\ocd_jy901.h
 .\objects\task_userinit.o: ..\Bsp\Algo\Inc\algo_conf.h
 .\objects\task_userinit.o: ..\Bsp\Dev\Inc\dev_conf.h
+.\objects\task_userinit.o: ..\Apply\Task\Inc\task_reportdata.h
+.\objects\task_userinit.o: ..\Apply\Task\Inc\task_jy901.h
+.\objects\task_userinit.o: ..\Apply\Logic\Inc\usercode.h

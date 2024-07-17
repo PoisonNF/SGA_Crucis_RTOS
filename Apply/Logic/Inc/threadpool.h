@@ -3,5 +3,7 @@
 
 /* 线程入口函数声明 */
 void TestThread(void* paramenter);
+void ReportDataThread(void* paramenter);
+void JY901Thread(void* paramenter);
 
 #endif

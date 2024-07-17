@@ -79,7 +79,7 @@ tagUART_T Uart3 =
 
 	//串口DMA发送参数配置
 	.tUartDMA.bTxEnable							= true,						/* DMA发送使能 */
-	.tTxInfo.usDMATxMAXSize						= 50,						/* DMA发送缓冲区大小 */
+	.tTxInfo.usDMATxMAXSize						= 150,						/* DMA发送缓冲区大小 */
 };
 
 /* AD芯片配置 */

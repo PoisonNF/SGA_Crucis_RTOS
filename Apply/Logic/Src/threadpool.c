@@ -18,5 +18,19 @@ void TestThread(void* paramenter)
     }
 }
 
+void ReportDataThread(void* paramenter)
+{
+    Task_ReportData_Handle();
+}
+
+
+void JY901Thread(void* paramenter)
+{
+    while(1)
+    {
+        Task_JY901_Handle();
+        Drv_Delay_Ms(400);
+    }
+}
 
 

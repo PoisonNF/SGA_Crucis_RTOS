@@ -77,4 +77,6 @@
 .\objects\task_irq.o: ..\Bsp\OCD\Inc\ocd_jy901.h
 .\objects\task_irq.o: ..\Bsp\Algo\Inc\algo_conf.h
 .\objects\task_irq.o: ..\Bsp\Dev\Inc\dev_conf.h
+.\objects\task_irq.o: ..\Apply\Task\Inc\task_reportdata.h
+.\objects\task_irq.o: ..\Apply\Task\Inc\task_jy901.h
 .\objects\task_irq.o: ..\Apply\Logic\Inc\usercode.h

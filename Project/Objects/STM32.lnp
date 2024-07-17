@@ -7,6 +7,8 @@
 ".\objects\task_sysinit.o"
 ".\objects\task_userinit.o"
 ".\objects\task_test.o"
+".\objects\task_reportdata.o"
+".\objects\task_jy901.o"
 ".\objects\ocd_ads1256.o"
 ".\objects\ocd_at24cxx.o"
 ".\objects\ocd_ds3231.o"

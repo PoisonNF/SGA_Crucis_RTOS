@@ -5,6 +5,10 @@
 
 void UserLogic_Code(void);
 
-extern rt_thread_t Testthread_t;
+extern rt_sem_t JY901S_Sem;
+
+extern rt_thread_t TestThread_t;
+extern rt_thread_t ReportDataThread_t;
+extern rt_thread_t JY901Thread_t;
 
 #endif

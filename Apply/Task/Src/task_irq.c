@@ -41,6 +41,7 @@ void USART2_IRQHandler(void)
 {
     rt_interrupt_enter();    //进入临界区
     Drv_Uart_DMA_RxHandler(&JY901S.tUART);
+    rt_sem_release(JY901S_Sem);	//释放信号量,线程获取信号量开始工作
 	rt_interrupt_leave();    //退出临界区
 }
 
@@ -54,6 +55,11 @@ void USART3_IRQHandler(void)
     Drv_Uart_IRQHandler(&Uart3);
     Drv_Uart_DMA_RxHandler(&Uart3);
     rt_interrupt_leave();
+}
+
+void DMA1_Channel2_IRQHandler(void)
+{
+    Drv_Uart_DMA_IRQHandler(&Uart3);
 }
 
 /**

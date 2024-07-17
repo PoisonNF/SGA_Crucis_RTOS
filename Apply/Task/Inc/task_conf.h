@@ -8,5 +8,7 @@
 #include "task_userinit.h"
 
 #include "task_test.h"
+#include "task_reportdata.h"
+#include "task_jy901.h"
 
 #endif

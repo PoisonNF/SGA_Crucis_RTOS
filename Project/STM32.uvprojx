@@ -427,6 +427,16 @@
               <FileType>1</FileType>
               <FilePath>..\Apply\Task\Src\task_test.c</FilePath>
             </File>
+            <File>
+              <FileName>task_reportdata.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Apply\Task\Src\task_reportdata.c</FilePath>
+            </File>
+            <File>
+              <FileName>task_jy901.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Apply\Task\Src\task_jy901.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

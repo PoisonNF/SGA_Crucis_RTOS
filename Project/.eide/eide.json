@@ -43,6 +43,12 @@
               },
               {
                 "path": "../Apply/Task/Src/task_test.c"
+              },
+              {
+                "path": "../Apply/Task/Src/task_reportdata.c"
+              },
+              {
+                "path": "../Apply/Task/Src/task_jy901.c"
               }
             ],
             "folders": []
