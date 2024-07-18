@@ -97,14 +97,14 @@ tagUART_T Uart4 =
 {
 	//串口工作模式配置
 	.tUARTHandle.Instance 						= UART4,					/* STM32 串口设备 */
-	.tUARTHandle.Init.BaudRate   				= 9600,					/* 串口波特率 */
+	.tUARTHandle.Init.BaudRate   				= 115200,					/* 串口波特率 */
 
 	.ucPriority									= 1,						/* 中断优先级 */
 	.ucSubPriority								= 3,						/* 中断子优先级 */
 	
 	//串口DMA接收参数配置
 	.tUartDMA.bRxEnable							= true,						/* DMA接收使能 */
-	.tRxInfo.usDMARxMAXSize             		= 100,              		/* DMA接收缓冲区大小 大小保持在协议最长字节*2以上，确保缓存池一定能够稳定接收一个完整的数据帧*/
+	.tRxInfo.usDMARxMAXSize             		= 150,              		/* DMA接收缓冲区大小 大小保持在协议最长字节*2以上，确保缓存池一定能够稳定接收一个完整的数据帧*/
 
 	//串口DMA发送参数配置
 	.tUartDMA.bTxEnable							= true,						/* DMA发送使能 */
