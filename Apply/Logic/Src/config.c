@@ -104,7 +104,7 @@ tagUART_T Uart4 =
 	
 	//串口DMA接收参数配置
 	.tUartDMA.bRxEnable							= true,						/* DMA接收使能 */
-	.tRxInfo.usDMARxMAXSize             		= 150,              		/* DMA接收缓冲区大小 大小保持在协议最长字节*2以上，确保缓存池一定能够稳定接收一个完整的数据帧*/
+	.tRxInfo.usDMARxMAXSize             		= 200,              		/* DMA接收缓冲区大小 大小保持在协议最长字节*2以上，确保缓存池一定能够稳定接收一个完整的数据帧*/
 
 	//串口DMA发送参数配置
 	.tUartDMA.bTxEnable							= true,						/* DMA发送使能 */

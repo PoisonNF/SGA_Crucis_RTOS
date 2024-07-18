@@ -1,6 +1,6 @@
 #include "task_imx6ull.h"
 
-static uint8_t IMX6ULL_ReceBuf[150];
+static uint8_t IMX6ULL_ReceBuf[100];
 static uint8_t IMX6ULL_ReceNum = 0;
 /**
  * @brief IMX6ULL´¦Àíº¯Êý
