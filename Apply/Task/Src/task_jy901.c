@@ -21,11 +21,22 @@ void Task_JY901_Handle(void)
                         JY901S.stcAngle.ConRoll,
                         JY901S.stcAngle.ConPitch,
                         JY901S.stcAngle.ConYaw);
+
+            //打印磁场值
+            if(JY901S.tConfig.usType & JY901_OUTPUT_MAG)	    
+                printf("J Mag %.3f %.3f %.3f\r\n\r\n",
+                        JY901S.stcMag.ConMagX,
+                        JY901S.stcMag.ConMagY,
+                        JY901S.stcMag.ConMagZ);            
 #endif           
             //将数据放入报告数据缓存区
-            memcpy(&ReportDataBuffer[ANGLE_BASE],&JY901S.stcAngle.ConRoll,FLOAT_SIZE);
-            memcpy(&ReportDataBuffer[ANGLE_BASE + FLOAT_SIZE],&JY901S.stcAngle.ConPitch,FLOAT_SIZE);
+            memcpy(&ReportDataBuffer[ANGLE_BASE                 ],&JY901S.stcAngle.ConRoll,FLOAT_SIZE);
+            memcpy(&ReportDataBuffer[ANGLE_BASE +     FLOAT_SIZE],&JY901S.stcAngle.ConPitch,FLOAT_SIZE);
             memcpy(&ReportDataBuffer[ANGLE_BASE + 2 * FLOAT_SIZE],&JY901S.stcAngle.ConYaw,FLOAT_SIZE);
+
+            memcpy(&ReportDataBuffer[MAG_BASE                 ],&JY901S.stcMag.ConMagX,FLOAT_SIZE);
+            memcpy(&ReportDataBuffer[MAG_BASE +     FLOAT_SIZE],&JY901S.stcMag.ConMagY,FLOAT_SIZE);
+            memcpy(&ReportDataBuffer[MAG_BASE + 2 * FLOAT_SIZE],&JY901S.stcMag.ConMagZ,FLOAT_SIZE);
         }
 	}
 }

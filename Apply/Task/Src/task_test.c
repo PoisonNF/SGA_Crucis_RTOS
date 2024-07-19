@@ -91,6 +91,11 @@ static void S_Test_JY901S_Function(void)
                     JY901S.stcAngle.ConRoll,
                     JY901S.stcAngle.ConPitch,
                     JY901S.stcAngle.ConYaw);
+        if(JY901S.tConfig.usType & JY901_OUTPUT_MAG)	    
+            printf("J Mag %.3f %.3f %.3f\r\n\r\n",
+                    JY901S.stcMag.ConMagX,
+                    JY901S.stcMag.ConMagY,
+                    JY901S.stcMag.ConMagZ);
     }
 }
 

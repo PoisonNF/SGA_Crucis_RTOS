@@ -28,7 +28,7 @@ void UserLogic_Code(void)
 	CmdFromIPC_Sem = rt_sem_create("CmdFromIPC_Sem",0,RT_IPC_FLAG_FIFO);
 
 	/* 创建线程 */
-	TestThread_t 		= rt_thread_create("DataFromIPC",TestThread,NULL,512,15,20);
+	TestThread_t 		= rt_thread_create("DataFromIPC",TestThread,NULL,1024,15,20);
 	ReportDataThread_t  = rt_thread_create("ReportDataThread",ReportDataThread,NULL,512,2,20);
 	JY901Thread_t 		= rt_thread_create("JY901Thread",JY901Thread,NULL,512,7,20);
 	MS5837Thread_t 		= rt_thread_create("MS5837Thread",MS5837Thread,NULL,512,8,20);
