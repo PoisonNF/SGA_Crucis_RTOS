@@ -15,5 +15,6 @@ extern rt_thread_t MS5837Thread_t;
 extern rt_thread_t AD4111Thread_t;
 extern rt_thread_t IPCcmdThread_t;
 extern rt_thread_t IMX6ULLThread_t;
+extern rt_thread_t DS1337Thread_t;
 
 #endif

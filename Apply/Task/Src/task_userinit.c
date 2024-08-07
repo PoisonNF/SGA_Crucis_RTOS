@@ -15,6 +15,8 @@ void Task_UserInit(void)
     OCD_JY901_DMAInit(&JY901S);     /* 初始化JY901S 使用串口2 */
     Drv_Uart_DMAInit(&Uart3);       /* 初始化串口3 无线电台 */
 	Drv_Uart_DMAInit(&Uart4);       /* 初始化串口4 I.MX6ull */
+
+	OCD_DS3231_Init(&DS1337);		/* 初始化片外RTC */
     
     ret = OCD_AD24BIT_Init(&AD4111_1);  /* 24位AD初始化 */
 	if (ret != 0)

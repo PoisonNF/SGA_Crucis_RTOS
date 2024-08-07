@@ -100,6 +100,26 @@ static void S_Test_JY901S_Function(void)
 }
 
 /**
+ * @brief 专用于测试DS1337的函数
+ * @param Null
+ */
+static void S_Test_DS1337_Function(void)
+{
+    tagDS3231Time_T CurrSysTime = {0};
+
+    /* 获取当前时间 */
+    if(OCD_DS3231_TimeGetHex(&DS1337,&CurrSysTime))
+    {
+        printf("Read Time:");
+        printf("20%02x/%02x/%02x %02x:%02x:%02x 周%x\r\n",
+                CurrSysTime.ucYear,CurrSysTime.ucMonth,CurrSysTime.ucDate,
+                CurrSysTime.ucHour,CurrSysTime.ucMinute,CurrSysTime.ucSecond,
+                CurrSysTime.ucWeek);
+    }
+    Drv_Delay_Ms(1000);    
+}
+
+/**
  * @brief 专用于测试的函数
  * @param Null
  */
@@ -112,5 +132,7 @@ void Task_Test_Handle(void)
     S_Test_MS5837_Function();
 
     S_Test_JY901S_Function();
+
+    S_Test_DS1337_Function();
 }
 

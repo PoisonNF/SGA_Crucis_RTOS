@@ -5,6 +5,7 @@
 #include "config.h"
 #include "usercode.h"
 #include "task_reportdata.h"
+#include "task_ds1337.h"
 
 void Task_IPCcmd_Handle(void);
 

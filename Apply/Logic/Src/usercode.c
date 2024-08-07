@@ -14,8 +14,9 @@ rt_thread_t MS5837Thread_t = RT_NULL;
 rt_thread_t AD4111Thread_t = RT_NULL;
 rt_thread_t IPCcmdThread_t = RT_NULL;
 rt_thread_t IMX6ULLThread_t = RT_NULL;
+rt_thread_t DS1337Thread_t = RT_NULL;
 
-/* 信号量句柄*/
+/* 信号量句柄 */
 rt_sem_t JY901S_Sem = RT_NULL;			//JY901S数据信号量
 rt_sem_t CmdFromIPC_Sem = RT_NULL;		//上位机命令信号量
 
@@ -35,12 +36,14 @@ void UserLogic_Code(void)
 	AD4111Thread_t 		= rt_thread_create("AD4111Thread",AD4111Thread,NULL,512,8,20);
 	IPCcmdThread_t 		= rt_thread_create("IPCcmdThread",IPCcmdThread,NULL,512,1,20);
 	IMX6ULLThread_t 	= rt_thread_create("IMX6ULLThread",IMX6ULLThread,NULL,1024,4,20);
+	DS1337Thread_t 		= rt_thread_create("DS1337Thread",DS1337Thread,NULL,512,9,20);
 
-	//rt_thread_startup(TestThread_t);			//测试线程
+	// rt_thread_startup(TestThread_t);			//测试线程
 	rt_thread_startup(ReportDataThread_t);		//报告数据线程
 	rt_thread_startup(JY901Thread_t);			//JY901线程
 	rt_thread_startup(MS5837Thread_t);			//MS5837线程
 	rt_thread_startup(AD4111Thread_t);			//AD4111线程
 	rt_thread_startup(IPCcmdThread_t);			//上位机命令线程
 	rt_thread_startup(IMX6ULLThread_t);			//I.MX6ull线程
+	rt_thread_startup(DS1337Thread_t);			//DS1337线程
 }

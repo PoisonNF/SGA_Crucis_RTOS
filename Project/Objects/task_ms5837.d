@@ -71,6 +71,7 @@
 .\objects\task_ms5837.o: ..\Bsp\OCD\Inc\ocd_ms5837.h
 .\objects\task_ms5837.o: ..\Bsp\OCD\Inc\ocd_ad24bit.h
 .\objects\task_ms5837.o: ..\Bsp\OCD\Inc\ocd_jy901.h
+.\objects\task_ms5837.o: ..\Bsp\OCD\Inc\ocd_ds3231.h
 .\objects\task_ms5837.o: ..\Bsp\Algo\Inc\algo_conf.h
 .\objects\task_ms5837.o: ..\Bsp\Dev\Inc\dev_conf.h
 .\objects\task_ms5837.o: ..\Apply\Logic\Inc\usercode.h

@@ -13,6 +13,7 @@
 ".\objects\task_ad4111.o"
 ".\objects\task_ipccmd.o"
 ".\objects\task_imx6ull.o"
+".\objects\task_ds1337.o"
 ".\objects\ocd_ads1256.o"
 ".\objects\ocd_at24cxx.o"
 ".\objects\ocd_ds3231.o"

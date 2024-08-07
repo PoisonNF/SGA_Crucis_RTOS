@@ -330,3 +330,21 @@ tagMS5837_T MS5837 =
 	.tIIC.tIICSoft[1].tGPIOPort 			= GPIOA,					/* GPIO分组 */
 };
 
+/* DS1337片外RTC */
+tagDS3231_T DS1337 = 
+{
+	/* SCL线 */
+	.tIICSoft.tIICSoft[0].tGPIOInit.Pin 	= GPIO_PIN_5,				/* GPIO引脚 */
+	.tIICSoft.tIICSoft[0].tGPIOInit.Mode 	= GPIO_MODE_OUTPUT_PP,		/* GPIO模式 */
+	.tIICSoft.tIICSoft[0].tGPIOInit.Pull 	= GPIO_NOPULL,				/* GPIO上下拉设置，是否需要上下拉看硬件 */
+	.tIICSoft.tIICSoft[0].tGPIOInit.Speed 	= GPIO_SPEED_FREQ_HIGH,		/* GPIO速度 */	
+	.tIICSoft.tIICSoft[0].tGPIOPort 		= GPIOE,					/* GPIO分组 */
+	
+	/* SDA线 */
+	.tIICSoft.tIICSoft[1].tGPIOInit.Pin 	= GPIO_PIN_4,				/* GPIO引脚 */
+	.tIICSoft.tIICSoft[1].tGPIOInit.Mode 	= GPIO_MODE_INPUT,			/* GPIO模式 */
+	.tIICSoft.tIICSoft[1].tGPIOInit.Pull 	= GPIO_NOPULL,				/* GPIO上下拉设置，是否需要上下拉看硬件 */
+	.tIICSoft.tIICSoft[1].tGPIOInit.Speed 	= GPIO_SPEED_FREQ_HIGH,		/* GPIO速度 */	
+	.tIICSoft.tIICSoft[1].tGPIOPort 		= GPIOE,					/* GPIO分组 */
+};
+

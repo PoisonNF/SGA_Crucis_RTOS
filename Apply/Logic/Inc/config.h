@@ -28,6 +28,8 @@ extern tagPWM_T PWM[];
 
 extern tagMS5837_T MS5837;
 
+extern tagDS3231_T DS1337;
+
 /* 推进器和舵机在板上的标记 其中1为推进器 2为舵机 */
 #define     A_1      0
 #define     A_2      1

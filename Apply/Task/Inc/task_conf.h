@@ -13,5 +13,6 @@
 #include "task_ms5837.h"
 #include "task_ipccmd.h"
 #include "task_imx6ull.h"
+#include "task_ds1337.h"
 
 #endif

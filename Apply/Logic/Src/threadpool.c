@@ -75,3 +75,13 @@ void IMX6ULLThread(void* paramenter)
         Drv_Delay_Ms(1);     
     }
 }
+
+/* DS1337Ω‚Œˆœﬂ≥Ã */
+void DS1337Thread(void* paramenter)
+{
+    while(1)
+    {
+        Task_DS1337_Handle();
+        Drv_Delay_Ms(1000);     
+    }
+}

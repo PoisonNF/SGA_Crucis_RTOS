@@ -26,23 +26,29 @@ void Task_IPCcmd_Handle(void)
         }
 
 CmdAnalysis:
-            /* 帧头帧尾校验 */
-            if(IPC_ReceBuf[0] == '@' && IPC_ReceBuf[IPC_ReceNum - 1] == '$')
+        /* 帧头帧尾校验 */
+        if(IPC_ReceBuf[0] == '@' && IPC_ReceBuf[IPC_ReceNum - 1] == '$')
+        {
+            /* 模式控制命令 @SM */
+            if(IPC_ReceBuf[1] == 'S' && IPC_ReceBuf[2] == 'M')
             {
-                /* 模式控制命令 @SM */
-                if(IPC_ReceBuf[1] == 'S' && IPC_ReceBuf[2] == 'M')
+                if(!strncmp((char*)IPC_ReceBuf + 3,"AUTO", 4))
                 {
-                    if(!strncmp((char*)IPC_ReceBuf + 3,"AUTO", 4))
-                    {
-                        printf("AUTO\r\n");     //切换自动模式
-                    }
-                    else if(!strncmp((char*)IPC_ReceBuf + 3,"MANU", 4))
-                    {
-                        printf("MANU\r\n");     //切换手动模式
-                    }
+                    printf("AUTO\r\n");     //切换自动模式
+                }
+                else if(!strncmp((char*)IPC_ReceBuf + 3,"MANU", 4))
+                {
+                    printf("MANU\r\n");     //切换手动模式
                 }
             }
-            IPC_ReceNum = 0;
+            /* 时间同步 @TS */
+            else if(IPC_ReceBuf[1] == 'T' && IPC_ReceBuf[2] == 'S')
+            {
+                Task_DS1337_SYNC(IPC_ReceBuf);
+            }
+        }
+
+        IPC_ReceNum = 0;
     }
 }
 
