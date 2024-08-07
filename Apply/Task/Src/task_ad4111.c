@@ -48,29 +48,43 @@ void Task_AD4111_Sync(void)
  */
 void Task_AD4111_Handle(void)
 {
+    float tempResult = 0.0f;
+
     AD_Acquisition(&AD4111_1);
     AD_Acquisition(&AD4111_2);
 
     //将数据放入报告数据缓存区
     //梯度磁力仪1   XYZ
-    memcpy(&ReportDataBuffer[GRADIENTMAGNET_BASE                 ],&AD4111_2.port[0].result,FLOAT_SIZE);
-    memcpy(&ReportDataBuffer[GRADIENTMAGNET_BASE +     FLOAT_SIZE],&AD4111_2.port[1].result,FLOAT_SIZE);
-    memcpy(&ReportDataBuffer[GRADIENTMAGNET_BASE + 2 * FLOAT_SIZE],&AD4111_2.port[4].result,FLOAT_SIZE);
+    tempResult = (float)AD4111_2.port[0].result;
+    memcpy(&ReportDataBuffer[GRADIENTMAGNET_BASE                 ],&tempResult,FLOAT_SIZE);
+    tempResult = (float)AD4111_2.port[1].result;
+    memcpy(&ReportDataBuffer[GRADIENTMAGNET_BASE +     FLOAT_SIZE],&tempResult,FLOAT_SIZE);
+    tempResult = (float)AD4111_2.port[4].result;
+    memcpy(&ReportDataBuffer[GRADIENTMAGNET_BASE + 2 * FLOAT_SIZE],&tempResult,FLOAT_SIZE);
 
     //梯度磁力仪2   XYZ
-    memcpy(&ReportDataBuffer[GRADIENTMAGNET_BASE + 3 * FLOAT_SIZE],&AD4111_2.port[5].result,FLOAT_SIZE);
-    memcpy(&ReportDataBuffer[GRADIENTMAGNET_BASE + 4 * FLOAT_SIZE],&AD4111_2.port[6].result,FLOAT_SIZE);
-    memcpy(&ReportDataBuffer[GRADIENTMAGNET_BASE + 5 * FLOAT_SIZE],&AD4111_2.port[7].result,FLOAT_SIZE);
+    tempResult = (float)AD4111_2.port[5].result;
+    memcpy(&ReportDataBuffer[GRADIENTMAGNET_BASE + 3 * FLOAT_SIZE],&tempResult,FLOAT_SIZE);
+    tempResult = (float)AD4111_2.port[6].result;
+    memcpy(&ReportDataBuffer[GRADIENTMAGNET_BASE + 4 * FLOAT_SIZE],&tempResult,FLOAT_SIZE);
+    tempResult = (float)AD4111_2.port[7].result;
+    memcpy(&ReportDataBuffer[GRADIENTMAGNET_BASE + 5 * FLOAT_SIZE],&tempResult,FLOAT_SIZE);
 
     //梯度磁力仪3   XYZ
-    memcpy(&ReportDataBuffer[GRADIENTMAGNET_BASE + 6 * FLOAT_SIZE],&AD4111_1.port[0].result,FLOAT_SIZE);
-    memcpy(&ReportDataBuffer[GRADIENTMAGNET_BASE + 7 * FLOAT_SIZE],&AD4111_1.port[1].result,FLOAT_SIZE);
-    memcpy(&ReportDataBuffer[GRADIENTMAGNET_BASE + 8 * FLOAT_SIZE],&AD4111_1.port[4].result,FLOAT_SIZE);
+    tempResult = (float)AD4111_1.port[0].result;
+    memcpy(&ReportDataBuffer[GRADIENTMAGNET_BASE + 6 * FLOAT_SIZE],&tempResult,FLOAT_SIZE);
+    tempResult = (float)AD4111_1.port[1].result;
+    memcpy(&ReportDataBuffer[GRADIENTMAGNET_BASE + 7 * FLOAT_SIZE],&tempResult,FLOAT_SIZE);
+    tempResult = (float)AD4111_1.port[4].result;
+    memcpy(&ReportDataBuffer[GRADIENTMAGNET_BASE + 8 * FLOAT_SIZE],&tempResult,FLOAT_SIZE);
 
     //梯度磁力仪4   XYZ
-    memcpy(&ReportDataBuffer[GRADIENTMAGNET_BASE + 9  * FLOAT_SIZE],&AD4111_1.port[5].result,FLOAT_SIZE);
-    memcpy(&ReportDataBuffer[GRADIENTMAGNET_BASE + 10 * FLOAT_SIZE],&AD4111_1.port[6].result,FLOAT_SIZE);
-    memcpy(&ReportDataBuffer[GRADIENTMAGNET_BASE + 11 * FLOAT_SIZE],&AD4111_1.port[7].result,FLOAT_SIZE);
+    tempResult = (float)AD4111_1.port[5].result;
+    memcpy(&ReportDataBuffer[GRADIENTMAGNET_BASE + 9  * FLOAT_SIZE],&tempResult,FLOAT_SIZE);
+    tempResult = (float)AD4111_1.port[6].result;
+    memcpy(&ReportDataBuffer[GRADIENTMAGNET_BASE + 10 * FLOAT_SIZE],&tempResult,FLOAT_SIZE);
+    tempResult = (float)AD4111_1.port[7].result;
+    memcpy(&ReportDataBuffer[GRADIENTMAGNET_BASE + 11 * FLOAT_SIZE],&tempResult,FLOAT_SIZE);
 }
 
 

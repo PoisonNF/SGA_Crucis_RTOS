@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\STM32.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\STM32.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Wed Aug 07 14:07:05 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Wed Aug 07 15:59:40 2024
 <BR><P>
 <H3>Maximum Stack Usage =        448 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -624,7 +624,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_float_round
 </UL>
-<BR>[Called By]<UL><LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_tofloat
+<BR>[Called By]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Task_AD4111_Handle
+<LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_tofloat
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_scanf_really_real
 </UL>
 
@@ -1853,10 +1854,11 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_TIM_PWM_ConfigChannel
 </UL>
 
-<P><STRONG><a name="[a6]"></a>Task_AD4111_Handle</STRONG> (Thumb, 114 bytes, Stack size 8 bytes, task_ad4111.o(i.Task_AD4111_Handle))
+<P><STRONG><a name="[a6]"></a>Task_AD4111_Handle</STRONG> (Thumb, 254 bytes, Stack size 8 bytes, task_ad4111.o(i.Task_AD4111_Handle))
 <BR><BR>[Stack]<UL><LI>Max Depth = 360<LI>Call Chain = Task_AD4111_Handle &rArr; AD_Acquisition &rArr; OCD_AD24bit_GetResult &rArr; AD24BIT_WaitForReady &rArr; AD24BIT_ReadRegister &rArr; Drv_SPI_TransmitReceive &rArr; HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AD_Acquisition
+<BR>[Calls]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AD_Acquisition
 </UL>
 <BR>[Called By]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AD4111Thread
 </UL>
