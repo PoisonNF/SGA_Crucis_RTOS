@@ -27,7 +27,21 @@ void Task_JY901_Handle(void)
                 printf("J Mag %.3f %.3f %.3f\r\n\r\n",
                         JY901S.stcMag.ConMagX,
                         JY901S.stcMag.ConMagY,
-                        JY901S.stcMag.ConMagZ);            
+                        JY901S.stcMag.ConMagZ);  
+
+            //打印加速度
+            if(JY901S.tConfig.usType & JY901_OUTPUT_ACCEL)	    
+                printf("J Accel %.3f %.3f %.3f\r\n\r\n",
+                        JY901S.stcAcc.ConAccX,
+                        JY901S.stcAcc.ConAccY,
+                        JY901S.stcAcc.ConAccZ);
+
+            //打印角速度
+            if(JY901S.tConfig.usType & JY901_OUTPUT_GYRO)	    
+                printf("J Gyro %.3f %.3f %.3f\r\n\r\n",
+                        JY901S.stcGyro.ConGyroX,
+                        JY901S.stcGyro.ConGyroY,
+                        JY901S.stcGyro.ConGyroZ);   
 #endif           
             //将数据放入报告数据缓存区
             memcpy(&ReportDataBuffer[ANGLE_BASE                 ],&JY901S.stcAngle.ConRoll,FLOAT_SIZE);
@@ -37,6 +51,14 @@ void Task_JY901_Handle(void)
             memcpy(&ReportDataBuffer[MAG_BASE                 ],&JY901S.stcMag.ConMagX,FLOAT_SIZE);
             memcpy(&ReportDataBuffer[MAG_BASE +     FLOAT_SIZE],&JY901S.stcMag.ConMagY,FLOAT_SIZE);
             memcpy(&ReportDataBuffer[MAG_BASE + 2 * FLOAT_SIZE],&JY901S.stcMag.ConMagZ,FLOAT_SIZE);
+
+            memcpy(&ReportDataBuffer[ACCEL_BASE                 ],&JY901S.stcAcc.ConAccX,FLOAT_SIZE);
+            memcpy(&ReportDataBuffer[ACCEL_BASE +     FLOAT_SIZE],&JY901S.stcAcc.ConAccY,FLOAT_SIZE);
+            memcpy(&ReportDataBuffer[ACCEL_BASE + 2 * FLOAT_SIZE],&JY901S.stcAcc.ConAccZ,FLOAT_SIZE);
+
+            memcpy(&ReportDataBuffer[GYRO_BASE                 ],&JY901S.stcGyro.ConGyroX,FLOAT_SIZE);
+            memcpy(&ReportDataBuffer[GYRO_BASE +     FLOAT_SIZE],&JY901S.stcGyro.ConGyroY,FLOAT_SIZE);
+            memcpy(&ReportDataBuffer[GYRO_BASE + 2 * FLOAT_SIZE],&JY901S.stcGyro.ConGyroZ,FLOAT_SIZE);
         }
 	}
 }

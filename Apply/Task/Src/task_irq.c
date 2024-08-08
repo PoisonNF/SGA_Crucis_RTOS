@@ -34,6 +34,12 @@ void USART1_IRQHandler(void)
     rt_interrupt_leave();
 }
 
+//串口1DMA发送必要中断服务函数
+void DMA1_Channel4_IRQHandler(void)
+{
+    Drv_Uart_DMA_IRQHandler(&Uart1);
+}
+
 /**
  * @brief 串口2中断服务函数
  * @retval Null
@@ -59,6 +65,7 @@ void USART3_IRQHandler(void)
     rt_interrupt_leave();
 }
 
+//串口3DMA发送必要中断服务函数
 void DMA1_Channel2_IRQHandler(void)
 {
     Drv_Uart_DMA_IRQHandler(&Uart3);

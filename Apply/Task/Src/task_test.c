@@ -96,6 +96,16 @@ static void S_Test_JY901S_Function(void)
                     JY901S.stcMag.ConMagX,
                     JY901S.stcMag.ConMagY,
                     JY901S.stcMag.ConMagZ);
+        if(JY901S.tConfig.usType & JY901_OUTPUT_ACCEL)	    
+            printf("J Accel %.3f %.3f %.3f\r\n\r\n",
+                    JY901S.stcAcc.ConAccX,
+                    JY901S.stcAcc.ConAccY,
+                    JY901S.stcAcc.ConAccZ);
+        if(JY901S.tConfig.usType & JY901_OUTPUT_GYRO)	    
+            printf("J Gyro %.3f %.3f %.3f\r\n\r\n",
+                    JY901S.stcGyro.ConGyroX,
+                    JY901S.stcGyro.ConGyroY,
+                    JY901S.stcGyro.ConGyroZ);
     }
 }
 

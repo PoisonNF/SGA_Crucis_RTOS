@@ -58,7 +58,7 @@ tagUART_T Uart1 =
 
 	//串口DMA发送参数配置
 	.tUartDMA.bTxEnable							= true,						/* DMA发送使能 */
-	.tTxInfo.usDMATxMAXSize						= 50,						/* DMA发送缓冲区大小 */
+	.tTxInfo.usDMATxMAXSize						= 150,						/* DMA发送缓冲区大小 */
 };
 
 /* JY901S参数设置 */
@@ -66,7 +66,7 @@ tagJY901_T JY901S =
 {
 	.tConfig.ucBaud 	= JY901_RXBAUD_9600,
 	.tConfig.ucRate		= JY901_RX_2HZ,
-	.tConfig.usType		= JY901_OUTPUT_ANGLE | JY901_OUTPUT_MAG,
+	.tConfig.usType		= JY901_OUTPUT_ANGLE | JY901_OUTPUT_MAG | JY901_OUTPUT_ACCEL | JY901_OUTPUT_GYRO,
 
 	.tUART.tRxInfo.usDMARxMAXSize             	= 200,                 /* 接收数据长度 长度保持在协议最长字节*2以上，确保缓存池一定能够稳定接收一个完整的数据帧*/
 
@@ -78,7 +78,7 @@ tagUART_T Uart3 =
 {
 	//串口工作模式配置
 	.tUARTHandle.Instance 						= USART3,					/* STM32 串口设备 */
-	.tUARTHandle.Init.BaudRate   				= 9600,					/* 串口波特率 */
+	.tUARTHandle.Init.BaudRate   				= 9600,						/* 串口波特率 */
 
 	.ucPriority									= 1,						/* 中断优先级 */
 	.ucSubPriority								= 3,						/* 中断子优先级 */
