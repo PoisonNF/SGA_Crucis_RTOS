@@ -9,6 +9,9 @@ void Task_IPCcmd_Handle(void)
     uint8_t IPC_ReceBuf[100];
     uint8_t IPC_ReceNum = 0;
 
+    HandleModeInfo HMInfo = {0};        //手动模式消息
+    AutoModeInfo AMInfo = {0};          //自动模式消息
+
     //串口一和串口三都要接收，因为不确定是哪个发送指令
     if(rt_sem_take(CmdFromIPC_Sem,RT_WAITING_FOREVER) == RT_EOK)
     {
@@ -35,10 +38,16 @@ CmdAnalysis:
                 if(!strncmp((char*)IPC_ReceBuf + 3,"AUTO", 4))
                 {
                     printf("AUTO\r\n");     //切换自动模式
+                    //挂起手柄控制模式，启动自动模式
+                    HMInfo.ModeChange = 1;
+                    rt_mq_send(HandleModemq,&HMInfo,sizeof(HandleModeInfo));
                 }
                 else if(!strncmp((char*)IPC_ReceBuf + 3,"MANU", 4))
                 {
                     printf("MANU\r\n");     //切换手动模式
+                    //挂起自动模式，启动手柄模式
+                    AMInfo.ModeChange = 1;
+                    rt_mq_send(AutoModemq,&AMInfo,sizeof(AutoModeInfo));
                 }
             }
             /* 时间同步 @TS */
