@@ -64,6 +64,12 @@
               },
               {
                 "path": "../Apply/Task/Src/task_ds1337.c"
+              },
+              {
+                "path": "../Apply/Task/Src/task_automode.c"
+              },
+              {
+                "path": "../Apply/Task/Src/task_handlemode.c"
               }
             ],
             "folders": []

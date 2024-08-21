@@ -14,6 +14,8 @@
 ".\objects\task_ipccmd.o"
 ".\objects\task_imx6ull.o"
 ".\objects\task_ds1337.o"
+".\objects\task_automode.o"
+".\objects\task_handlemode.o"
 ".\objects\ocd_ads1256.o"
 ".\objects\ocd_at24cxx.o"
 ".\objects\ocd_ds3231.o"

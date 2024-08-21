@@ -84,5 +84,8 @@
 .\objects\threadpool.o: ..\Apply\Task\Inc\task_jy901.h
 .\objects\threadpool.o: ..\Apply\Task\Inc\task_ms5837.h
 .\objects\threadpool.o: ..\Apply\Task\Inc\task_ipccmd.h
-.\objects\threadpool.o: ..\Apply\Task\Inc\task_ds1337.h
+.\objects\threadpool.o: ..\Apply\Task\Inc\task_conf.h
 .\objects\threadpool.o: ..\Apply\Task\Inc\task_imx6ull.h
+.\objects\threadpool.o: ..\Apply\Task\Inc\task_ds1337.h
+.\objects\threadpool.o: ..\Apply\Task\Inc\task_automode.h
+.\objects\threadpool.o: ..\Apply\Task\Inc\task_handlemode.h

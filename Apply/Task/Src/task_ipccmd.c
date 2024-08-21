@@ -45,7 +45,7 @@ CmdAnalysis:
                 else if(!strncmp((char*)IPC_ReceBuf + 3,"MANU", 4))
                 {
                     printf("MANU\r\n");     //切换手动模式
-                    //挂起自动模式，启动手柄模式
+                    //挂起自动模式，启动手柄控制模式
                     AMInfo.ModeChange = 1;
                     rt_mq_send(AutoModemq,&AMInfo,sizeof(AutoModeInfo));
                 }

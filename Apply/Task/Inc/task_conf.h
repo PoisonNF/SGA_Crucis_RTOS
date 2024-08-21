@@ -14,5 +14,8 @@
 #include "task_ipccmd.h"
 #include "task_imx6ull.h"
 #include "task_ds1337.h"
+#include "task_ad4111.h"
+#include "task_automode.h"
+#include "task_handlemode.h"
 
 #endif
