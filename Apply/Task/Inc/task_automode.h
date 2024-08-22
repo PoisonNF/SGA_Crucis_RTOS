@@ -6,7 +6,9 @@
 /* 自动模式信息结构体 */
 typedef struct 
 {
-    uint8_t ModeChange;    //模式切换标志
+    uint8_t ModeChange;             //模式切换标志
+    float Yaw;                      //航向角
+    float Depth;                    //深度值
 }AutoModeInfo;
 
 void Task_AutoMode_Process(AutoModeInfo *AMInfo);

@@ -6,8 +6,8 @@
 /* 手动模式信息结构体 */
 typedef struct 
 {
-    uint8_t ModeChange;     //模式切换标志
-    float fNum[3];          //存放浮点数数据
+    uint8_t ModeChange;             //模式切换标志
+    float JoystickInfo[2];          //存放手柄数据
     bool keyPressed;
 }HandleModeInfo;
 
