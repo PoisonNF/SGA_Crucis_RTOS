@@ -89,3 +89,4 @@
 .\objects\threadpool.o: ..\Apply\Task\Inc\task_ds1337.h
 .\objects\threadpool.o: ..\Apply\Task\Inc\task_automode.h
 .\objects\threadpool.o: ..\Apply\Task\Inc\task_handlemode.h
+.\objects\threadpool.o: ..\Apply\Task\Inc\task_motorsys.h

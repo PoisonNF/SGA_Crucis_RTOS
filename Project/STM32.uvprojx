@@ -472,6 +472,11 @@
               <FileType>1</FileType>
               <FilePath>..\Apply\Task\Src\task_handlemode.c</FilePath>
             </File>
+            <File>
+              <FileName>task_motorsys.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Apply\Task\Src\task_motorsys.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

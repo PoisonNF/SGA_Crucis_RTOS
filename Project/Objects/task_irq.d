@@ -89,3 +89,4 @@
 .\objects\task_irq.o: ..\Apply\Task\Inc\task_ds1337.h
 .\objects\task_irq.o: ..\Apply\Task\Inc\task_automode.h
 .\objects\task_irq.o: ..\Apply\Task\Inc\task_handlemode.h
+.\objects\task_irq.o: ..\Apply\Task\Inc\task_motorsys.h

@@ -31,7 +31,7 @@ void Task_UserInit(void)
 		while(1);  //程序报错stop	
 	}
     
-    Drv_PWM_Init(PWM,11);       /* 初始化PWM */
+    Task_MotorSys_Init();       /* 初始化电机系统 */
     
     if(OCD_MS5837_Init(&MS5837) == 0)	/* 初始化MS5837 */
         printf("MS5837 error\r\n");

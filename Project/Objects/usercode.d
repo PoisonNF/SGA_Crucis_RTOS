@@ -89,3 +89,4 @@
 .\objects\usercode.o: ..\Apply\Task\Inc\task_ds1337.h
 .\objects\usercode.o: ..\Apply\Task\Inc\task_automode.h
 .\objects\usercode.o: ..\Apply\Task\Inc\task_handlemode.h
+.\objects\usercode.o: ..\Apply\Task\Inc\task_motorsys.h

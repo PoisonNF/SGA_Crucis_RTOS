@@ -17,5 +17,6 @@
 #include "task_ad4111.h"
 #include "task_automode.h"
 #include "task_handlemode.h"
+#include "task_motorsys.h"
 
 #endif
