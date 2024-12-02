@@ -49,8 +49,12 @@ void UserLogic_Code(void)
 	HandleModeThread_t 	= rt_thread_create("HandleModeThread",HandleModeThread,NULL,512,5,20);
 	AutoModeThread_t 	= rt_thread_create("AutoModeThread",AutoModeThread,NULL,512,5,20);
 
+#define TEST
 
-	// rt_thread_startup(TestThread_t);			//测试线程
+#ifdef TEST
+	rt_thread_startup(TestThread_t);			//测试线程
+
+#else
 	rt_thread_startup(ReportDataThread_t);		//报告数据线程
 	rt_thread_startup(JY901Thread_t);			//JY901线程
 	rt_thread_startup(MS5837Thread_t);			//MS5837线程
@@ -60,4 +64,5 @@ void UserLogic_Code(void)
 	rt_thread_startup(DS1337Thread_t);			//DS1337线程
 	rt_thread_startup(HandleModeThread_t);		//手动线程
 	rt_thread_startup(AutoModeThread_t);		//自动线程
+#endif // TEST
 }

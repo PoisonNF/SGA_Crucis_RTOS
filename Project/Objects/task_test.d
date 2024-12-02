@@ -77,3 +77,4 @@
 .\objects\task_test.o: ..\Apply\Task\Inc\task_ad4111.h
 .\objects\task_test.o: ..\Apply\Logic\Inc\usercode.h
 .\objects\task_test.o: ..\Apply\Task\Inc\task_reportdata.h
+.\objects\task_test.o: ..\Apply\Task\Inc\task_motorsys.h

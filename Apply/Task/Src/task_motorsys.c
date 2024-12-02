@@ -7,7 +7,7 @@
 void Task_MotorSys_Init(void)
 {
     Drv_PWM_Init(PWM,11);   /* 初始化PWM */
-    //Drv_Delay_Ms(6000);
+    Drv_Delay_Ms(10000);
 }
 
 /* 推进器高电平时间1.5ms停转 */

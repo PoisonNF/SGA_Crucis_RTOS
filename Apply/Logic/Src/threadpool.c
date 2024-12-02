@@ -86,11 +86,11 @@ void HandleModeThread(void* paramenter)
 /* 测试线程 */
 void TestThread(void* paramenter)
 {
-    while(1)
-    {
+//    while(1)
+//    {
         Task_Test_Handle();
-        rt_thread_yield();
-    }
+//        rt_thread_yield();
+//    }
 }
 
 /* 报告数据线程 */
