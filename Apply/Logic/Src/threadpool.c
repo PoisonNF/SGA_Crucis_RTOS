@@ -78,6 +78,7 @@ void HandleModeThread(void* paramenter)
         }
         
         printf("HandleMode\r\n");
+        Task_HandleMode_Process(&HMInfo);
         Drv_Delay_Ms(500);  //执行时间与上位机手柄发送一帧数据时间相同
         rt_thread_yield();
     }

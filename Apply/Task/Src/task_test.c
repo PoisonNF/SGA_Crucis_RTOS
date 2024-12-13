@@ -135,21 +135,6 @@ static void S_Test_DS1337_Function(void)
  */
 static void S_Test_Motorsys_Function(void)
 {
-//    Task_MotorSys_AllThruster_SpeedSet(1550);
-//    Drv_Delay_Ms(1000);
-//    Task_MotorSys_AllThruster_SpeedSet(1450);
-//    Drv_Delay_Ms(1000);
-
-//    Task_MotorSys_AllSteer_0Angle();
-//    Drv_Delay_Ms(2000);
-//    Task_MotorSys_AllSteer_90Angle();
-//    Drv_Delay_Ms(2000);
-//    Task_MotorSys_AllSteer_180Angle();
-//    Drv_Delay_Ms(2000);
-
-//    Task_MotorSys_AllThruster_SpeedSet(1500);
-
-    
     //测试推进器转动
     Task_MotorSys_Thruster_SpeedSet(A_1,1550);
     Drv_Delay_Ms(2000);
@@ -168,49 +153,37 @@ static void S_Test_Motorsys_Function(void)
     Task_MotorSys_Thruster_SpeedSet(D_1,1500);
     Drv_Delay_Ms(2000);
 
-
-//    Task_MotorSys_Steer_Angle_Set(A_2,0);
-//    Drv_Delay_Ms(2000);
-//    Task_MotorSys_Steer_Angle_Set(A_2,90);
-//    Drv_Delay_Ms(2000);
-//    Task_MotorSys_Steer_Angle_Set(A_2,180);
-//    Drv_Delay_Ms(2000);
-
-//    Task_MotorSys_Steer_Angle_Set(B_2,0);
-//    Drv_Delay_Ms(2000);
-//    Task_MotorSys_Steer_Angle_Set(B_2,90);
-//    Drv_Delay_Ms(2000);
-//    Task_MotorSys_Steer_Angle_Set(B_2,180);
-//    Drv_Delay_Ms(2000);
-
-//    Task_MotorSys_Steer_Angle_Set(C_2,0);
-//    Drv_Delay_Ms(2000);
-//    Task_MotorSys_Steer_Angle_Set(C_2,90);
-//    Drv_Delay_Ms(2000);
-//    Task_MotorSys_Steer_Angle_Set(C_2,180);
-//    Drv_Delay_Ms(2000);
-
-//    Task_MotorSys_Steer_Angle_Set(D_2,0);
-//    Drv_Delay_Ms(2000);
-//    Task_MotorSys_Steer_Angle_Set(D_2,90);
-//    Drv_Delay_Ms(2000);
-//    Task_MotorSys_Steer_Angle_Set(D_2,180);
-//    Drv_Delay_Ms(2000);
+    Task_MotorSys_Steer_Angle_Set(A_2,0);
+    Drv_Delay_Ms(2000);
+    Task_MotorSys_Steer_Angle_Set(A_2,90);
+    Drv_Delay_Ms(2000);
+    Task_MotorSys_Steer_Angle_Set(A_2,180);
+    Drv_Delay_Ms(2000);
 
     Task_MotorSys_Steer_Angle_Set(B_2,0);
+    Drv_Delay_Ms(2000);
+    Task_MotorSys_Steer_Angle_Set(B_2,90);
+    Drv_Delay_Ms(2000);
+    Task_MotorSys_Steer_Angle_Set(B_2,180);
+    Drv_Delay_Ms(2000);
+
     Task_MotorSys_Steer_Angle_Set(C_2,0);
+    Drv_Delay_Ms(2000);
+    Task_MotorSys_Steer_Angle_Set(C_2,90);
+    Drv_Delay_Ms(2000);
+    Task_MotorSys_Steer_Angle_Set(C_2,180);
+    Drv_Delay_Ms(2000);
+
     Task_MotorSys_Steer_Angle_Set(D_2,0);
     Drv_Delay_Ms(2000);
-
-    Task_MotorSys_Steer_Angle_Set(B_2,90);
-    Task_MotorSys_Steer_Angle_Set(C_2,90);
     Task_MotorSys_Steer_Angle_Set(D_2,90);
     Drv_Delay_Ms(2000);
-
-    Task_MotorSys_Steer_Angle_Set(B_2,180);
-    Task_MotorSys_Steer_Angle_Set(C_2,180);
     Task_MotorSys_Steer_Angle_Set(D_2,180);
     Drv_Delay_Ms(2000);
+
+//    Task_MotorSys_AllThruster_SpeedSet(1514);
+//    Drv_Delay_Ms(2000);
+//    Task_MotorSys_AllThruster_SpeedSet(1500);
 }
 
 /**

@@ -100,7 +100,7 @@ CmdAnalysis:
                     HMInfo.JoystickInfo[0] = atof(token); // 角度
                     token = strtok(NULL, " "); // 获取摇杆力度
                     HMInfo.JoystickInfo[1] = atof(token); // 力度
-                    printf("Joystick %f %f\r\n",HMInfo.JoystickInfo[0],HMInfo.JoystickInfo[1]);
+                    //printf("Joystick %f %f\r\n",HMInfo.JoystickInfo[0],HMInfo.JoystickInfo[1]);
                     rt_mq_send(HandleModemq,&HMInfo,sizeof(HandleModeInfo));
                 }
                 else if(IPC_ReceBuf[3] == 'B')
